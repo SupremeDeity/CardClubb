@@ -8,8 +8,8 @@ const NavBar = () => {
             <Primary>
                 <Logo src={logo} alt="logo"></Logo>
                 <Account>
-                    <AccountLinks as={Link} to="/">Login</AccountLinks>
-                    <AccountLinks as={Link} to="/">SignUp</AccountLinks>
+                    <AccountLinks as={Link} to="/login">Login</AccountLinks>
+                    <AccountLinks as={Link} to="/register">SignUp</AccountLinks>
                 </Account>
             </Primary>
             <Secondary>
@@ -58,7 +58,7 @@ const Primary = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:50%;
+    gap:20px;
 `;
 const Secondary = styled.div`
     width:100%;
@@ -109,6 +109,9 @@ const Account = styled.div`
 const AccountLinks = styled.a`
     font-size:1.25rem;
     color:#000;
+    &:hover{
+        color: #AF4B2F;
+    }
     &:first-child{
         padding-right:5px;
         border-right:3px solid #AF4B2F;
