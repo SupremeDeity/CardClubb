@@ -4,13 +4,19 @@ import { object, string } from "zod";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import styled from "styled-components";
+
+const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 const Register = () => {
     const loginSchema = object({
         username: string().min(1, { message: "Required" }),
         firstName: string().min(1, { message: "Required" }),
-        lasatName: string().min(1, { message: "Required" }),
-        email: string().min(1, { message: "Required" }),
-        password: string().min(1, { message: "Required" }),
+        lastName: string().min(1, { message: "Required" }),
+        email: string().email(),
+        password: string().refine((value) => passwordRegex.test(value), {
+            message:
+                "Password must contain at least one uppercase letter, one lowercase letter, one special character, and one number, and be at least 8 characters long.",
+        }),
     });
     const {
         register,
@@ -60,9 +66,7 @@ const Register = () => {
                 </Group>
                 <Group>
                     <Label>Email</Label>
-                    {errors.email && (
-                        <Error>{errors.email.message}</Error>
-                    )}
+                    {errors.email && <Error>{errors.email.message}</Error>}
                     <Input
                         type="text"
                         placeholder="Enter Email"
@@ -90,13 +94,13 @@ const Register = () => {
 export default Register;
 
 const Form = styled.form`
-    padding: 10px 0px;
+    padding: 40px 0px;
     width: 100%;
-    min-height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     align-items: center;
+    gap: 20px;
 `;
 const Error = styled.div`
     color: red;
@@ -104,26 +108,26 @@ const Error = styled.div`
 `;
 const Input = styled.input`
     padding-left: 10px;
-    width:100%;
+    width: 100%;
     height: 40px;
     border-radius: 2px;
-    border: 1px solid #DDD;
-    background: #FFF;
+    border: 1px solid #ddd;
+    background: #fff;
 `;
 const Label = styled.label`
     color: #555;
-    font-size: 1rem;
+    font-size: 0.9rem;
 `;
 
 const Button = styled.button`
     cursor: pointer;
     color: #282828;
-    background: #FDC674;
+    background: #fdc674;
     font-size: 1rem;
-    height: 50px;
-    border:none;
+    height: 40px;
+    border: none;
     border-radius: 4px;
-    width:200px
+    width: 200px;
 `;
 const Group = styled.div`
     width: 30%;
@@ -131,5 +135,5 @@ const Group = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap:10px;
+    gap: 10px;
 `;
