@@ -8,7 +8,42 @@ import {
     faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { object, string } from "zod";
+
 const Contact = () => {
+    const emailSchema = object({
+        name: string().min(1, { message: "Required" }),
+        email: string().email(),
+        message:string().min(1, { message: "Required" }),
+    });
+    const {
+        register,
+        handleSubmit,
+    } = useForm({ resolver: zodResolver(emailSchema) });
+
+    const onSubmit = async (data) => {
+        try {
+            const response = await fetch('http://localhost:5000/api/send-email', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            });
+        
+            if (response.ok) {
+              console.log('Email sent successfully!');
+              // Optionally, reset the form or show a success message
+            } else {
+              console.error('Failed to send email.');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+    };
     return (
         <>
             <NavBar />
@@ -60,20 +95,22 @@ const Contact = () => {
                         </li>
                     </SocialMedia>
                 </Info>
-                <Form>
+                <Form onSubmit={handleSubmit(onSubmit)}>
                     <Label>What can we help with?</Label>
                     <Input
                         type="text"
                         placeholder="Enter Name"
+                        {...register("name")}
                         required
                     ></Input>
                     <Input
                         type="email"
                         placeholder="Enter Email"
+                        {...register("email")}
                         required
                     ></Input>
-                    <TextArea rows={10}></TextArea>
-                    <Button>Send</Button>
+                    <TextArea rows={10} {...register("message")} required></TextArea>
+                    <Button type="submit">Send</Button>
                 </Form>
             </MainSection>
             <Footer />
