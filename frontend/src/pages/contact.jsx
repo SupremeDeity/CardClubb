@@ -36,7 +36,6 @@ const Contact = () => {
         
             if (response.ok) {
               console.log('Email sent successfully!');
-              // Optionally, reset the form or show a success message
             } else {
               console.error('Failed to send email.');
             }
@@ -49,11 +48,11 @@ const Contact = () => {
             <NavBar />
             <TextSection>
                 <div>Chat with our team!</div>
-                <div>
+                <p>
                     If you need help with a design, have a question about your
                     account, or want to talk business, you&apos;re in the right
                     place.
-                </div>
+                </p>
             </TextSection>
             <MainSection>
                 <Info>
@@ -130,6 +129,9 @@ const TextSection = styled.div`
     align-items: center;
     gap: 20px;
     background: linear-gradient(180deg, #af4b2f 45%, #282828 100%);
+    & > div{
+        font-size:3.5rem;
+    }
 `;
 
 const MainSection = styled.div`

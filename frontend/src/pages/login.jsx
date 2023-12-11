@@ -74,7 +74,7 @@ const Input = styled.input`
     background: #FFF;
 `;
 const Label = styled.label`
-    color: #555;
+    color: #282828;;
     font-size: 1rem;
 `;
 

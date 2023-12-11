@@ -115,8 +115,8 @@ const Input = styled.input`
     background: #fff;
 `;
 const Label = styled.label`
-    color: #555;
-    font-size: 0.9rem;
+    color: #282828;;
+    font-size: 1rem;
 `;
 
 const Button = styled.button`

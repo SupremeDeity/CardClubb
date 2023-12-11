@@ -100,7 +100,9 @@ const Nav = styled.nav`
     align-items: center;
 `;
 const Account = styled.div`
-    height: 100%;
+    position: absolute;
+    right: 15px;
+    height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
