@@ -20,12 +20,12 @@ const NavBar = () => {
                         </Links>
                     </li>
                     <li>
-                        <Links as={Link} to="/shop">
+                        <Links as={Link} to="/birthday-product">
                             Happy Birthday
                         </Links>
                     </li>
                     <li>
-                        <Links as={Link} to="/shop">
+                        <Links as={Link} to="/thankyou-product">
                             Thank You
                         </Links>
                     </li>
