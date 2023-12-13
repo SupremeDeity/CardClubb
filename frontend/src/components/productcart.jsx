@@ -2,10 +2,6 @@
 /* eslint-disable react/jsx-key */
 import styled from "styled-components";
 import CardItems from "./carditems";
-import Image_1 from "../assets/Happy Birthday/1/Front/Front.png";
-import Image_2 from "../assets/Happy Birthday/2/Front/Front.png";
-import Image_3 from "../assets/Thanksyou Cards/1/Front/Front.png";
-import Image_4 from "../assets/Thanksyou Cards/1/Front/Front.png";
 
 const ProductCart = (props) => {
     const { category } = props;
@@ -13,20 +9,20 @@ const ProductCart = (props) => {
         <Card>
             {category == "birthday" ? (
                 <>
-                    <CardItems image={Image_1} name="Happy Birthday" />
-                    <CardItems image={Image_2} name="Happy Birthday (1)" />
+                    <CardItems image="/birthday/1/Front/Front.png" name="Happy Birthday" category="birthday"/>
+                    <CardItems image="/birthday/2/Front/Front.png" name="Happy Birthday (1)" category="birthday"/>
                 </>
-            ) : category == "thankyou" ? (
+            ) : category == "thanksyou" ? (
                 <>
-                    <CardItems image={Image_3} name="Thank You" />
-                    <CardItems image={Image_4} name="Thank You (1)" />
+                    <CardItems image="/thanksyou/1/Front/Front.png" name="Thank You" category="thankyou"/>
+                    <CardItems image="/thanksyou/2/Front/Front.png" name="Thank You (1)" category="thankyou"/>
                 </>
             ) : (
                 <>
-                    <CardItems image={Image_1} name="Happy Birthday" />
-                    <CardItems image={Image_2} name="Happy Birthday (1)" />
-                    <CardItems image={Image_3} name="Thank You" />
-                    <CardItems image={Image_4} name="Thank You (1)" />
+                    <CardItems image="/birthday/1/Front/Front.png" name="Happy Birthday" category="birthday"/>
+                    <CardItems image="/birthday/2/Front/Front.png" name="Happy Birthday (1)" category="birthday"/>
+                    <CardItems image="/thanksyou/1/Front/Front.png" name="Thank You" category="thankyou"/>
+                    <CardItems image="/thanksyou/2/Front/Front.png" name="Thank You (1)" category="thankyou"/>
                 </>
             )}
         </Card>

@@ -8,7 +8,7 @@ const ThankyouProduct = () => {
         <>
             <NavBar />
             <Label>Thank You Products</Label>
-            <ProductCart category="thankyou"/>
+            <ProductCart category="thanksyou"/>
             <Footer />
         </>
     );
