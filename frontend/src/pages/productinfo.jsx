@@ -7,23 +7,24 @@ import { Carousel } from "react-responsive-carousel";
 
 const ProductInfo = () => {
     const { state } = useLocation();
+    const {name,category,index}=state;
     const navigate = useNavigate();
     const handleClick = ()=>{
-        navigate(`/card/${state.category}/design`)
+        navigate(`/card/${category}/design`,{state:{category,name,index}})
     }
     return (
         <>
             <NavBar />
             <Info>
                 <ImageDiv>
-                    <Carousel showStatus={false} showIndicators={false}>
-                        <img src="/thanksyou/1/Front/Front.png" />
-                        <img src="/thanksyou/1/Front/Front.png" />
-                        <img src="/thanksyou/1/Front/Front.png" />
+                    <Carousel showStatus={false} showIndicators={false} showArrows={false}>
+                        <img src={`/${category}/${index}/Front/Front.png`} />
+                        <img src={`/${category}/${index}/Envolpe/Envolp.png`} />
+                        <img src={`/${category}/${index}/Image Upload/Image Upload.png`} />
                     </Carousel>
                 </ImageDiv>
                 <Description>
-                    <Name>{state.name}</Name>
+                    <Name>{name}</Name>
                     <Button onClick={handleClick}>Personalize Design</Button>
                     <Features>
                         <div>Add an Image</div>

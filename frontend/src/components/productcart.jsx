@@ -9,20 +9,20 @@ const ProductCart = (props) => {
         <Card>
             {category == "birthday" ? (
                 <>
-                    <CardItems image="/birthday/1/Front/Front.png" name="Happy Birthday" category="birthday"/>
-                    <CardItems image="/birthday/2/Front/Front.png" name="Happy Birthday (1)" category="birthday"/>
+                    <CardItems index="1" image="/birthday/1/Front/Front.png" name="Happy Birthday" category="birthday"/>
+                    <CardItems index="2" image="/birthday/2/Front/Front.png" name="Happy Birthday (1)" category="birthday"/>
                 </>
             ) : category == "thanksyou" ? (
                 <>
-                    <CardItems image="/thanksyou/1/Front/Front.png" name="Thank You" category="thankyou"/>
-                    <CardItems image="/thanksyou/2/Front/Front.png" name="Thank You (1)" category="thankyou"/>
+                    <CardItems index="1" image="/thanksyou/1/Front/Front.png" name="Thank You" category="thanksyou"/>
+                    <CardItems index="2" image="/thanksyou/2/Front/Front.png" name="Thank You (1)" category="thanksyou"/>
                 </>
             ) : (
                 <>
-                    <CardItems image="/birthday/1/Front/Front.png" name="Happy Birthday" category="birthday"/>
-                    <CardItems image="/birthday/2/Front/Front.png" name="Happy Birthday (1)" category="birthday"/>
-                    <CardItems image="/thanksyou/1/Front/Front.png" name="Thank You" category="thankyou"/>
-                    <CardItems image="/thanksyou/2/Front/Front.png" name="Thank You (1)" category="thankyou"/>
+                    <CardItems index="1" image="/birthday/1/Front/Front.png" name="Happy Birthday" category="birthday"/>
+                    <CardItems index="1" image="/birthday/2/Front/Front.png" name="Happy Birthday (1)" category="birthday"/>
+                    <CardItems index="1" image="/thanksyou/1/Front/Front.png" name="Thank You" category="thanksyou"/>
+                    <CardItems index="2" image="/thanksyou/2/Front/Front.png" name="Thank You (1)" category="thanksyou"/>
                 </>
             )}
         </Card>

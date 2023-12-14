@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const CardItems = (props) => {
-    const { image, name, category } = props;
+    const { image, name, category,index } = props;
     const navigate = useNavigate();
     function handleClick(){
-        navigate(`/card/${category}`,{state:{category,name}})
+        navigate(`/card/${category}`,{state:{category,name,index}})
     }
     return (
         <CardItem onClick={handleClick}>
