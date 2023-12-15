@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import ImageUpload from "./imageupload";
+import Inside from "./Inside";
 
 const Customization = () => {
     const { state } = useLocation();
@@ -24,7 +25,7 @@ const Customization = () => {
                         src={`/${category}/${index}/Front/Front.png`}
                     ></Image>
                 ) : image == "Inside" ? (
-                    <Image src={`/${category}/${index}/Middel Custom Text artwork/Text Edit Middle.jpg`}></Image>
+                    <Inside category={category} index={index}/>
                 ) : (
                     <ImageUpload category={category} index={index}/>
                 )}
@@ -42,6 +43,7 @@ const ImageNav = styled.div`
     justify-content: center;
     align-items: center;
     gap: 40px;
+    box-shadow: 0 5px 5px -5px rgba(0,0,0,.3);
 `;
 
 const Button = styled.button`

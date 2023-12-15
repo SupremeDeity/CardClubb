@@ -19,8 +19,8 @@ const ProductInfo = () => {
                 <ImageDiv>
                     <Carousel showStatus={false} showIndicators={false} showArrows={false}>
                         <img src={`/${category}/${index}/Front/Front.png`} />
-                        <img src={`/${category}/${index}/Envolpe/Envolp.png`} />
-                        <img src={`/${category}/${index}/Image Upload/Image Upload.png`} />
+                        <img src={`/${category}/${index}/Envolpe/envolpe.png`} />
+                        <img src={`/${category}/${index}/Image/image.png`} />
                     </Carousel>
                 </ImageDiv>
                 <Description>

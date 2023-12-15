@@ -18,11 +18,10 @@ const ImageUpload = (props) => {
             reader.readAsDataURL(file);
         }
     };
-    console.log(uploadImage);
     return (
         <Canvas>
             <Image
-                src={`/${category}/${index}/Image Upload/Image Upload.png`}
+                src={`/${category}/${index}/Image/image.png`}
             ></Image>
             {uploadImage==null ? (
                 <UploadImage>
@@ -52,7 +51,7 @@ const Image = styled.img`
 `;
 
 const UploadImage = styled.div`
-    margin: -5rem 15px 0 0;
+    margin: -4.5rem 15px 0 0;
     position: absolute;
     top: 0;
     right: 0;
