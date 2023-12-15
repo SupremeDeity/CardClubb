@@ -54,12 +54,18 @@ const Login = () => {
 export default Login;
 
 const Form = styled.form`
+    padding: 20px 0px;
     width: 100%;
-    height: 60vh;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content:space-evenly;
+    justify-content: center;
+    gap: 2rem;
     align-items: center;
+    @media (max-width:800px){
+        min-height: 50vh;
+    }
+
 `;
 const Error = styled.div`
     color: red;

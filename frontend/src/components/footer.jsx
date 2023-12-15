@@ -51,6 +51,12 @@ const NavList = styled.ul`
     li:nth-child(n+1):nth-child(-n+3){
         border-right: 3px solid #FDC674;
     }
+    @media (max-width:980px){
+        li{
+            padding: 0 16px;
+        }
+    }
+
 `;
 const Links = styled.a`
     color: #D8C7B6;
@@ -58,13 +64,17 @@ const Links = styled.a`
 `;
 
 const Nav = styled.nav`
-    padding: 0 20px;
+    padding: 10px 20px;
     width:100%;
-    height: 10vh;
+    min-height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #282828;
+    @media (max-width:980px){
+        gap: 1.5rem;
+        flex-direction: column;
+    }
 `;
 
 const SocialMedia = styled.ul`

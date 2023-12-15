@@ -188,6 +188,7 @@ const Input = styled.input`
 const Label = styled.div`
     color: #000;
     font-size: 3rem;
+    text-align: center;
 `;
 
 const Button = styled.button`

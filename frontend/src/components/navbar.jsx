@@ -54,6 +54,9 @@ const Primary = styled.div`
     justify-content: center;
     align-items: center;
     gap:20px;
+    @media (max-width:700px){
+        height: 40%;
+    }
 `;
 const Secondary = styled.div`
     width:100%;
@@ -64,6 +67,9 @@ const Secondary = styled.div`
     gap:5rem;
     padding-left:1.5rem;
     height: 50%;
+    @media (max-width:700px){
+        height: 40%;
+    }
 `;
 
 const NavList = styled.ul`
@@ -79,6 +85,9 @@ const Links = styled.a`
     &:hover {
         color: #fdc674;
         border-bottom: 3px solid #fdc674;
+    }
+    @media (max-width:700px){ 
+        font-size: 1rem;
     }
 `;
 
