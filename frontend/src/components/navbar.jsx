@@ -30,11 +30,6 @@ const NavBar = () => {
                         </Links>
                     </li>
                     <li>
-                        <Links as={Link} to="/shop">
-                            Design Editor
-                        </Links>
-                    </li>
-                    <li>
                         <Links as={Link} to="/contact">
                             Contact Us
                         </Links>

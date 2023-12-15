@@ -130,10 +130,13 @@ const Button = styled.button`
     width: 200px;
 `;
 const Group = styled.div`
-    width: 30%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
+    @media (max-width:800px){
+        width:60%;
+    }
 `;

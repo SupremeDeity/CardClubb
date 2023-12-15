@@ -12,30 +12,41 @@ const Customization = () => {
         return setImage(e.target.innerText);
     };
     return (
-        <>
+        <CustomContainer>
             <ImageNav>
                 <Label onClick={labelClick}>Front</Label>
                 <Label onClick={labelClick}>Inside</Label>
                 <Label onClick={labelClick}>Envelope</Label>
                 <Button>Save</Button>
             </ImageNav>
-            <ImageContainer>
-                {image == "Front" ? (
+
+            {image == "Front" ? (
+                <ImageContainer>
                     <Image
                         src={`/${category}/${index}/Front/Front.png`}
                     ></Image>
-                ) : image == "Inside" ? (
-                    <Inside category={category} index={index}/>
-                ) : (
-                    <ImageUpload category={category} index={index}/>
-                )}
-            </ImageContainer>
-        </>
+                </ImageContainer>
+            ) : image == "Inside" ? (
+                <ImageContainer>
+                    <Inside category={category} index={index} />
+                </ImageContainer>
+            ) : (
+                <ImageUploadContainer>
+                    <ImageUpload category={category} index={index} />
+                </ImageUploadContainer>
+            )}
+        </CustomContainer>
     );
 };
 
 export default Customization;
 
+const CustomContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
 const ImageNav = styled.div`
     width: 100%;
     height: 15vh;
@@ -43,7 +54,7 @@ const ImageNav = styled.div`
     justify-content: center;
     align-items: center;
     gap: 40px;
-    box-shadow: 0 5px 5px -5px rgba(0,0,0,.3);
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.3);
 `;
 
 const Button = styled.button`
@@ -71,6 +82,20 @@ const Image = styled.img`
 
 const ImageContainer = styled.div`
     padding: 30px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 750px) {
+        width: 60%;
+    }
+    @media (max-width: 550px) {
+        width: 50%;
+    }
+`;
+
+const ImageUploadContainer = styled.div`
+    padding: 30px 10px;
     width: 100%;
     display: flex;
     justify-content: center;

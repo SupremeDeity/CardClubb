@@ -23,11 +23,6 @@ const Footer = () => {
                     </Links>
                 </li>
                 <li>
-                    <Links as={Link} to="/designeditor">
-                        Design Editor
-                    </Links>
-                </li>
-                <li>
                     <Links as={Link} to="/contact">
                         Contact Us
                     </Links>
@@ -53,7 +48,7 @@ const NavList = styled.ul`
     li{
         padding:0 5px;
     }
-    li:nth-child(n+1):nth-child(-n+4){
+    li:nth-child(n+1):nth-child(-n+3){
         border-right: 3px solid #FDC674;
     }
 `;

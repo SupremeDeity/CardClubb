@@ -120,7 +120,7 @@ const Contact = () => {
 export default Contact;
 
 const TextSection = styled.div`
-    padding: 10px 0;
+    padding: 10px 20px;
     color: #fff;
     display: flex;
     height: 400px;
@@ -135,12 +135,16 @@ const TextSection = styled.div`
 `;
 
 const MainSection = styled.div`
-    padding: 10px 0;
+    padding: 20px 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
-    height: 600px;
+    min-height: 600px;
+    @media (max-width:800px){
+        width:100%;
+        flex-direction: column;
+    }
 `;
 const Info = styled.div`
     height: 100%;
@@ -151,6 +155,11 @@ const Info = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
+    @media (max-width:800px){
+        justify-content: center;
+        align-items: center;
+        width:100%;
+    }
 `;
 
 const Form = styled.form`
@@ -161,6 +170,11 @@ const Form = styled.form`
     flex-direction: column;
     justify-content: center;
     gap: 20px;
+    @media (max-width:800px){
+        justify-content: center;
+        align-items: center;
+        width:100%;
+    }
 `;
 
 const Input = styled.input`

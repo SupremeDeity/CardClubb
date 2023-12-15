@@ -49,6 +49,9 @@ const Info = styled.div`
     justify-content: center;
     align-items: center;
     gap: 20px;
+    @media (max-width:800px){
+        flex-direction: column;
+    }
 `;
 
 const Description = styled.div`
@@ -61,6 +64,10 @@ const Description = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     gap: 20px;
+    @media (max-width:800px){
+        align-self: center;
+        width:60%;
+    }
 `;
 const Name = styled.div`
     color: #282828;
@@ -81,6 +88,9 @@ const Features = styled.div`
 `;
 const ImageDiv = styled.div`
     width: 40%;
+    @media (max-width:800px){
+        width:60%;
+    }
 `;
 
 const Button = styled.button`
