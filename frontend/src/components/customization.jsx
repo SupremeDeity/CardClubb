@@ -1,15 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, } from "react-router-dom";
 import ImageUpload from "./imageupload";
 import Inside from "./Inside";
+import ProductContext from "../contexts/productcontext";
 
 const Customization = () => {
     const { state } = useLocation();
     const { category, index } = state;
     const [image, setImage] = React.useState("Front");
+    const {setCustomization}=React.useContext(ProductContext)
     const labelClick = (e) => {
         return setImage(e.target.innerText);
+    };
+    const handleSaveClick = () => {
+        if (image == "Front") {
+            setImage("Inside");
+        } else if (image == "Inside") {
+            setImage("Envelope");
+        }else {
+            setCustomization(false)
+        }
     };
     return (
         <CustomContainer>
@@ -17,7 +28,7 @@ const Customization = () => {
                 <Label onClick={labelClick}>Front</Label>
                 <Label onClick={labelClick}>Inside</Label>
                 <Label onClick={labelClick}>Envelope</Label>
-                <Button>Save</Button>
+                <Button onClick={handleSaveClick}>Save</Button>
             </ImageNav>
 
             {image == "Front" ? (

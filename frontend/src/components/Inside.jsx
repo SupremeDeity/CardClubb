@@ -2,24 +2,25 @@
 import React from "react";
 import styled from "styled-components";
 import InsideFontStyle from "./Insidefontstyle";
+import ProductContext from "../contexts/productcontext";
 
 const Inside = (props) => {
-    const [edit,setEdit]=React.useState("edit");
-    const [text,setText]=React.useState("");
+    const [edit,setEdit]=React.useState(false);
+    const {content}=React.useContext(ProductContext)
     const { category, index } = props;
     const handleEditClick =()=>{
-        setEdit("text")
+        setEdit(true)
     }
     return (
         <Canvas>
-            {edit=="edit"?(
+            {!edit?(
                 <>
                 <Image src={`/${category}/${index}/Custom/custom.jpg`}></Image>
                 <EditLabel onClick={handleEditClick}><span>Edit</span></EditLabel>
-                <TextDiv>{text}</TextDiv>
+                <TextDiv>{content}</TextDiv>
                 </>
             ):(
-                <InsideFontStyle setText={setText} edit={setEdit} category={category} index={index}/>
+                <InsideFontStyle edit={setEdit} category={category} index={index}/>
             )}
         </Canvas>
     );

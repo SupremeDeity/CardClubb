@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
+import ProductContext from "../contexts/productcontext";
 
 const ImageUpload = (props) => {
     const { category, index } = props;
-    const [uploadImage, setUploadImage] = React.useState(null);
+    const {envelopeImage,setEnvelopeImage}=React.useContext(ProductContext)
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 
@@ -12,7 +13,7 @@ const ImageUpload = (props) => {
             const reader = new FileReader();
 
             reader.onloadend = () => {
-                setUploadImage(reader.result);
+                setEnvelopeImage(reader.result);
             };
 
             reader.readAsDataURL(file);
@@ -23,14 +24,14 @@ const ImageUpload = (props) => {
             <Image
                 src={`/${category}/${index}/Image/image.png`}
             ></Image>
-            {uploadImage==null ? (
+            {envelopeImage==null ? (
                 <UploadImage>
                     <label htmlFor="upload">Upload File</label>
                     <input type="file" accept=".png, .jpg, .jpeg" onChange={handleImageUpload} id="upload"/>
                 </UploadImage>
             ) : (
                 <CardImage
-                    src={uploadImage}
+                    src={envelopeImage}
                     alt="Uploaded"
                 ></CardImage>
             )}

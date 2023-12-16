@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
+import ProductContext from "../contexts/productcontext";
 
 const InsideFontStyle = (props) => {
-    const [fontSize, setFontSize] = React.useState(16);
-    const [color, setColor] = React.useState("#282828");
-    const [fontFamily, setFontFamily] = React.useState();
+    const {fontSize,setFontSize,fontFamily,setFontFamily,setContent,color,setColor}=React.useContext(ProductContext)
 
     const handleFontSizeChange = (e) => {
         const size = parseInt(e.target.value);
@@ -13,18 +12,20 @@ const InsideFontStyle = (props) => {
     };
 
     const handleResetClick = () => {
-        props.setText("");
-        setFontSize(16);
-        setColor("#282828");
+        setContent("")
+        setFontSize(16)
+        setColor("#282828")
     };
 
-    const handleSaveClick = (e) => {};
+    const handleSaveClick = () => {
+        props.edit(false)
+    };
 
     const handleColorClick = (e) => {
         return setColor(e.target.style["background-color"]);
     };
     const handleChange = (e) => {
-        return props.setText(e.target.value);
+        return setContent(e.target.value);
     };
 
     const handleFamilyClick = (e) => {
