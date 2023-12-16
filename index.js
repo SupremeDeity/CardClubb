@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors())
 
 app.use('/',require('./routes/index'))  
-app.use('/api',require('./routes/sendEmail'))
+app.use('/api/user',require('./routes/sendEmail'))
 app.listen(PORT, () => {
     console.log("Server Listening on PORT:", PORT);
 });
