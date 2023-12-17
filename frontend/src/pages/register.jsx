@@ -24,8 +24,24 @@ const Register = () => {
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        try {
+            const response = await fetch('http://localhost:5000/api/users/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            });
+        
+            if (response.ok) {
+              console.log('Email sent successfully!');
+            } else {
+              console.error('Failed to send email.');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
     };
     return (
         <>

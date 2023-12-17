@@ -1,13 +1,40 @@
-const express = require("express");
-const cors = require('cors')
+const path = require('path')
+const express = require('express')
+const dotenv = require('dotenv')
+dotenv.config();
+const  connectDB = require('./config/database.js');
+const cookieParser= require( 'cookie-parser');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
+const userRoutes = require('./routes/userRoutes.js');
+const sendEmail = require('./routes/sendEmail.js')
+const port = process.env.PORT || 5000;
+
+connectDB();
+
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(cors())
+app.use(express.urlencoded({ extended: true }));
 
-app.use('/',require('./routes/index'))  
-app.use('/api/user',require('./routes/sendEmail'))
-app.listen(PORT, () => {
-    console.log("Server Listening on PORT:", PORT);
-});
+app.use(cookieParser());
+
+app.use('/api/users', userRoutes);
+app.use('/api',sendEmail)
+
+if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  });
+}
+
+app.use(notFound);
+app.use(errorHandler);
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
