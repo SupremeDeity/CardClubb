@@ -23,12 +23,11 @@ const Login = () => {
     const onSubmit = async (data) => {
         try {
             const response = await fetch(
-                "https://card-clubb-api.vercel.app/api/users/auth",
+                "http://localhost:5000/api/users/auth",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        'Origin': 'https://card-clubb.vercel.app'
                     },
                     body: JSON.stringify(data),
                 }

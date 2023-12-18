@@ -5,7 +5,23 @@ import React from "react";
 import userContext from "../contexts/usercontext";
 
 const NavBar = () => {
-    const { user } = React.useContext(userContext);
+    const { user,setUser } = React.useContext(userContext);
+    const handleLogoutClick = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/users/logout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+        
+            if (response.ok) {
+              setUser({isLogin:false,username:"",email:""})
+            }
+          } catch (error) {
+            console.error(error)
+          }
+    };
     return (
         <Nav>
             <Primary>
@@ -15,7 +31,7 @@ const NavBar = () => {
                         <AccountLinks>
                             {user.username}
                         </AccountLinks>
-                        <AccountLinks>
+                        <AccountLinks onClick={handleLogoutClick}>
                             Logout
                         </AccountLinks>
                     </Account>

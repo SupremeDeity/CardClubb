@@ -6,6 +6,7 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 
+
 const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 const Register = () => {
@@ -28,11 +29,10 @@ const Register = () => {
     const [loginErrors,setLoginError] = React.useState("")
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('https://card-clubb-api.vercel.app/api/users/', {
+            const response = await fetch('http://localhost:5000/api/users/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Origin': 'https://card-clubb.vercel.app'
               },
               body: JSON.stringify(data),
             });
