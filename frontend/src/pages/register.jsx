@@ -32,6 +32,7 @@ const Register = () => {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'Origin': 'https://card-clubb.vercel.app'
               },
               body: JSON.stringify(data),
             });
