@@ -23,7 +23,7 @@ const Login = () => {
     const onSubmit = async (data) => {
         try {
             const response = await fetch(
-                "https://card-clubb-api.vercel.app/api/users/auth",
+                "http://127.0.0.1/api/users/auth",
                 {
                     method: "POST",
                     headers: {
