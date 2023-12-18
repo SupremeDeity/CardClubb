@@ -27,6 +27,7 @@ const Login = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        'Origin': 'https://card-clubb-frontend.vercel.app'
                     },
                     body: JSON.stringify(data),
                 }

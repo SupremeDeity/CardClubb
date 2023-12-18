@@ -26,10 +26,11 @@ const Contact = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('http://localhost:5000/api/send-email', {
+            const response = await fetch('https://card-clubb.vercel.app/api/send-email', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'Origin': 'https://card-clubb-frontend.vercel.app'
               },
               body: JSON.stringify(data),
             });
