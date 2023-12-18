@@ -35,9 +35,9 @@ const Register = () => {
             });
         
             if (response.ok) {
-              console.log('Email sent successfully!');
+              console.log('User created successfully!');
             } else {
-              console.error('Failed to send email.');
+              console.error('Failed to create user.');
             }
           } catch (error) {
             console.error('Error:', error);

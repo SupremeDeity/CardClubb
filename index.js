@@ -7,12 +7,13 @@ const cookieParser= require( 'cookie-parser');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
 const userRoutes = require('./routes/userRoutes.js');
 const sendEmail = require('./routes/sendEmail.js')
+const cors = require('cors')
 const port = process.env.PORT || 5000;
 
 connectDB();
 
 const app = express();
-
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

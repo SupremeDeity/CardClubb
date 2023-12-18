@@ -3,8 +3,6 @@ const {
   authUser,
   registerUser,
   logoutUser,
-  getUserProfile,
-  updateUserProfile,
 } = require('../controllers/userController.js');
 
 const router = express.Router();

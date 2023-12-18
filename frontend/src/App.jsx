@@ -10,21 +10,33 @@ import ThankyouProduct from "./pages/thankyouproduct";
 import ProductInfo from "./pages/productinfo";
 import CardDesign from "./pages/design";
 import SendCard from "./pages/sendcard";
+import React from "react";
+import UserContext from "./contexts/usercontext";
 
 function App() {
+    const [user, setUser] = React.useState({
+        isLogin: false,
+        username: "",
+        email: "",
+    });
     return (
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/birthday-product" element={<BirthdayProduct />} />
-            <Route path="/thankyou-product" element={<ThankyouProduct />} />
-            <Route path="/card/:category" element={<ProductInfo />} />
-            <Route path="/card/:category/design" element={<CardDesign />} />
-            <Route path="/card/:category/design/send" element={<SendCard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <UserContext.Provider value={{user, setUser}}>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/birthday-product" element={<BirthdayProduct />} />
+                <Route path="/thankyou-product" element={<ThankyouProduct />} />
+                <Route path="/card/:category" element={<ProductInfo />} />
+                <Route path="/card/:category/design" element={<CardDesign />} />
+                <Route
+                    path="/card/:category/design/send"
+                    element={<SendCard />}
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/contact" element={<Contact />} />
+            </Routes>
+        </UserContext.Provider>
     );
 }
 

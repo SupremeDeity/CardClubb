@@ -1,16 +1,34 @@
 import styled from "styled-components";
 import logo from "../assets/Logo.png";
-import {Link} from "react-router-dom";
-const NavBar = () => {
+import { Link } from "react-router-dom";
+import React from "react";
+import userContext from "../contexts/usercontext";
 
+const NavBar = () => {
+    const { user } = React.useContext(userContext);
     return (
         <Nav>
             <Primary>
                 <Logo src={logo} alt="logo"></Logo>
-                <Account>
-                    <AccountLinks as={Link} to="/login">Login</AccountLinks>
-                    <AccountLinks as={Link} to="/register">SignUp</AccountLinks>
-                </Account>
+                {user.isLogin ? (
+                    <Account>
+                        <AccountLinks>
+                            {user.username}
+                        </AccountLinks>
+                        <AccountLinks>
+                            Logout
+                        </AccountLinks>
+                    </Account>
+                ) : (
+                    <Account>
+                        <AccountLinks as={Link} to="/login">
+                            Login
+                        </AccountLinks>
+                        <AccountLinks as={Link} to="/register">
+                            SignUp
+                        </AccountLinks>
+                    </Account>
+                )}
             </Primary>
             <Secondary>
                 <NavList>
@@ -43,8 +61,8 @@ const NavBar = () => {
 export default NavBar;
 
 const Primary = styled.div`
-    width:100%;
-    height:50%;
+    width: 100%;
+    height: 50%;
     background: radial-gradient(
         70.71% 70.71% at 50% 50%,
         rgba(248, 248, 248, 0.98) 0%,
@@ -53,21 +71,21 @@ const Primary = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:20px;
-    @media (max-width:700px){
+    gap: 20px;
+    @media (max-width: 700px) {
         height: 40%;
     }
 `;
 const Secondary = styled.div`
-    width:100%;
+    width: 100%;
     background: #282828;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap:5rem;
-    padding-left:1.5rem;
+    gap: 5rem;
+    padding-left: 1.5rem;
     height: 50%;
-    @media (max-width:700px){
+    @media (max-width: 700px) {
         height: 40%;
     }
 `;
@@ -76,7 +94,7 @@ const NavList = styled.ul`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:3rem;
+    gap: 3rem;
 `;
 const Links = styled.a`
     color: #fff;
@@ -86,7 +104,7 @@ const Links = styled.a`
         color: #fdc674;
         border-bottom: 3px solid #fdc674;
     }
-    @media (max-width:700px){ 
+    @media (max-width: 700px) {
         font-size: 1rem;
     }
 `;
@@ -110,16 +128,16 @@ const Account = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:5px;
-`
+    gap: 5px;
+`;
 const AccountLinks = styled.a`
-    font-size:1.25rem;
-    color:#000;
-    &:hover{
-        color: #AF4B2F;
+    font-size: 1.25rem;
+    color: #000;
+    &:hover {
+        color: #af4b2f;
     }
-    &:first-child{
-        padding-right:5px;
-        border-right:3px solid #AF4B2F;
+    &:first-child {
+        padding-right: 5px;
+        border-right: 3px solid #af4b2f;
     }
-`
+`;
