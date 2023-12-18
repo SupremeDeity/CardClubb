@@ -28,7 +28,7 @@ const Register = () => {
     const [loginErrors,setLoginError] = React.useState("")
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('http://127.0.0.1/api/users/', {
+            const response = await fetch('https://card-clubb-api.vercel.app/api/users/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
