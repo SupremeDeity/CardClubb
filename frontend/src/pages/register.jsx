@@ -4,6 +4,7 @@ import { object, string } from "zod";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import styled from "styled-components";
+import React from "react";
 
 const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
@@ -24,6 +25,7 @@ const Register = () => {
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
 
+    const [loginErrors,setLoginError] = React.useState("")
     const onSubmit = async (data) => {
         try {
             const response = await fetch('http://localhost:5000/api/users/', {
@@ -36,12 +38,12 @@ const Register = () => {
             });
         
             if (response.ok) {
-              console.log('User created successfully!');
+              setLoginError('User created successfully!');
             } else {
-              console.error('Failed to create user.');
+                setLoginError("Failed to Create User")
             }
           } catch (error) {
-            console.error('Error:', error);
+            setLoginError("Failed to Create User")
           }
     };
     return (
@@ -49,6 +51,7 @@ const Register = () => {
             <NavBar />
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Group>
+                    {loginErrors?<Error style={{fontSize:"1rem"}}>{loginErrors}</Error>:<></>}
                     <Label>Username</Label>
                     {errors.username && (
                         <Error>{errors.username.message}</Error>

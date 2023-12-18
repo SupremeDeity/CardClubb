@@ -9,6 +9,7 @@ import UserContext from "../contexts/usercontext";
 
 const Login = () => {
     const { user, setUser } = React.useContext(UserContext);
+    const [loginErrors,setLoginError] = React.useState("")
     const loginSchema = object({
         email: string().email(),
         password: string().min(1, { message: "Required" }),
@@ -38,10 +39,10 @@ const Login = () => {
                 const { name, email } = data;
                 setUser({ isLogin: true, username: name, email: email });
             } else {
-                console.error("Login Failed.");
+                setLoginError("Invalid Credentials")
             }
         } catch (error) {
-            console.error("Error:", error);
+            setLoginError("Failed to Login")
         }
     };
     return (
@@ -54,6 +55,7 @@ const Login = () => {
             ) : (
                 <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                     <Group>
+                        {loginErrors?<Error style={{fontSize:"1rem"}}>{loginErrors}</Error>:<></>}
                         <Label>Email</Label>
                         {errors.email && <Error>{errors.email.message}</Error>}
                         <Input
