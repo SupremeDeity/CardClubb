@@ -117,18 +117,17 @@ const TextArea = styled.textarea`
     &::-webkit-scrollbar {
         width: 0;
     }
-    font-size: 20px;
-    padding: 12rem 20px 20px 3rem;
+    padding: 20px;
     outline: none;
     background: 0 0 !important;
     border: none !important;
     overflow: visible;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
+    height: 40%;
+    width: 60%;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%)
 `;
 const StyleDiv = styled.div`
     box-shadow: 0 5px 5px -5px rgba(0,0,0,.3);

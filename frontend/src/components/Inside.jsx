@@ -69,9 +69,12 @@ const TextDiv =styled.div`
     background: 0 0!important;
     border: none!important;
     overflow: visible;
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    height: 40%;
+    width: 60%;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%)
 `
