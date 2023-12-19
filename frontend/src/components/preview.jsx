@@ -2,14 +2,19 @@
 import styled from "styled-components"
 import ProductContext from "../contexts/productcontext"
 import React from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
-const Preview = (props) => {
+const Preview = () => {
     const {envelopeImage}=React.useContext(ProductContext)
     const { state } = useLocation();
+    const navigate = useNavigate();
+    const {category,index}=state;
+    const handleClosePreview=()=>{
+        navigate(`/card/${category}/design/send`,{state:{category,index}})
+    }
   return (
     <PreviewDiv>
-        <Button onClick={()=>props.preview(false)}>Close Preview</Button>
+        <Button onClick={handleClosePreview}>Close Preview</Button>
         <OpenEnvelope>
             <div style={{color:"#282828"}}>Click here to open the envelope</div>
             <Image

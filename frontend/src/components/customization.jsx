@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation, } from "react-router-dom";
+import { useLocation, useNavigate, } from "react-router-dom";
 import ImageUpload from "./imageupload";
 import Inside from "./Inside";
-import ProductContext from "../contexts/productcontext";
 
 const Customization = () => {
     const { state } = useLocation();
     const { category, index } = state;
     const [image, setImage] = React.useState("Front");
-    const {setCustomization}=React.useContext(ProductContext)
+    const navigate = useNavigate();
     const labelClick = (e) => {
         return setImage(e.target.innerText);
     };
@@ -19,7 +18,7 @@ const Customization = () => {
         } else if (image == "Inside") {
             setImage("Envelope");
         }else {
-            setCustomization(false)
+            navigate(`/card/${category}/design/send`,{state:{category,index}})
         }
     };
     return (

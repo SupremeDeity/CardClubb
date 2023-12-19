@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string } from "zod";
-import { useLocation } from "react-router-dom";
-import Preview from "../components/preview";
+import { useLocation, useNavigate } from "react-router-dom";
+import NavBar from "../components/navbar";
+import Footer from "../components/footer";
 
 const SendCard = () => {
     const { state } = useLocation();
-    const [preview, setPreview] = React.useState(false);
+    const { category, index } = state;
+    const navigate = useNavigate();
     const emailSchema = object({
         name: string().min(1, { message: "Required" }),
         email: string().email(),
@@ -39,36 +40,41 @@ const SendCard = () => {
             console.error("Error:", error);
         }
     };
+    const handlePreview = () => {
+        navigate(`/card/${category}/design/preview`, {
+            state: { category, index },
+        });
+    };
     return (
         <>
-            {preview ? (
-                <Preview preview={setPreview}/>
-            ) : (
-                <MainSection>
-                    <Info>
-                        <Image
-                            src={`/${state.category}/${state.index}/Front/Front.png`}
-                        ></Image>
-                        <PreviewButton onClick={()=>setPreview(true)}>Preview</PreviewButton>
-                    </Info>
-                    <Form onSubmit={handleSubmit(onSubmit)}>
-                        <Label>Send Your Card</Label>
-                        <Input
-                            type="text"
-                            placeholder="Enter Name"
-                            {...register("name")}
-                            required
-                        ></Input>
-                        <Input
-                            type="email"
-                            placeholder="Enter Email"
-                            {...register("email")}
-                            required
-                        ></Input>
-                        <Button type="submit">Send Card</Button>
-                    </Form>
-                </MainSection>
-            )}
+            <NavBar />
+            <MainSection>
+                <Info>
+                    <Image
+                        src={`/${state.category}/${state.index}/Front/Front.png`}
+                    ></Image>
+                    <PreviewButton onClick={handlePreview}>
+                        Preview
+                    </PreviewButton>
+                </Info>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Label>Send Your Card</Label>
+                    <Input
+                        type="text"
+                        placeholder="Enter Name"
+                        {...register("name")}
+                        required
+                    ></Input>
+                    <Input
+                        type="email"
+                        placeholder="Enter Email"
+                        {...register("email")}
+                        required
+                    ></Input>
+                    <Button type="submit">Send Card</Button>
+                </Form>
+            </MainSection>
+            <Footer />
         </>
     );
 };
