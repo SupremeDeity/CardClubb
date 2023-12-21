@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Elegant";
+    src: url("./fonts/elegant.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Stylish";
+    src: url("./fonts/stylish.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Broetown";
+    src: url("./fonts/broetown.ttf") format("truetype");
+}

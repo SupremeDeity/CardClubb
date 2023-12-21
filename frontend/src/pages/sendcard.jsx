@@ -104,7 +104,7 @@ const Input = styled.input`
     border: 1px solid #69727d;
     background: #fff;
     @media (max-width: 850px) {
-        width: 40%;
+        width: 60%;
     }
 `;
 
@@ -164,7 +164,8 @@ const Image = styled.img`
     width: 40%;
     height: 40%;
     @media (max-width: 850px) {
-        height: 200px;
+        width: 60%;
+        height: 60%;
     }
 `;
 

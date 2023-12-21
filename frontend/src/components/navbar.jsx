@@ -1,26 +1,40 @@
 import styled from "styled-components";
 import logo from "../assets/Logo.png";
-import { Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import React from "react";
 import userContext from "../contexts/usercontext";
 
 const NavBar = () => {
-    const { user,setUser } = React.useContext(userContext);
+    const { user, setUser } = React.useContext(userContext);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const navigate = useNavigate();
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
     const handleLogoutClick = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/users/logout', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-        
+            const response = await fetch(
+                "http://localhost:5000/api/users/logout",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
             if (response.ok) {
-              setUser({isLogin:false,username:"",email:""})
+                setUser({ isLogin: false, username: "", email: "" });
             }
-          } catch (error) {
-            console.error(error)
-          }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    const handleCategory = (e) => {
+        if (e.target.innerText == "Happy Birthday")
+            navigate("/birthday-product");
+        else navigate("/thankyou-product");
+        setIsOpen(!open);
     };
     return (
         <Nav>
@@ -28,9 +42,7 @@ const NavBar = () => {
                 <Logo src={logo} alt="logo"></Logo>
                 {user.isLogin ? (
                     <Account>
-                        <AccountLinks>
-                            {user.username}
-                        </AccountLinks>
+                        <AccountLinks>{user.username}</AccountLinks>
                         <AccountLinks onClick={handleLogoutClick}>
                             Logout
                         </AccountLinks>
@@ -49,24 +61,29 @@ const NavBar = () => {
             <Secondary>
                 <NavList>
                     <li>
-                        <Links as={Link} to="/shop">
-                            Shop
-                        </Links>
+                        <NavLink to="/home" activeClassName="active">
+                            Home
+                        </NavLink>
                     </li>
                     <li>
-                        <Links as={Link} to="/birthday-product">
-                            Happy Birthday
-                        </Links>
+                        <DropdownContainer>
+                            <Button onClick={toggleDropdown}>Categories</Button>
+                            <DropdownContent
+                                style={{ display: isOpen ? "flex" : "none" }}
+                            >
+                                <a onClick={handleCategory}>
+                                    Happy Birthday
+                                </a>
+                                <a onClick={handleCategory}>
+                                    Thank You
+                                </a>
+                            </DropdownContent>
+                        </DropdownContainer>
                     </li>
                     <li>
-                        <Links as={Link} to="/thankyou-product">
-                            Thank You
-                        </Links>
-                    </li>
-                    <li>
-                        <Links as={Link} to="/contact">
+                        <NavLink to="/contact" activeClassName="active">
                             Contact Us
-                        </Links>
+                        </NavLink>
                     </li>
                 </NavList>
             </Secondary>
@@ -111,17 +128,21 @@ const NavList = styled.ul`
     justify-content: center;
     align-items: center;
     gap: 3rem;
-`;
-const Links = styled.a`
-    color: #fff;
-    font-size: 1.25rem;
-    padding-bottom: 10px;
-    &:hover {
-        color: #fdc674;
-        border-bottom: 3px solid #fdc674;
-    }
-    @media (max-width: 700px) {
-        font-size: 1rem;
+    & > li > a {
+        color: #fff;
+        font-size: 1.25rem;
+        padding-bottom: 10px;
+        &:hover {
+            color: #fdc674;
+            border-bottom: 3px solid #fdc674;
+        }
+        &.active {
+            color: #fdc674;
+            border-bottom: 3px solid #fdc674;
+        }
+        @media (max-width: 700px) {
+            font-size: 1rem;
+        }
     }
 `;
 
@@ -155,5 +176,43 @@ const AccountLinks = styled.a`
     &:first-child {
         padding-right: 5px;
         border-right: 3px solid #af4b2f;
+    }
+`;
+
+const DropdownContainer = styled.div`
+    position: relative;
+    display: inline-block;
+`;
+
+const Button = styled.button`
+    color: #fff;
+    font-size: 1.25rem;
+    padding-bottom: 10px;
+    &:hover {
+        color: #fdc674;
+    }
+    padding: 8px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: inherit;
+`;
+
+const DropdownContent = styled.div`
+    background-color: #282828;
+    border-radius: 0px 0px 10px 10px;
+    width: 150px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 13px;
+    padding: 10px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    & > a {
+        color: #fff;
     }
 `;

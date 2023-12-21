@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate, } from "react-router-dom";
 import ImageUpload from "./imageupload";
 import Inside from "./Inside";
+import UserContext from "../contexts/usercontext";
 
 const Customization = () => {
     const { state } = useLocation();
     const { category, index } = state;
     const [image, setImage] = React.useState("Front");
     const navigate = useNavigate();
+    const {user}=useContext(UserContext)
     const labelClick = (e) => {
         return setImage(e.target.innerText);
     };
@@ -18,7 +20,10 @@ const Customization = () => {
         } else if (image == "Inside") {
             setImage("Envelope");
         }else {
-            navigate(`/card/${category}/design/send`,{state:{category,index}})
+            if(user.isLogin)
+                navigate(`/card/${category}/design/send`,{state:{category,index}})
+            else   
+                navigate('/login')
         }
     };
     return (
@@ -65,6 +70,10 @@ const ImageNav = styled.div`
     align-items: center;
     gap: 40px;
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.3);
+    @media (max-width: 650px) {
+        padding: 1px 10px;
+        gap: 10px;
+    }
 `;
 
 const Button = styled.button`
@@ -79,10 +88,18 @@ const Button = styled.button`
 `;
 
 const Label = styled.div`
+    background: #fdc674;
     cursor: pointer;
     color: #282828;
     font-size: 1.25rem;
     font-weight: 500;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    width: 110px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
 `;
 
 const Image = styled.img`

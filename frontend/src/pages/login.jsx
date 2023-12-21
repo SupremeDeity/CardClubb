@@ -6,10 +6,12 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 import UserContext from "../contexts/usercontext";
+import { useLocation } from "react-router-dom";
 
 const Login = () => {
     const { user, setUser } = React.useContext(UserContext);
     const [loginErrors,setLoginError] = React.useState("")
+    const location = useLocation()
     const loginSchema = object({
         email: string().email(),
         password: string().min(1, { message: "Required" }),
@@ -19,7 +21,7 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
-
+    console.log(location.pathname);
     const onSubmit = async (data) => {
         try {
             const response = await fetch(

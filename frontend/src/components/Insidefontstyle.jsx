@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import ProductContext from "../contexts/productcontext";
+import '../fonts.css'
 
 const InsideFontStyle = (props) => {
     const {fontSize,setFontSize,fontFamily,setFontFamily,setContent,color,setColor}=React.useContext(ProductContext)
@@ -40,8 +41,8 @@ const InsideFontStyle = (props) => {
                 </Buttons>
                 <FontFamilyDiv>
                     <Icons>{"<"}</Icons>
-                    <FontStyles onClick={handleFamilyClick}>Arial</FontStyles>
-                    <FontStyles onClick={handleFamilyClick}>Inter</FontStyles>
+                    <FontStyles onClick={handleFamilyClick}>Stylish</FontStyles>
+                    <FontStyles onClick={handleFamilyClick}>Broetown</FontStyles>
                     <Icons>{">"}</Icons>
                 </FontFamilyDiv>
                 <FontSize

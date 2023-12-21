@@ -8,17 +8,17 @@ const Footer = () => {
         <Nav>
             <NavList>
                 <li>
-                    <Links as={Link} to="/shop">
-                        Shop
+                    <Links as={Link} to="/home">
+                        Home
                     </Links>
                 </li>
                 <li>
-                    <Links as={Link} to="/happybirthday">
+                    <Links as={Link} to="/birthday-product">
                         Happy Birthday
                     </Links>
                 </li>
                 <li>
-                    <Links as={Link} to="/thankyou">
+                    <Links as={Link} to="/thankyou-product">
                         Thank You
                     </Links>
                 </li>

@@ -5,29 +5,49 @@ import InsideFontStyle from "./Insidefontstyle";
 import ProductContext from "../contexts/productcontext";
 
 const Inside = (props) => {
-    const [edit,setEdit]=React.useState(false);
-    const {content}=React.useContext(ProductContext)
+    const [edit, setEdit] = React.useState(false);
+    const {
+        fontSize,
+        fontFamily,
+        color,
+        content,
+    } = React.useContext(ProductContext);
     const { category, index } = props;
-    const handleEditClick =()=>{
-        setEdit(true)
-    }
+    const handleEditClick = () => {
+        setEdit(true);
+    };
     return (
         <Canvas>
-            {!edit?(
+            {!edit ? (
                 <>
-                <Image src={`/${category}/${index}/Custom/custom.jpg`}></Image>
-                <EditLabel onClick={handleEditClick}><span>Edit</span></EditLabel>
-                <TextDiv>{content}</TextDiv>
+                    <Image
+                        src={`/${category}/${index}/Custom/custom.jpg`}
+                    ></Image>
+                    <EditLabel onClick={handleEditClick}>
+                        <span>Edit</span>
+                    </EditLabel>
+                    <TextDiv
+                        style={{
+                            fontSize: `${fontSize}px`,
+                            color: color,
+                            fontFamily: fontFamily,
+                        }}
+                    >
+                        {content}
+                    </TextDiv>
                 </>
-            ):(
-                <InsideFontStyle edit={setEdit} category={category} index={index}/>
+            ) : (
+                <InsideFontStyle
+                    edit={setEdit}
+                    category={category}
+                    index={index}
+                />
             )}
         </Canvas>
     );
 };
 
 export default Inside;
-
 
 const Canvas = styled.div`
     margin-top: 20px;
@@ -40,13 +60,13 @@ const Image = styled.img`
 `;
 
 const EditLabel = styled.div`
-    cursor:pointer;
-    margin-left:-6rem;
+    cursor: pointer;
+    margin-left: -6rem;
     color: white;
     position: absolute;
     top: 40%;
     bottom: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
     text-align: center;
@@ -57,24 +77,24 @@ const EditLabel = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    &>span{
+    & > span {
         transform: scale(1) rotate(-135deg);
-        width:100;
+        width: 100;
     }
-
-`
-const TextDiv =styled.div`
+`;
+const TextDiv = styled.p`
     padding: 12rem 20px 20px 20px;
-    outline:none;
-    background: 0 0!important;
-    border: none!important;
+    outline: none;
+    background: 0 0 !important;
+    border: none !important;
     overflow: visible;
     text-align: center;
     padding: 20px;
     position: absolute;
-    height: 40%;
+    height: max-content;
     width: 60%;
     top: 50%;
     left: 50%;
-    transform:translate(-50%,-50%)
-`
+    word-wrap: break-word;
+    transform: translate(-50%, -50%);
+`;
