@@ -11,7 +11,26 @@ const Customization = () => {
     const [image, setImage] = React.useState("Front");
     const navigate = useNavigate();
     const {user}=useContext(UserContext)
+
     const labelClick = (e) => {
+        const Front = document.getElementById("Front")
+        const inside = document.getElementById("Inside")
+        const Envelope = document.getElementById("Envelope")
+        if(e.target.innerText=="Front"){
+            Front.classList.add("active")
+            inside.classList.remove("active")
+            Envelope.classList.remove("active")
+        }
+        else if(e.target.innerText=="Inside"){
+            inside.classList.add("active")
+            Front.classList.remove("active")
+            Envelope.classList.remove("active")
+        }
+        else if(e.target.innerText=="Envelope"){
+            Envelope.classList.add("active")
+            Front.classList.remove("active")
+            inside.classList.remove("active")
+        }
         return setImage(e.target.innerText);
     };
     const handleSaveClick = () => {
@@ -29,9 +48,9 @@ const Customization = () => {
     return (
         <CustomContainer>
             <ImageNav>
-                <Label onClick={labelClick}>Front</Label>
-                <Label onClick={labelClick}>Inside</Label>
-                <Label onClick={labelClick}>Envelope</Label>
+                <Label onClick={labelClick} id="Front" className="active">Front</Label>
+                <Label onClick={labelClick} id="Inside">Inside</Label>
+                <Label onClick={labelClick} id="Envelope">Envelope</Label>
                 <Button onClick={handleSaveClick}>Save</Button>
             </ImageNav>
 
@@ -88,18 +107,18 @@ const Button = styled.button`
 `;
 
 const Label = styled.div`
-    background: #fdc674;
     cursor: pointer;
     color: #282828;
     font-size: 1.25rem;
     font-weight: 500;
     height: 40px;
-    border: none;
-    border-radius: 12px;
     width: 110px;
     display: flex;
     justify-content:center;
     align-items: center;
+    &.active{
+        color:#fdc674;
+    }
 `;
 
 const Image = styled.img`

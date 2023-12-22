@@ -5,6 +5,7 @@ import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 const passwordRegex =
@@ -104,6 +105,7 @@ const Register = () => {
                         {...register("password")}
                     ></Input>
                 </Group>
+                <Group><Label as={Link} to="/login" style={{fontSize:".8rem"}}>Already Have an Account ? Login</Label></Group>
                 <Button type="submit">Register</Button>
             </Form>
             <Footer />

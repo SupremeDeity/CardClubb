@@ -213,6 +213,10 @@ const DropdownContent = styled.div`
     align-items: flex-start;
     gap: 20px;
     & > a {
+        cursor: pointer;
         color: #fff;
+    }
+    &>a:hover{
+        color: #fdc674;
     }
 `;

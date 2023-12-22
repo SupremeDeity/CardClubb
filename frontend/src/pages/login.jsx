@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 import UserContext from "../contexts/usercontext";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Login = () => {
     const { user, setUser } = React.useContext(UserContext);
@@ -76,6 +76,7 @@ const Login = () => {
                             {...register("password")}
                         ></Input>
                     </Group>
+                    <Group><Label as={Link} to="/register" style={{fontSize:".8rem"}}>Don&apos;t Have an Account ? Sign up</Label></Group>
                     <Button type="submit">Login</Button>
                 </Form>
             )}

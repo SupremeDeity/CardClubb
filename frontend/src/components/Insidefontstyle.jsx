@@ -2,10 +2,30 @@
 import React from "react";
 import styled from "styled-components";
 import ProductContext from "../contexts/productcontext";
-import '../fonts.css'
-
+import "../fonts.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+const slides = [
+    { id: 1, content: "Stylish" },
+    { id: 2, content: "Broetown" },
+    { id: 4, content: "Elegant" },
+    { id: 5, content: "Avenus" },
+    { id: 6, content: "Ballerina" },
+    { id: 7, content: "Beatrix" },
+    { id: 8, content: "CandyQelling" },
+    { id: 9, content: "DaltonWhite" },
+    { id: 10, content: "Manthoels" },
+];
 const InsideFontStyle = (props) => {
-    const {fontSize,setFontSize,fontFamily,setFontFamily,setContent,color,setColor}=React.useContext(ProductContext)
+    const {
+        fontSize,
+        setFontSize,
+        fontFamily,
+        setFontFamily,
+        setContent,
+        color,
+        setColor,
+    } = React.useContext(ProductContext);
 
     const handleFontSizeChange = (e) => {
         const size = parseInt(e.target.value);
@@ -13,13 +33,13 @@ const InsideFontStyle = (props) => {
     };
 
     const handleResetClick = () => {
-        setContent("")
-        setFontSize(16)
-        setColor("#282828")
+        setContent("");
+        setFontSize(16);
+        setColor("#282828");
     };
 
     const handleSaveClick = () => {
-        props.edit(false)
+        props.edit(false);
     };
 
     const handleColorClick = (e) => {
@@ -32,6 +52,21 @@ const InsideFontStyle = (props) => {
     const handleFamilyClick = (e) => {
         setFontFamily(e.target.innerText);
     };
+    const scrollableRef = React.useRef(null);
+
+    const handleScrollLeft = () => {
+        scrollableRef.current.scrollTo({
+          left: scrollableRef.current.scrollLeft - 200,
+          behavior: 'smooth',
+        });
+      };
+    
+      const handleScrollRight = () => {
+        scrollableRef.current.scrollTo({
+          left: scrollableRef.current.scrollLeft + 200,
+          behavior: 'smooth',
+        });
+      };
     return (
         <>
             <StyleDiv>
@@ -39,12 +74,30 @@ const InsideFontStyle = (props) => {
                     <Button onClick={handleResetClick}>Reset</Button>
                     <Button onClick={handleSaveClick}>Save</Button>
                 </Buttons>
-                <FontFamilyDiv>
-                    <Icons>{"<"}</Icons>
-                    <FontStyles onClick={handleFamilyClick}>Stylish</FontStyles>
-                    <FontStyles onClick={handleFamilyClick}>Broetown</FontStyles>
-                    <Icons>{">"}</Icons>
-                </FontFamilyDiv>
+                <SliderContainer ref={scrollableRef}>
+                    {slides.map((slide) => (
+                        <Slide
+                            key={slide.id}
+                            onClick={handleFamilyClick}
+                        >
+                            {slide.content}
+                        </Slide>
+                    ))}
+                    <LeftButton onClick={handleScrollLeft}>
+                        <FontAwesomeIcon
+                            icon={faArrowLeft}
+                            size={"lg"}
+                            style={{ color: "#282828" }}
+                        />
+                    </LeftButton>
+                    <RightButton onClick={handleScrollRight}>
+                        <FontAwesomeIcon
+                            icon={faArrowRight}
+                            size={"lg"}
+                            style={{ color: "#282828" }}
+                        />
+                    </RightButton>
+                </SliderContainer>
                 <FontSize
                     type="number"
                     placeholder="Enter Font Size"
@@ -128,10 +181,10 @@ const TextArea = styled.textarea`
     width: 60%;
     top: 50%;
     left: 50%;
-    transform:translate(-50%,-50%)
+    transform: translate(-50%, -50%);
 `;
 const StyleDiv = styled.div`
-    box-shadow: 0 5px 5px -5px rgba(0,0,0,.3);
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
     /* position: absolute;
     top: 0;
@@ -165,22 +218,11 @@ const Button = styled.button`
     padding: 15px 40px;
 `;
 
-const FontFamilyDiv = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-`;
 const FontSize = styled.input`
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
     overflow: hidden;
     border-radius: 10px;
     border: 1px solid #fdc674;
-    padding-left: 10px;
+    padding: 0 10px;
     width: 80%;
     height: 40px;
 `;
@@ -203,24 +245,60 @@ const ColorsCircle = styled.div`
         box-shadow: 0 0 8px -1px #138d97;
     }
 `;
-const FontStyles = styled.div`
-    cursor: pointer;
-    border: 2px solid #fdc674;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 140px;
-    height: 40px;
-`;
 
 const Image = styled.img`
     width: 100%;
     height: 600px;
 `;
 
-const Icons = styled(FontStyles)`
+const SliderContainer = styled.div`
+    height: 70px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    div:first-child{
+        margin-left: 50px;
+    };
+    padding-right: 3rem;
+`;
+
+
+const Slide = styled.div`
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fdc674;
+    border-radius: 8px;
+    width:max-content;
+    padding: 10px 20px;
+    height: 40px;
+    transition: transform 0.5s ease-in-out;
+
+`;
+
+const SliderButton = styled.button`
+    text-align: center;
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-80%);
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+`;
+
+const LeftButton = styled(SliderButton)`
+    background-color: #fdc674;
+    left: 10px;
+`;
+
+const RightButton = styled(SliderButton)`
+    background-color: #fdc674;
+    right: 10px;
 `;
