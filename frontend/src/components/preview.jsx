@@ -5,8 +5,14 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Preview = () => {
-    const { envelopeImage, content, fontSize, fontFamily, color } =
-        React.useContext(ProductContext);
+    const {
+        envelopeImage,
+        content,
+        fontSize,
+        fontFamily,
+        color,
+        envelopeOpenImage,
+    } = React.useContext(ProductContext);
     const { state } = useLocation();
     const navigate = useNavigate();
     const { category, index } = state;
@@ -42,18 +48,30 @@ const Preview = () => {
                     style={{
                         transform: isRotated ? "rotateY(-180deg)" : "none",
                         transition: "transform 5s ease",
+                        position:"relative",
                     }}
                 >
                     <Image
                         src={`/${state.category}/${state.index}/Image/image.png`}
                     ></Image>
-                    <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
+                    <CardImage
+                        src={envelopeImage}
+                        alt="Uploaded"
+                    ></CardImage>
                 </div>
                 {open && (
                     <Envelope>
                         <Image
                             src={`/${state.category}/${state.index}/Envolpe/envolpe.png`}
                         ></Image>
+                        <CardOpenImage
+                            src={envelopeOpenImage}
+                            alt="Uploaded"
+                        ></CardOpenImage>
+                        <CardInvertedOpenImage
+                            src={envelopeOpenImage}
+                            alt="Uploaded"
+                        ></CardInvertedOpenImage>
                     </Envelope>
                 )}
                 {text && (
@@ -97,7 +115,7 @@ const Button = styled.button`
     border-radius: 10px;
     background: #af4b2f;
     width: 20%;
-    @media (max-width:650px){
+    @media (max-width: 650px) {
         width: 40%;
     }
 `;
@@ -116,10 +134,11 @@ const Image = styled.img`
 
 const CardImage = styled.img`
     position: absolute;
-    top: 25%;
+    top: 6%;
     right: 5.5%;
     width: 80px;
     height: 80px;
+    transform: rotateX("180deg");
 `;
 
 const Envelope = styled.div`
@@ -155,7 +174,7 @@ const Text = styled.div`
     right: 0;
     width: 70%;
     height: 100%;
-    transform: translate(-20%,10%);
+    transform: translate(-20%, 10%);
     & > img {
         height: 90%;
     }
@@ -183,10 +202,28 @@ const TextDiv = styled.div`
     text-align: center;
     padding: 20px;
     position: absolute;
-    width:100%;
+    width: 100%;
     height: max-content;
     top: 40%;
     left: 50%;
     word-wrap: break-word;
     transform: translate(-50%, -50%);
+`;
+const CardOpenImage = styled.img`
+    object-fit: fill;
+    position: absolute;
+    top: 45px;
+    left: 6px;
+    width: 550px !important;
+    height: 144px !important;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+`;
+const CardInvertedOpenImage = styled.img`
+    object-fit: fill;
+    position: absolute;
+    top: 188px;
+    left: 6px;
+    width: 550px !important;
+    height: 179px !important;
+    clip-path: polygon(-12% 0%, 114% 0%, 50% 101%);
 `;

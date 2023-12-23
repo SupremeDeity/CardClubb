@@ -5,7 +5,12 @@ import ProductContext from "../contexts/productcontext";
 
 const ImageUpload = (props) => {
     const { category, index } = props;
-    const {envelopeImage,setEnvelopeImage}=React.useContext(ProductContext)
+    const {
+        envelopeImage,
+        setEnvelopeImage,
+        envelopeOpenImage,
+        setEnvelopeOpenImage,
+    } = React.useContext(ProductContext);
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 
@@ -19,21 +24,53 @@ const ImageUpload = (props) => {
             reader.readAsDataURL(file);
         }
     };
+    const handleOpenImageUpload = (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                setEnvelopeOpenImage(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    };
     return (
         <Canvas>
-            <Image
-                src={`/${category}/${index}/Image/image.png`}
-            ></Image>
-            {envelopeImage==null ? (
+            <Image src={`/${category}/${index}/Image/image.png`}></Image>
+            <EnvelopeUploadImage
+                src={`/${category}/${index}/Envolpe/envolpe.png`}
+            ></EnvelopeUploadImage>
+            {envelopeOpenImage == null ? (
+                <EnvelopeOpenImage>
+                    <label htmlFor="uploadOpen">Change Envelope Liner</label>
+                    <input
+                        type="file"
+                        accept=".png, .jpg, .jpeg"
+                        onChange={handleOpenImageUpload}
+                        id="uploadOpen"
+                    />
+                </EnvelopeOpenImage>
+            ) : (
+                <>
+                <CardOpenImage src={envelopeOpenImage} alt="Uploaded"></CardOpenImage>
+                <CardInvertedOpenImage src={envelopeOpenImage} alt="Uploaded"></CardInvertedOpenImage>
+                </>
+            )}
+            {envelopeImage == null ? (
                 <UploadImage>
                     <label htmlFor="upload">Upload File</label>
-                    <input type="file" accept=".png, .jpg, .jpeg" onChange={handleImageUpload} id="upload"/>
+                    <input
+                        type="file"
+                        accept=".png, .jpg, .jpeg"
+                        onChange={handleImageUpload}
+                        id="upload"
+                    />
                 </UploadImage>
             ) : (
-                <CardImage
-                    src={envelopeImage}
-                    alt="Uploaded"
-                ></CardImage>
+                <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
             )}
         </Canvas>
     );
@@ -42,15 +79,22 @@ const ImageUpload = (props) => {
 export default ImageUpload;
 
 const Canvas = styled.div`
-    margin-top: 3rem;
+    margin-top: 15rem;
     position: relative;
     width: 550px;
 `;
 const Image = styled.img`
     width: 100%;
     height: 400px;
+    z-index: 100;
 `;
-
+const EnvelopeUploadImage = styled(Image)`
+    position: absolute;
+    top: -210px;
+    left: -200px;
+    z-index: -2;
+    height: 500px;
+`;
 const UploadImage = styled.div`
     margin: -4.5rem 15px 0 0;
     position: absolute;
@@ -96,5 +140,35 @@ const CardImage = styled.img`
     right: 0;
     width: 80px;
     height: 80px;
+`;
 
+const EnvelopeOpenImage = styled(UploadImage)`
+    top: 10px;
+    left: -280px;
+    transform: rotate(135deg);
+    & > label {
+        transform: rotate(-135deg);
+    }
+    & > input {
+        transform: rotate(-135deg);
+    }
+`
+const CardOpenImage = styled.img`
+    object-fit: fill;
+    position: absolute;
+    top: -167px;
+    left: -196px;
+    width: 541px;
+    height: 144px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+`
+const CardInvertedOpenImage = styled.img`
+    z-index: -2;
+    object-fit: fill;
+    position: absolute;
+    top: -24px;
+    left: -194px;
+    width: 538px;
+    height: 191px;
+    clip-path: polygon(-10% 0%, 117% 0%, 47% 101%);
 `

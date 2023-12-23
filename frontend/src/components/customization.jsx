@@ -34,9 +34,19 @@ const Customization = () => {
         return setImage(e.target.innerText);
     };
     const handleSaveClick = () => {
+        const Front = document.getElementById("Front")
+        const inside = document.getElementById("Inside")
+        const Envelope = document.getElementById("Envelope")
+
         if (image == "Front") {
             setImage("Inside");
+            inside.classList.add("active")
+            Front.classList.remove("active")
+            Envelope.classList.remove("active")
         } else if (image == "Inside") {
+            Envelope.classList.add("active")
+            Front.classList.remove("active")
+            inside.classList.remove("active")
             setImage("Envelope");
         }else {
             if(user.isLogin)

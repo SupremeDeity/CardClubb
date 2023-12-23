@@ -25,6 +25,8 @@ function App() {
     const [color, setColor] = React.useState("#282828");
     const [content, setContent] = React.useState("");
     const [envelopeImage, setEnvelopeImage] = React.useState(null);
+    const [envelopeText,setEnvelopeText]=React.useState("");
+    const [envelopeOpenImage,setEnvelopeOpenImage]=React.useState(null);
 
     return (
         <UserContext.Provider value={{ user, setUser }}>
@@ -49,6 +51,10 @@ function App() {
                                 setEnvelopeImage,
                                 fontFamily,
                                 setFontFamily,
+                                envelopeText,
+                                setEnvelopeText,
+                                envelopeOpenImage,
+                                setEnvelopeOpenImage
                             }}
                         >
                             <CardDesign />
@@ -70,6 +76,10 @@ function App() {
                                 setEnvelopeImage,
                                 fontFamily,
                                 setFontFamily,
+                                envelopeText,
+                                setEnvelopeText,
+                                envelopeOpenImage,
+                                setEnvelopeOpenImage
                             }}
                         >
                             <PreviewPage />
