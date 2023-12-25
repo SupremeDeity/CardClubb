@@ -13,9 +13,12 @@ import React from "react";
 import UserContext from "./contexts/usercontext";
 import ProductContext from "./contexts/productcontext";
 import PreviewPage from "./pages/preview";
+import AdminLogin from "./pages/admin-login";
+import AdminDashboard from "./pages/admin-dashboard";
 
 function App() {
     const [user, setUser] = React.useState({
+        isAdmin:false,
         isLogin: false,
         username: "",
         email: "",
@@ -32,6 +35,8 @@ function App() {
         <UserContext.Provider value={{ user, setUser }}>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/birthday-product" element={<BirthdayProduct />} />
                 <Route path="/thankyou-product" element={<ThankyouProduct />} />

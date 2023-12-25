@@ -30,7 +30,7 @@ const Register = () => {
     const [loginErrors,setLoginError] = React.useState("")
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('http://localhost:5000/api/users/', {
+            const response = await fetch('http://localhost:5000/api/users/admin', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
