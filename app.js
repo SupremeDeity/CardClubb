@@ -8,6 +8,8 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
 const userRoutes = require('./routes/userRoutes.js');
 const sendEmail = require('./routes/sendEmail.js')
 const cors = require('cors')
+const categoryRoutes = require('./routes/categoryRoutes.js')
+const cardRoutes = require('./routes/cardRoutes.js')
 const port = process.env.PORT || 5000;
 
 connectDB();
@@ -20,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+app.use('/api/card',cardRoutes)
+app.use('/category',categoryRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api',sendEmail)
 

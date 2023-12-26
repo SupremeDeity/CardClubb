@@ -53,7 +53,7 @@ const UsersTable = styled.div`
         width: 100%;
     }
     padding: 3rem;
-    min-height: 60vh;
+    min-height: 20vh;
 `;
 const Title = styled.div`
     color: #fdc674;

@@ -1,13 +1,36 @@
+/* eslint-disable react/jsx-key */
 import styled from "styled-components";
 import logo from "../assets/Logo.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import React from "react";
 import userContext from "../contexts/usercontext";
+import Category from "./category";
 
 const NavBar = () => {
     const { user, setUser } = React.useContext(userContext);
     const [isOpen, setIsOpen] = React.useState(false);
+    const [categories,setCategories]=React.useState(["Happy Birthday","Thank You"])
     const navigate = useNavigate();
+    React.useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/category/get");
+                const data = await response.json()
+                const categories = data.data
+                const newData = []
+                categories.forEach(element => {
+                    newData.push(element.category)
+                });
+                setCategories(()=>{
+                    return ["Happy Birthday","Thank You",...newData]
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        };
+
+        fetchUsers();
+    }, []);
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
@@ -31,6 +54,7 @@ const NavBar = () => {
         }
     };
     const handleCategory = (e) => {
+
         if (e.target.innerText == "Happy Birthday")
             navigate("/birthday-product");
         else navigate("/thankyou-product");
@@ -71,12 +95,9 @@ const NavBar = () => {
                             <DropdownContent
                                 style={{ display: isOpen ? "flex" : "none" }}
                             >
-                                <a onClick={handleCategory}>
-                                    Happy Birthday
-                                </a>
-                                <a onClick={handleCategory}>
-                                    Thank You
-                                </a>
+                               {categories.map((item)=>{
+                                    return <Category category={item} click={handleCategory}/>
+                               })}
                             </DropdownContent>
                         </DropdownContainer>
                     </li>
