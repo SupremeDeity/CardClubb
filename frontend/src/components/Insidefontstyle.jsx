@@ -33,7 +33,6 @@ const InsideFontStyle = (props) => {
     };
 
     const handleResetClick = () => {
-        setContent("");
         setFontSize(16);
         setColor("#282828");
     };
@@ -46,7 +45,7 @@ const InsideFontStyle = (props) => {
         return setColor(e.target.style["background-color"]);
     };
     const handleChange = (e) => {
-        return setContent(e.target.value);
+        setContent(e.target.value);
     };
 
     const handleFamilyClick = (e) => {

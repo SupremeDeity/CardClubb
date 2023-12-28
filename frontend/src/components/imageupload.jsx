@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ProductContext from "../contexts/productcontext";
 
 const ImageUpload = (props) => {
-    const { category, index } = props;
+    const { category, index, imageUpload, envelope } = props;
     const {
         envelopeImage,
         setEnvelopeImage,
@@ -39,37 +39,51 @@ const ImageUpload = (props) => {
     };
     return (
         <Canvas>
-            <Image src={`/${category}/${index}/Image/image.png`}></Image>
+            <Image
+                src={
+                    index
+                        ? `/${category}/${index}/Image/image.png`
+                        : `data:image/png;base64,${imageUpload}`
+                }
+            ></Image>
             <EnvelopeUploadImage
-                src={`/${category}/${index}/Envolpe/envolpe.png`}
+                src={
+                    index
+                        ? `/${category}/${index}/Envolpe/envolpe.png`
+                        : `data:image/png;base64,${envelope}`
+                }
             ></EnvelopeUploadImage>
-            {envelopeOpenImage == null ? (
-                <EnvelopeOpenImage>
-                    <label htmlFor="uploadOpen">Change Envelope Liner</label>
-                    <input
-                        type="file"
-                        accept=".png, .jpg, .jpeg"
-                        onChange={handleOpenImageUpload}
-                        id="uploadOpen"
-                    />
-                </EnvelopeOpenImage>
-            ) : (
+            <EnvelopeOpenImage>
+                <label htmlFor="uploadOpen">Change Envelope Liner</label>
+                <input
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    onChange={handleOpenImageUpload}
+                    id="uploadOpen"
+                />
+            </EnvelopeOpenImage>
+            {envelopeOpenImage && (
                 <>
-                <CardOpenImage src={envelopeOpenImage} alt="Uploaded"></CardOpenImage>
-                <CardInvertedOpenImage src={envelopeOpenImage} alt="Uploaded"></CardInvertedOpenImage>
+                    <CardOpenImage
+                        src={envelopeOpenImage}
+                        alt="Uploaded"
+                    ></CardOpenImage>
+                    <CardInvertedOpenImage
+                        src={envelopeOpenImage}
+                        alt="Uploaded"
+                    ></CardInvertedOpenImage>
                 </>
             )}
-            {envelopeImage == null ? (
-                <UploadImage>
-                    <label htmlFor="upload">Upload File</label>
-                    <input
-                        type="file"
-                        accept=".png, .jpg, .jpeg"
-                        onChange={handleImageUpload}
-                        id="upload"
-                    />
-                </UploadImage>
-            ) : (
+            <UploadImage>
+                <label htmlFor="upload">Upload File</label>
+                <input
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    onChange={handleImageUpload}
+                    id="upload"
+                />
+            </UploadImage>
+            {envelopeImage && (
                 <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
             )}
         </Canvas>
@@ -79,34 +93,40 @@ const ImageUpload = (props) => {
 export default ImageUpload;
 
 const Canvas = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 15rem;
+    padding: 1rem;
     position: relative;
     width: 550px;
 `;
 const Image = styled.img`
-    width: 100%;
+    margin-top: 4rem;
+    width: 90%;
     height: 400px;
     z-index: 100;
 `;
-const EnvelopeUploadImage = styled(Image)`
+const EnvelopeUploadImage = styled.img`
+    width: 90%;
     position: absolute;
     top: -210px;
-    left: -200px;
+    left: 30px;
     z-index: -2;
     height: 500px;
 `;
 const UploadImage = styled.div`
-    margin: -4.5rem 15px 0 0;
+    z-index: 1000;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 90px;
+    right: 162px;
     width: 100px;
     height: 100px;
     text-align: center;
     background-color: rgba(40, 40, 40, 0.9);
     box-shadow: 0 0 10px 3px hsla(0, 0%, 100%, 0.5);
     border-radius: 15px 85px 85px;
-    transform: rotate(230deg);
+    transform: rotate(135deg);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -116,7 +136,7 @@ const UploadImage = styled.div`
         width: 100%;
         outline: none;
         border: none;
-        transform: rotate(-230deg);
+        transform: rotate(-135deg);
         color: white;
     }
     & > input {
@@ -129,46 +149,46 @@ const UploadImage = styled.div`
         clip: rect(0, 0, 0, 0);
         white-space: nowrap;
         border-width: 0;
-        transform: rotate(-230deg);
+        transform: rotate(-135deg);
     }
 `;
 
 const CardImage = styled.img`
-    margin: 25px 30px 0 0;
+    z-index: 111;
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 80px;
-    height: 80px;
+    top: 108px;
+    left: 76%;
+    width: 11%;
+    height: 72px;
 `;
 
 const EnvelopeOpenImage = styled(UploadImage)`
-    top: 10px;
-    left: -280px;
-    transform: rotate(135deg);
+    top: -210px;
+    left: 35px;
+    transform: rotate(225deg);
     & > label {
-        transform: rotate(-135deg);
+        transform: rotate(-225deg);
     }
     & > input {
-        transform: rotate(-135deg);
+        transform: rotate(-225deg);
     }
-`
+`;
 const CardOpenImage = styled.img`
     object-fit: fill;
     position: absolute;
-    top: -167px;
-    left: -196px;
-    width: 541px;
+    top: -166px;
+    left: 33px;
+    width: 89%;
     height: 144px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-`
+`;
 const CardInvertedOpenImage = styled.img`
     z-index: -2;
     object-fit: fill;
     position: absolute;
-    top: -24px;
-    left: -194px;
-    width: 538px;
+    top: -23px;
+    left: 33px;
+    width: 89%;
     height: 191px;
     clip-path: polygon(-10% 0%, 117% 0%, 47% 101%);
-`
+`;

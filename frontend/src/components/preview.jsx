@@ -15,13 +15,13 @@ const Preview = () => {
     } = React.useContext(ProductContext);
     const { state } = useLocation();
     const navigate = useNavigate();
-    const { category, index } = state;
+    const { category, index, front, image, envelope, custom } = state;
     const [isRotated, setIsRotated] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [text, setText] = React.useState(false);
     const handleClosePreview = () => {
         navigate(`/card/${category}/design/send`, {
-            state: { category, index },
+            state: { category, index, front, image, envelope, custom },
         });
     };
     const handleOpenClick = () => {
@@ -48,21 +48,26 @@ const Preview = () => {
                     style={{
                         transform: isRotated ? "rotateY(-180deg)" : "none",
                         transition: "transform 5s ease",
-                        position:"relative",
+                        position: "relative",
                     }}
                 >
                     <Image
-                        src={`/${state.category}/${state.index}/Image/image.png`}
+                        src={
+                            index
+                                ? `/${category}/${index}/Image/image.png`
+                                : `data:image/png;base64,${image}`
+                        }
                     ></Image>
-                    <CardImage
-                        src={envelopeImage}
-                        alt="Uploaded"
-                    ></CardImage>
+                    <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
                 </div>
                 {open && (
                     <Envelope>
                         <Image
-                            src={`/${state.category}/${state.index}/Envolpe/envolpe.png`}
+                            src={
+                                index
+                                    ? `/${category}/${index}/Envolpe/envolpe.png`
+                                    : `data:image/png;base64,${envelope}`
+                            }
                         ></Image>
                         <CardOpenImage
                             src={envelopeOpenImage}
@@ -77,7 +82,11 @@ const Preview = () => {
                 {text && (
                     <Text>
                         <Image
-                            src={`/${category}/${index}/Custom/custom.jpg`}
+                            src={
+                                index
+                                    ? `/${category}/${index}/Custom/custom.jpg`
+                                    : `data:image/png;base64,${custom}`
+                            }
                         ></Image>
                         <TextDiv
                             style={{

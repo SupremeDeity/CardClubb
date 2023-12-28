@@ -7,8 +7,8 @@ import UserContext from "../contexts/usercontext";
 
 const Customization = () => {
     const { state } = useLocation();
-    const { category, index } = state;
-    const [image, setImage] = React.useState("Front");
+    const { category, index, front, image, envelope, custom } = state;
+    const [imageTab, setImage] = React.useState("Front");
     const navigate = useNavigate();
     const {user}=useContext(UserContext)
 
@@ -38,19 +38,19 @@ const Customization = () => {
         const inside = document.getElementById("Inside")
         const Envelope = document.getElementById("Envelope")
 
-        if (image == "Front") {
+        if (imageTab == "Front") {
             setImage("Inside");
             inside.classList.add("active")
             Front.classList.remove("active")
             Envelope.classList.remove("active")
-        } else if (image == "Inside") {
+        } else if (imageTab == "Inside") {
             Envelope.classList.add("active")
             Front.classList.remove("active")
             inside.classList.remove("active")
             setImage("Envelope");
         }else {
             if(user.isLogin)
-                navigate(`/card/${category}/design/send`,{state:{category,index}})
+                navigate(`/card/${category}/design/send`,{state:{category,index, front, image, envelope, custom}})
             else   
                 navigate('/login')
         }
@@ -64,19 +64,19 @@ const Customization = () => {
                 <Button onClick={handleSaveClick}>Save</Button>
             </ImageNav>
 
-            {image == "Front" ? (
+            {imageTab == "Front" ? (
                 <ImageContainer>
                     <Image
-                        src={`/${category}/${index}/Front/Front.png`}
+                        src={index?`/${category}/${index}/Front/Front.png`:`data:image/png;base64,${front}`}
                     ></Image>
                 </ImageContainer>
-            ) : image == "Inside" ? (
+            ) : imageTab == "Inside" ? (
                 <ImageContainer>
-                    <Inside category={category} index={index} />
+                    <Inside category={category} index={index} custom={custom}/>
                 </ImageContainer>
             ) : (
                 <ImageUploadContainer>
-                    <ImageUpload category={category} index={index} />
+                    <ImageUpload category={category} index={index} imageUpload={image} envelope={envelope}/>
                 </ImageUploadContainer>
             )}
         </CustomContainer>

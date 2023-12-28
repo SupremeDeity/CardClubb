@@ -7,20 +7,28 @@ import { Carousel } from "react-responsive-carousel";
 
 const ProductInfo = () => {
     const { state } = useLocation();
-    const {name,category,index}=state;
+    const { name, category, index, front, image, envelope, custom } = state;
     const navigate = useNavigate();
-    const handleClick = ()=>{
-        navigate(`/card/${category}/design`,{state:{category,name,index}})
-    }
+    const handleClick = () => {
+        navigate(`/card/${category}/design`, {
+            state: { category, name, index, front, image, envelope, custom },
+        });
+    };
     return (
         <>
             <NavBar />
             <Info>
                 <ImageDiv>
-                    <Carousel showStatus={false} showIndicators={false} showArrows={false}>
-                        <img src={`/${category}/${index}/Front/Front.png`} />
-                        <img src={`/${category}/${index}/Envolpe/envolpe.png`} />
-                        <img src={`/${category}/${index}/Image/image.png`} />
+                    <Carousel
+                        showStatus={false}
+                        showIndicators={false}
+                        showArrows={false}
+                    >
+                        <img src={index?`/${category}/${index}/Front/Front.png`:`data:image/png;base64,${front}`} />
+                        <img
+                            src={index?`/${category}/${index}/Envolpe/envolpe.png`:`data:image/png;base64,${envelope}`}
+                        />
+                        <img src={index?`/${category}/${index}/Image/image.png`:`data:image/png;base64,${image}`} />
                     </Carousel>
                 </ImageDiv>
                 <Description>
@@ -49,7 +57,7 @@ const Info = styled.div`
     justify-content: center;
     align-items: center;
     gap: 20px;
-    @media (max-width:800px){
+    @media (max-width: 800px) {
         flex-direction: column;
     }
 `;
@@ -64,9 +72,9 @@ const Description = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     gap: 20px;
-    @media (max-width:800px){
+    @media (max-width: 800px) {
         align-self: center;
-        width:60%;
+        width: 60%;
     }
 `;
 const Name = styled.div`
@@ -88,8 +96,8 @@ const Features = styled.div`
 `;
 const ImageDiv = styled.div`
     width: 40%;
-    @media (max-width:800px){
-        width:60%;
+    @media (max-width: 800px) {
+        width: 60%;
     }
 `;
 

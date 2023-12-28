@@ -6,12 +6,11 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 import UserContext from "../contexts/usercontext";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-    const { user, setUser } = React.useContext(UserContext);
+    const { user,setLocalStorageUser,localStorageUser,setUser } = React.useContext(UserContext);
     const [loginErrors,setLoginError] = React.useState("")
-    const location = useLocation()
     const loginSchema = object({
         email: string().email(),
         password: string().min(1, { message: "Required" }),
@@ -21,7 +20,6 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
-    console.log(location.pathname);
     const onSubmit = async (data) => {
         try {
             const response = await fetch(
@@ -37,8 +35,10 @@ const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                const { name, email } = data;
-                setUser({ isLogin: true, username: name, email: email });
+                setUser({isLogin:true,username:data.name,email:data.email})
+                localStorage.setItem('user', JSON.stringify(data));
+                setLocalStorageUser(data)
+                console.log(localStorageUser);
             } else {
                 setLoginError("Invalid Credentials")
             }

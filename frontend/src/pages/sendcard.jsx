@@ -8,7 +8,7 @@ import Footer from "../components/footer";
 
 const SendCard = () => {
     const { state } = useLocation();
-    const { category, index } = state;
+    const { category, index, front, image, envelope, custom } = state;
     const navigate = useNavigate();
     const emailSchema = object({
         name: string().min(1, { message: "Required" }),
@@ -42,7 +42,7 @@ const SendCard = () => {
     };
     const handlePreview = () => {
         navigate(`/card/${category}/design/preview`, {
-            state: { category, index },
+            state: { category,index, front, image, envelope, custom },
         });
     };
     return (
@@ -51,7 +51,7 @@ const SendCard = () => {
             <MainSection>
                 <Info>
                     <Image
-                        src={`/${state.category}/${state.index}/Front/Front.png`}
+                        src={index?`/${category}/${index}/Front/Front.png`:`data:image/png;base64,${front}`}
                     ></Image>
                     <PreviewButton onClick={handlePreview}>
                         Preview

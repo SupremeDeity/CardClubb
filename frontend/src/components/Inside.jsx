@@ -6,13 +6,9 @@ import ProductContext from "../contexts/productcontext";
 
 const Inside = (props) => {
     const [edit, setEdit] = React.useState(false);
-    const {
-        fontSize,
-        fontFamily,
-        color,
-        content,
-    } = React.useContext(ProductContext);
-    const { category, index } = props;
+    const { fontSize, fontFamily, color, content } =
+        React.useContext(ProductContext);
+    const { category, index, custom } = props;
     const handleEditClick = () => {
         setEdit(true);
     };
@@ -21,7 +17,11 @@ const Inside = (props) => {
             {!edit ? (
                 <>
                     <Image
-                        src={`/${category}/${index}/Custom/custom.jpg`}
+                        src={
+                            index
+                                ? `/${category}/${index}/Custom/custom.jpg`
+                                : `data:image/png;base64,${custom}`
+                        }
                     ></Image>
                     <EditLabel onClick={handleEditClick}>
                         <span>Edit</span>

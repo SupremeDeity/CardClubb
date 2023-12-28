@@ -20,7 +20,6 @@ const Users = () => {
 
         fetchUsers();
     }, []);
-    console.log(users);
     return (
         <UsersTable>
             <Title>Users</Title>

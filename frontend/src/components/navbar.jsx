@@ -7,25 +7,30 @@ import userContext from "../contexts/usercontext";
 import Category from "./category";
 
 const NavBar = () => {
-    const { user, setUser } = React.useContext(userContext);
+    const { user, setLocalStorageUser,setUser } = React.useContext(userContext);
     const [isOpen, setIsOpen] = React.useState(false);
-    const [categories,setCategories]=React.useState(["Happy Birthday","Thank You"])
+    const [categories, setCategories] = React.useState([
+        "Happy Birthday",
+        "Thank You",
+    ]);
     const navigate = useNavigate();
     React.useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("http://127.0.0.1:5000/category/get");
-                const data = await response.json()
-                const categories = data.data
-                const newData = []
-                categories.forEach(element => {
-                    newData.push(element.category)
+                const response = await fetch(
+                    "http://127.0.0.1:5000/category/get"
+                );
+                const data = await response.json();
+                const categories = data.data;
+                const newData = [];
+                categories.forEach((element) => {
+                    newData.push(element.category);
                 });
-                setCategories(()=>{
-                    return ["Happy Birthday","Thank You",...newData]
-                })
+                setCategories(() => {
+                    return ["Happy Birthday", "Thank You", ...newData];
+                });
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         };
 
@@ -47,17 +52,24 @@ const NavBar = () => {
             );
 
             if (response.ok) {
-                setUser({ isLogin: false, username: "", email: "" });
+                localStorage.removeItem("user");
+                setUser({isLogin:false,username:"",email:""})
+                setLocalStorageUser(null);
             }
         } catch (error) {
             console.error(error);
         }
     };
     const handleCategory = (e) => {
-
-        if (e.target.innerText == "Happy Birthday")
-            navigate("/birthday-product");
-        else navigate("/thankyou-product");
+        const categoryData = e.target.innerText;
+        if (categoryData == "Happy Birthday")
+            navigate("/birthday/product", {
+                state: { category: "Happy Birthday" },
+            });
+        else if (categoryData == "Thank You")
+            navigate("/thankyou/product", { state: { category: "Thank You" } });
+        else    
+            navigate(`/${categoryData}/product`,{state:{category:`${categoryData}`}})
         setIsOpen(!open);
     };
     return (
@@ -95,9 +107,14 @@ const NavBar = () => {
                             <DropdownContent
                                 style={{ display: isOpen ? "flex" : "none" }}
                             >
-                               {categories.map((item)=>{
-                                    return <Category category={item} click={handleCategory}/>
-                               })}
+                                {categories.map((item) => {
+                                    return (
+                                        <Category
+                                            category={item}
+                                            click={handleCategory}
+                                        />
+                                    );
+                                })}
                             </DropdownContent>
                         </DropdownContainer>
                     </li>
@@ -237,7 +254,7 @@ const DropdownContent = styled.div`
         cursor: pointer;
         color: #fff;
     }
-    &>a:hover{
+    & > a:hover {
         color: #fdc674;
     }
 `;
