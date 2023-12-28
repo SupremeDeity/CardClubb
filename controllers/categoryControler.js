@@ -2,19 +2,19 @@ const asyncHandler = require("express-async-handler");
 const { Category } = require("../models/userSchema");
 
 const addCategory = asyncHandler(async (req, res) => {
-    const {value}=req.body
-    const data = await Category.create({
-        category: value,
-    });
+    const { category } = req.body;
+      const data = await Category.create({
+          category:category,
+      }); 
+      
     if (data) {
-        res.status(201).json({
-            category: data.category,
-        });
+
+      res.status(201).json({data});
     } else {
-        res.status(401);
-        throw new Error("Error");
+      res.status(400);
+      throw new Error('Failed');
     }
-});
+  });
 
 const getCategory = asyncHandler(async (req, res) => {
     const data = await Category.find();

@@ -10,7 +10,6 @@ router.get("/",(req,res)=>{
 
 router.post("/send-email", (req, res) => {
     const { name, email, message } = req.body;
-
     // Create a nodemailer transporter
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -19,15 +18,16 @@ router.post("/send-email", (req, res) => {
             pass: process.env.EMAIL_PASS,
         },
     });
-
+    
     // Setup email data
     const mailOptions = {
         from: email,
         to: process.env.EMAIL_ACC,
+        replyTo:process.env.EMAIL_ACC,
         subject: `New Email from ${name}`,
         text: message,
     };
-
+    
     // Send email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
