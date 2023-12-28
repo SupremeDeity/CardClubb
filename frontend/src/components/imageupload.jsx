@@ -75,7 +75,7 @@ const ImageUpload = (props) => {
                 </>
             )}
             <UploadImage>
-                <label htmlFor="upload">Upload File</label>
+                <label htmlFor="upload">Upload</label>
                 <input
                     type="file"
                     accept=".png, .jpg, .jpeg"
