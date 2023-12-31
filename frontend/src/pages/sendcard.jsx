@@ -21,7 +21,7 @@ const SendCard = () => {
     const onSubmit = async (data) => {
         try {
             const response = await fetch(
-                "http://localhost:5000/api/send-email",
+                "https://cardclub.vercel.app/api/send-email",
                 {
                     method: "POST",
                     headers: {

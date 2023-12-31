@@ -1,11 +1,11 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Contact from "./pages/contact";
-const Product = lazy(() => import("./pages/product"));
+import Product from "./pages/product";
 import ProductInfo from "./pages/productinfo";
 import CardDesign from "./pages/design";
 import SendCard from "./pages/sendcard";
@@ -22,6 +22,7 @@ function App() {
         localuser ? JSON.parse(localuser) : ""
     );
     const [user, setUser] = React.useState({
+        isAdmin: true,
         isLogin: localStorageUser ? true : false,
         username: localStorageUser ? localStorageUser["name"] : "",
         email: localStorageUser ? localStorageUser["email"] : "",
@@ -38,94 +39,89 @@ function App() {
         <UserContext.Provider
             value={{ user, setUser, localStorageUser, setLocalStorageUser }}
         >
-            <Suspense fallback={<></>}>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/admin-login" element={<AdminLogin />} />
-                    <Route path="/admin-register" element={<AdminRegister />} />
-                    <Route
-                        path="/admin/dashboard"
-                        element={<AdminDashboard />}
-                    />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/:category/product" element={<Product />} />
-                    <Route path="/card/:category" element={<ProductInfo />} />
-                    <Route
-                        path="/card/:category/design"
-                        element={
-                            <ProductContext.Provider
-                                value={{
-                                    fontSize,
-                                    setFontSize,
-                                    color,
-                                    setColor,
-                                    content,
-                                    setContent,
-                                    envelopeImage,
-                                    setEnvelopeImage,
-                                    fontFamily,
-                                    setFontFamily,
-                                    envelopeText,
-                                    setEnvelopeText,
-                                    envelopeOpenImage,
-                                    setEnvelopeOpenImage,
-                                }}
-                            >
-                                <CardDesign />
-                            </ProductContext.Provider>
-                        }
-                    />
-                    <Route
-                        path="/card/:category/design/preview"
-                        element={
-                            <ProductContext.Provider
-                                value={{
-                                    fontSize,
-                                    setFontSize,
-                                    color,
-                                    setColor,
-                                    content,
-                                    setContent,
-                                    envelopeImage,
-                                    setEnvelopeImage,
-                                    fontFamily,
-                                    setFontFamily,
-                                    envelopeText,
-                                    setEnvelopeText,
-                                    envelopeOpenImage,
-                                    setEnvelopeOpenImage,
-                                }}
-                            >
-                                <PreviewPage />
-                            </ProductContext.Provider>
-                        }
-                    />
-                    <Route
-                        path="/card/:category/design/send"
-                        element={
-                            <ProductContext.Provider
-                                value={{
-                                    fontSize,
-                                    setFontSize,
-                                    color,
-                                    setColor,
-                                    content,
-                                    setContent,
-                                    envelopeImage,
-                                    setEnvelopeImage,
-                                    fontFamily,
-                                    setFontFamily,
-                                }}
-                            >
-                                <SendCard />
-                            </ProductContext.Provider>
-                        }
-                    />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/contact" element={<Contact />} />
-                </Routes>
-            </Suspense>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/admin-register" element={<AdminRegister />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/:category/product" element={<Product />} />
+                <Route path="/card/:category" element={<ProductInfo />} />
+                <Route
+                    path="/card/:category/design"
+                    element={
+                        <ProductContext.Provider
+                            value={{
+                                fontSize,
+                                setFontSize,
+                                color,
+                                setColor,
+                                content,
+                                setContent,
+                                envelopeImage,
+                                setEnvelopeImage,
+                                fontFamily,
+                                setFontFamily,
+                                envelopeText,
+                                setEnvelopeText,
+                                envelopeOpenImage,
+                                setEnvelopeOpenImage,
+                            }}
+                        >
+                            <CardDesign />
+                        </ProductContext.Provider>
+                    }
+                />
+                <Route
+                    path="/card/:category/design/preview"
+                    element={
+                        <ProductContext.Provider
+                            value={{
+                                fontSize,
+                                setFontSize,
+                                color,
+                                setColor,
+                                content,
+                                setContent,
+                                envelopeImage,
+                                setEnvelopeImage,
+                                fontFamily,
+                                setFontFamily,
+                                envelopeText,
+                                setEnvelopeText,
+                                envelopeOpenImage,
+                                setEnvelopeOpenImage,
+                            }}
+                        >
+                            <PreviewPage />
+                        </ProductContext.Provider>
+                    }
+                />
+                <Route
+                    path="/card/:category/design/send"
+                    element={
+                        <ProductContext.Provider
+                            value={{
+                                fontSize,
+                                setFontSize,
+                                color,
+                                setColor,
+                                content,
+                                setContent,
+                                envelopeImage,
+                                setEnvelopeImage,
+                                fontFamily,
+                                setFontFamily,
+                            }}
+                        >
+                            <SendCard />
+                        </ProductContext.Provider>
+                    }
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/contact" element={<Contact />} />
+            </Routes>
         </UserContext.Provider>
     );
 }

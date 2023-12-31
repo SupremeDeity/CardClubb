@@ -19,7 +19,7 @@ const AddCategory = () => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "http://127.0.0.1:5000/category/get"
+                    "https://cardclub.vercel.app/category/get"
                 );
                 const data = await response.json();
                 const categories = data.data;
@@ -46,7 +46,7 @@ const AddCategory = () => {
         formData.append('envelope', data.envelope[0]);
         formData.append('custom', data.custom[0]);
         try {
-            const response = await fetch("http://localhost:5000/api/card/add", {
+            const response = await fetch("https://cardclub.vercel.app/api/card/add", {
                 method: "POST",
                 body: formData,
             });

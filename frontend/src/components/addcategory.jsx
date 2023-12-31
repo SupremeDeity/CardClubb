@@ -16,7 +16,7 @@ const AddCategory = () => {
     const onSubmit = async (data) => {
         try {
             const response = await fetch(
-                "http://localhost:5000/category/add",
+                "https://cardclub.vercel.app/category/add",
                 {
                     method: "POST",
                     headers: {

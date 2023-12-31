@@ -9,7 +9,7 @@ import UserContext from "../contexts/usercontext";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-    const { user,setLocalStorageUser,localStorageUser,setUser } = React.useContext(UserContext);
+    const { user,setLocalStorageUser,setUser } = React.useContext(UserContext);
     const [loginErrors,setLoginError] = React.useState("")
     const loginSchema = object({
         email: string().email(),
@@ -23,7 +23,7 @@ const Login = () => {
     const onSubmit = async (data) => {
         try {
             const response = await fetch(
-                "http://localhost:5000/api/users/auth",
+                "https://cardclub.vercel.app/api/users/auth",
                 {
                     method: "POST",
                     headers: {
@@ -35,10 +35,9 @@ const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser({isLogin:true,username:data.name,email:data.email})
+                setUser({isAdmin:false,isLogin:true,username:data.name,email:data.email})
                 localStorage.setItem('user', JSON.stringify(data));
                 setLocalStorageUser(data)
-                console.log(localStorageUser);
             } else {
                 setLoginError("Invalid Credentials")
             }
