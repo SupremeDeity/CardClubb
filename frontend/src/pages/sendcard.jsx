@@ -85,7 +85,7 @@ const SendCard = () => {
         
         try {
             const response = await fetch(
-                "http://localhost:5000/api/send-email-card",
+                "https://cardclub.vercel.app/api/send-email-card",
                 {
                     method: "POST",
                     body: formData,

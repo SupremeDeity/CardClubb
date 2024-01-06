@@ -135,7 +135,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="http://localhost:5173/open/card/${cards.id}">
+                                    <a href="https://cardclub.vercel.app/open/card/${cards.id}">
                                         <button style="cursor: pointer;color: white;background: black;font-size: 1rem;height: 40px;border: none;border-radius: 12px;width: 150px;">Open Card</button>
                                     </a>
                                 </td>
