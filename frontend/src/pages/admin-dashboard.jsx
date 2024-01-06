@@ -7,7 +7,6 @@ import { useContext } from "react";
 import UserContext from "../contexts/usercontext";
 const AdminDashboard = () => {
     const { user } = useContext(UserContext);
-    console.log(user)
     return (
         <>
             {user.isAdmin ? (

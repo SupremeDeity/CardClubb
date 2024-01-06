@@ -15,6 +15,7 @@ import AdminDashboard from "./pages/admin-dashboard";
 import AdminRegister from "./pages/adminregister";
 import UserContext from "./contexts/usercontext";
 import ProductContext from "./contexts/productcontext";
+import OpenCard from "./pages/opencard";
 
 function App() {
     const localuser = localStorage.getItem("user");
@@ -28,7 +29,7 @@ function App() {
         email: localStorageUser ? localStorageUser["email"] : "",
     });
     const [fontSize, setFontSize] = React.useState(16);
-    const [fontFamily, setFontFamily] = React.useState("");
+    const [fontFamily, setFontFamily] = React.useState("Inter");
     const [color, setColor] = React.useState("#282828");
     const [content, setContent] = React.useState("");
     const [envelopeImage, setEnvelopeImage] = React.useState(null);
@@ -41,6 +42,7 @@ function App() {
         >
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/open/card/:id" element={<OpenCard />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
                 <Route path="/admin-register" element={<AdminRegister />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -112,6 +114,8 @@ function App() {
                                 setEnvelopeImage,
                                 fontFamily,
                                 setFontFamily,
+                                envelopeOpenImage,
+                                setEnvelopeOpenImage,
                             }}
                         >
                             <SendCard />

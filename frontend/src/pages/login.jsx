@@ -36,7 +36,6 @@ const Login = () => {
             if (response.ok) {
                 const data = await response.json();
                 setUser({isAdmin:false,isLogin:true,username:data.name,email:data.email})
-                console.log(user)
                 localStorage.setItem('user', JSON.stringify(data));
                 setLocalStorageUser(data)
             } else {

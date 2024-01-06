@@ -9,7 +9,6 @@ import styled from "styled-components";
 
 const Product = () => {
     const { state } = useLocation();
-    console.log(state)
     const [loadingPage, setLoadingPage] = React.useState(true);
     const { category } = state;
     const [cards, setCards] = React.useState([]);
@@ -23,7 +22,6 @@ const Product = () => {
                     const data = await response.json();
                     const cards = [];
                     data.data.forEach((element) => {
-                        console.log(element.category, category);
                         if (element.category == category) cards.push(element);
                     });
                     setLoadingPage(false)

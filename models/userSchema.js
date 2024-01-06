@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const { Schema } = mongoose;
 const ObjectId = Schema.Types.ObjectId;
 
-
 const userSchema = mongoose.Schema(
     {
         username: {
@@ -103,28 +102,41 @@ const cardSchema = mongoose.Schema({
 });
 
 const emailSchema = mongoose.Schema({
-    ID: {
-        type: ObjectId,
-        default: () => new mongoose.Types.ObjectId(),
-        unique: true,
-      },
+    id: { type: String, unique: true, required: true },
     text: String,
     color: String,
-    size:Number,
-    family:String,
-    front: { type: String, required: true },
-    image: { type: String, required: true },
-    envelope: { type: String, required: true },
-    custom: { type: String, required: true },
-    stamp:String,
-    envelope:String,
-    invertedEnvelope:String,
+    size: Number,
+    family: String,
+    front: {
+        mime_type: { type: String, required: true },
+        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+    },
+    image: {
+        mime_type: { type: String, required: true },
+        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+    },
+    envelope: {
+        mime_type: { type: String, required: true },
+        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+    },
+    custom: {
+        mime_type: { type: String, required: true },
+        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+    },
+    stamp: {
+        mime_type: { type: String, required: true },
+        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+    },
+    envelopeOpen: {
+        mime_type: { type: String, required: true },
+        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+    },
 });
 
 const Category = mongoose.model("Category", categorySchema);
 const User = mongoose.model("User", userSchema);
 const Admin = mongoose.model("Admins", adminSchema);
 const Card = mongoose.model("Card", cardSchema);
-const Email = mongoose.model("email",emailSchema);
+const Email = mongoose.model("Email", emailSchema);
 
 module.exports = { User, Admin, Category, Card, Email };

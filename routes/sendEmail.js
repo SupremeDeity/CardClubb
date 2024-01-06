@@ -37,10 +37,10 @@ router.post("/send-email", (req, res) => {
 
 router.post(
     "/send-email-card",
-    upload.fields([{ name: "front" }, { name: "envelope" }]),
+    upload.fields([{ name: "front" }, { name: "envelope" },{ name: "custom" },{ name: "image" },{ name: "envelopeOpen" },{ name: "stamp" }]),
     addEmailCards
 );
 
-router.get('/get/cards',getEmailCards)
+router.post('/get/cards/:id',getEmailCards)
 
 module.exports = router;

@@ -10,24 +10,81 @@ import { useForm } from "react-hook-form";
 const SendCard = () => {
     const { state } = useLocation();
     const { category, index, front, image, envelope, custom } = state;
-    // const { envelopeImage } = useContext(ProductContext);
+    const [status,setStatus]=React.useState(null)
+    const [Images, setImages] = React.useState({
+        frontImage: "",
+        customImage: "",
+        stampUpload: "",
+        envelopeImages: "",
+    });
+    const {
+        envelopeImage,
+        content,
+        fontSize,
+        fontFamily,
+        color,
+        envelopeOpenImage,
+    } = useContext(ProductContext);
     const navigate = useNavigate();
-    // var frontImage = "";
-    // if (index) {
-    //     frontImage = `${category}/${index}/Front/Front.png`;
-    // } else {
-    //     frontImage = `data:image/png;base64,${front}`;
-    // }
+    const fetchAndConvert = async (url) => {
+        const data = await fetch(url);
+        const blob = await data.blob();
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                const base64data = reader.result;
+                resolve(base64data);
+            };
+        });
+    };
     const { register, handleSubmit } = useForm();
+    React.useEffect(()=>{
+        const setImagesForBackend = async ()=>{
+            let frontImage, customImage, stampUpload, envelopeUploadImage;
+            if (index) {
+                [frontImage, customImage, stampUpload, envelopeUploadImage] =
+                    await Promise.all([
+                        fetchAndConvert(`/${category}/${index}/Front/Front.png`),
+                        fetchAndConvert(`/${category}/${index}/Custom/custom.jpg`),
+                        fetchAndConvert(`/${category}/${index}/Image/image.png`),
+                        fetchAndConvert(
+                            `/${category}/${index}/Envolpe/envolpe.png`
+                        ),
+                    ]);
+            } else {
+                frontImage = `data:image/png;base64,${front}`;
+                customImage = `data:image/png;base64,${custom}`;
+                stampUpload = `data:image/png;base64,${image}`;
+                envelopeUploadImage = `data:image/png;base64,${envelope}`;
+            }
+            setImages({
+                frontImage,
+                customImage,
+                stampUpload,
+                envelopeImages:envelopeUploadImage,
+            });
+        }
+        setImagesForBackend()
+    },[])
+    
     const onSubmit = async (data) => {
         const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('email', data.email);
-        formData.append('front', data.front[0]);
-        formData.append('envelope', data.envelope[0]);
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        formData.append("content", content);
+        formData.append("size", fontSize);
+        formData.append("family", fontFamily);
+        formData.append("color", color);
+        formData.append("front", Images.frontImage);
+        formData.append("custom", Images.customImage);
+        formData.append("image", Images.stampUpload);
+        formData.append("envelope", Images.envelopeImages);
+        formData.append("stamp", envelopeImage);
+        formData.append("envelopeOpen", envelopeOpenImage);
         
         try {
-            const response = await fetch(   
+            const response = await fetch(
                 "http://localhost:5000/api/send-email-card",
                 {
                     method: "POST",
@@ -36,12 +93,13 @@ const SendCard = () => {
             );
 
             if (response.ok) {
-                console.log("Email sent successfully!");
+                setStatus("Email Sent................")
             } else {
-                console.error("Failed to send email.");
+                setStatus("Failed to send email.");
             }
         } catch (error) {
             console.error("Error:", error);
+            setStatus("Failed to send email.");
         }
     };
     const handlePreview = () => {
@@ -67,21 +125,22 @@ const SendCard = () => {
                 </Info>
                 <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                     <Label>Send Your Card</Label>
+                    {status &&
+                        <div style={{color:"#282828",fontSize:"16px"}}>{status}</div>
+                    }
                     <Input
                         type="text"
                         {...register("name")}
+                        required
                         placeholder="Enter Name"
                     ></Input>
                     <Input
                         type="email"
                         placeholder="Enter Email"
+                        required
                         {...register("email")}
                     ></Input>
-                    <input type="file" {...register("front")} />
-                    <input type="file" {...register("envelope")} />
-                    <Button type="submit">
-                        Send Card
-                    </Button>
+                    <Button type="submit">Send Card</Button>
                 </Form>
             </MainSection>
             <Footer />
