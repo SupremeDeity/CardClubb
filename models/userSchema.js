@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { Schema } = mongoose;
+const ObjectId = Schema.Types.ObjectId;
+
 
 const userSchema = mongoose.Schema(
     {
@@ -99,8 +102,29 @@ const cardSchema = mongoose.Schema({
     custom: { type: String, required: true },
 });
 
+const emailSchema = mongoose.Schema({
+    ID: {
+        type: ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+        unique: true,
+      },
+    text: String,
+    color: String,
+    size:Number,
+    family:String,
+    front: { type: String, required: true },
+    image: { type: String, required: true },
+    envelope: { type: String, required: true },
+    custom: { type: String, required: true },
+    stamp:String,
+    envelope:String,
+    invertedEnvelope:String,
+});
+
 const Category = mongoose.model("Category", categorySchema);
 const User = mongoose.model("User", userSchema);
 const Admin = mongoose.model("Admins", adminSchema);
 const Card = mongoose.model("Card", cardSchema);
-module.exports = { User, Admin, Category, Card };
+const Email = mongoose.model("email",emailSchema);
+
+module.exports = { User, Admin, Category, Card, Email };

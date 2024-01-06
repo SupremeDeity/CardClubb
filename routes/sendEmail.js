@@ -2,15 +2,14 @@ const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const { getEmailCards, addEmailCards } = require("../controllers/emailcardsController");
 dotenv.config();
-
-router.get("/",(req,res)=>{
-    res.send("Hello")
-})
 
 router.post("/send-email", (req, res) => {
     const { name, email, message } = req.body;
-    // Create a nodemailer transporter
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -18,16 +17,15 @@ router.post("/send-email", (req, res) => {
             pass: process.env.EMAIL_PASS,
         },
     });
-    
     // Setup email data
     const mailOptions = {
         from: email,
         to: process.env.EMAIL_ACC,
-        replyTo:process.env.EMAIL_ACC,
+        replyTo: process.env.EMAIL_ACC,
         subject: `New Email from ${name}`,
         text: message,
     };
-    
+
     // Send email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
@@ -36,5 +34,13 @@ router.post("/send-email", (req, res) => {
         res.status(200).send("Email sent: " + info.response);
     });
 });
+
+router.post(
+    "/send-email-card",
+    upload.fields([{ name: "front" }, { name: "envelope" }]),
+    addEmailCards
+);
+
+router.get('/get/cards',getEmailCards)
 
 module.exports = router;

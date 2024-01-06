@@ -1,33 +1,37 @@
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string } from "zod";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
+import { useContext } from "react";
+import ProductContext from "../contexts/productcontext";
+import { useForm } from "react-hook-form";
 
 const SendCard = () => {
     const { state } = useLocation();
     const { category, index, front, image, envelope, custom } = state;
+    // const { envelopeImage } = useContext(ProductContext);
     const navigate = useNavigate();
-    const emailSchema = object({
-        name: string().min(1, { message: "Required" }),
-        email: string().email(),
-    });
-    const { register, handleSubmit } = useForm({
-        resolver: zodResolver(emailSchema),
-    });
-
+    // var frontImage = "";
+    // if (index) {
+    //     frontImage = `${category}/${index}/Front/Front.png`;
+    // } else {
+    //     frontImage = `data:image/png;base64,${front}`;
+    // }
+    const { register, handleSubmit } = useForm();
     const onSubmit = async (data) => {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('email', data.email);
+        formData.append('front', data.front[0]);
+        formData.append('envelope', data.envelope[0]);
+        
         try {
-            const response = await fetch(
-                "https://cardclub.vercel.app/api/send-email",
+            const response = await fetch(   
+                "http://localhost:5000/api/send-email-card",
                 {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
+                    body: formData,
                 }
             );
 
@@ -42,7 +46,7 @@ const SendCard = () => {
     };
     const handlePreview = () => {
         navigate(`/card/${category}/design/preview`, {
-            state: { category,index, front, image, envelope, custom },
+            state: { category, index, front, image, envelope, custom },
         });
     };
     return (
@@ -51,27 +55,33 @@ const SendCard = () => {
             <MainSection>
                 <Info>
                     <Image
-                        src={index?`/${category}/${index}/Front/Front.png`:`data:image/png;base64,${front}`}
+                        src={
+                            index
+                                ? `/${category}/${index}/Front/Front.png`
+                                : `data:image/png;base64,${front}`
+                        }
                     ></Image>
                     <PreviewButton onClick={handlePreview}>
                         Preview
                     </PreviewButton>
                 </Info>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                     <Label>Send Your Card</Label>
                     <Input
                         type="text"
-                        placeholder="Enter Name"
                         {...register("name")}
-                        required
+                        placeholder="Enter Name"
                     ></Input>
                     <Input
                         type="email"
                         placeholder="Enter Email"
                         {...register("email")}
-                        required
                     ></Input>
-                    <Button type="submit">Send Card</Button>
+                    <input type="file" {...register("front")} />
+                    <input type="file" {...register("envelope")} />
+                    <Button type="submit">
+                        Send Card
+                    </Button>
                 </Form>
             </MainSection>
             <Footer />

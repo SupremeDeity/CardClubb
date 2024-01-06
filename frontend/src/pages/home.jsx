@@ -4,97 +4,129 @@ import styled from "styled-components";
 import image_1 from "../assets/home1.png";
 import image_2 from "../assets/home2.png";
 import image_3 from "../assets/home3.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload,faShare,faPrint,faFile} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faDownload,
+    faShare,
+    faPrint,
+    faFile,
+} from "@fortawesome/free-solid-svg-icons";
 import Typewriter from "../components/typewriter";
-
+import React from "react";
 const Home = () => {
+    const [loadingPage, setLoadingPage] = React.useState(true);
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoadingPage(false);
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, []);
     return (
         <>
-            <NavBar />
-            <LandingPage>
-                <HeaderSection>
-                    <Label>
-                        Ready to
-                        <span> Celebrate ?</span>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Omnis aut qui est ex porro. Velit id corporis
-                            tenetur, magni autem totam praesentium libero, ut
-                            adipisci nemo est neque, culpa saepe!
-                        </p>
-                    </Label>
-                    <Image src="/thanksyou/1/Front/Front.png"></Image>
-                </HeaderSection>
-                <Label
-                    style={{
-                        width: "100%",
-                        textAlign: "center",
-                        padding: "20px",
-                    }}
-                >
-                    Explore What&apos;s <span> Trending</span>
-                </Label>
-                <MainSection>
-                    <Image src={image_1}></Image>
-                    <Image src={image_2}></Image>
-                </MainSection>
-                <MiddleSection>
-                    <Image src={image_3}></Image>
-                    <MiddleDiv>
-                        <Label>
-                            Explore What&apos;s
-                            <span> trending</span>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Omnis aut qui est ex porro.
-                                Velit id corporis tenetur, magni autem totam
-                                praesentium libero, ut adipisci nemo est neque,
-                                culpa saepe!
-                            </p>
+            {loadingPage ? (
+                <>
+                    <Ring>
+                        Loading
+                        <span></span>
+                    </Ring>
+                </>
+            ) : (
+                <>
+                    <NavBar />
+                    <LandingPage>
+                        <HeaderSection>
+                            <Label>
+                                Ready to
+                                <span> Celebrate ?</span>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Omnis aut qui est ex
+                                    porro. Velit id corporis tenetur, magni
+                                    autem totam praesentium libero, ut adipisci
+                                    nemo est neque, culpa saepe!
+                                </p>
+                            </Label>
+                            <Image src="/thanksyou/1/Front/Front.png"></Image>
+                        </HeaderSection>
+                        <Label
+                            style={{
+                                width: "100%",
+                                textAlign: "center",
+                                padding: "20px",
+                            }}
+                        >
+                            Explore What&apos;s <span> Trending</span>
                         </Label>
-                        <Button>Happy Birthday</Button>
-                        <Button>Thanksyou Card</Button>
-                    </MiddleDiv>
-                </MiddleSection>
-                <TypeWriter>Endless ways to <Typewriter text={"spread the joy"}/></TypeWriter>
-                <BottomText>Design it once, share it everywhere!</BottomText>
-                <IconsDiv>
-                    <Icons>
-                        <FontAwesomeIcon icon={faDownload} size={"lg"} />
-                        <h3>Download</h3>
-                        <p>
-                            Get a digital copy of your invitation by downloading
-                            it to your device.
-                        </p>
-                    </Icons>
-                    <Icons>
-                    <FontAwesomeIcon icon={faPrint} size={"lg"} />
-                        <h3>Print</h3>
-                        <p>
-                            Get a digital copy of your invitation by downloading
-                            it to your device.
-                        </p>
-                    </Icons>
-                    <Icons>
-                    <FontAwesomeIcon icon={faShare} size={"lg"} />
-                        <h3>Share</h3>
-                        <p>
-                            Get a digital copy of your invitation by downloading
-                            it to your device.
-                        </p>
-                    </Icons>
-                    <Icons>
-                    <FontAwesomeIcon icon={faFile} size={"lg"} />
-                        <h3>Manage</h3>
-                        <p>
-                            Get a digital copy of your invitation by downloading
-                            it to your device.
-                        </p>
-                    </Icons>
-                </IconsDiv>
-            </LandingPage>
-            <Footer />
+                        <MainSection>
+                            <Image src={image_1}></Image>
+                            <Image src={image_2}></Image>
+                        </MainSection>
+                        <MiddleSection>
+                            <Image src={image_3}></Image>
+                            <MiddleDiv>
+                                <Label>
+                                    Explore What&apos;s
+                                    <span> trending</span>
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Omnis aut qui est ex
+                                        porro. Velit id corporis tenetur, magni
+                                        autem totam praesentium libero, ut
+                                        adipisci nemo est neque, culpa saepe!
+                                    </p>
+                                </Label>
+                                <Button>Happy Birthday</Button>
+                                <Button>Thanksyou Card</Button>
+                            </MiddleDiv>
+                        </MiddleSection>
+                        <TypeWriter>
+                            Endless ways to{" "}
+                            <Typewriter text={"spread the joy"} />
+                        </TypeWriter>
+                        <BottomText>
+                            Design it once, share it everywhere!
+                        </BottomText>
+                        <IconsDiv>
+                            <Icons>
+                                <FontAwesomeIcon
+                                    icon={faDownload}
+                                    size={"lg"}
+                                />
+                                <h3>Download</h3>
+                                <p>
+                                    Get a digital copy of your invitation by
+                                    downloading it to your device.
+                                </p>
+                            </Icons>
+                            <Icons>
+                                <FontAwesomeIcon icon={faPrint} size={"lg"} />
+                                <h3>Print</h3>
+                                <p>
+                                    Get a digital copy of your invitation by
+                                    downloading it to your device.
+                                </p>
+                            </Icons>
+                            <Icons>
+                                <FontAwesomeIcon icon={faShare} size={"lg"} />
+                                <h3>Share</h3>
+                                <p>
+                                    Get a digital copy of your invitation by
+                                    downloading it to your device.
+                                </p>
+                            </Icons>
+                            <Icons>
+                                <FontAwesomeIcon icon={faFile} size={"lg"} />
+                                <h3>Manage</h3>
+                                <p>
+                                    Get a digital copy of your invitation by
+                                    downloading it to your device.
+                                </p>
+                            </Icons>
+                        </IconsDiv>
+                    </LandingPage>
+                    <Footer />
+                </>
+            )}
         </>
     );
 };
@@ -109,7 +141,6 @@ const LandingPage = styled.div`
     align-items: center;
     flex-wrap: wrap;
     gap: 1.75rem;
-
 `;
 
 const HeaderSection = styled.section`
@@ -119,9 +150,9 @@ const HeaderSection = styled.section`
     align-items: center;
     flex-wrap: wrap;
     gap: 4rem;
-    @media (max-width:800px){
-        & > div{
-            width:50%;
+    @media (max-width: 800px) {
+        & > div {
+            width: 50%;
         }
         flex-direction: column;
     }
@@ -158,11 +189,11 @@ const MiddleSection = styled.div`
         width: 350px;
         height: 350px;
     }
-    @media (max-width:800px){
-        & > div{
-            justify-content:center;
+    @media (max-width: 800px) {
+        & > div {
+            justify-content: center;
             align-items: center;
-            width:70%;
+            width: 70%;
         }
         flex-direction: column;
     }
@@ -195,13 +226,13 @@ const BottomText = styled.div`
 `;
 
 const IconsDiv = styled.div`
-    width:100%;
+    width: 100%;
     padding: 3rem 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap:10px;
+    gap: 10px;
 `;
 const Icons = styled.div`
     padding: 20px;
@@ -216,8 +247,65 @@ const Icons = styled.div`
 const TypeWriter = styled.div`
     font-size: 2rem;
     text-align: center;
-    width:100%;
-    & > span{
+    width: 100%;
+    & > span {
         color: #fdc674;
     }
-`
+`;
+
+const Ring = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: transparent;
+    text-align: center;
+    line-height: 150px;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: #fdc674;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    &:before {
+        content: "";
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        width: 100%;
+        height: 100%;
+        border: 3px solid transparent;
+        border-top: 3px solid #fdc674;
+        border-right: 3px solid #fdc674;
+        border-radius: 50%;
+        animation: animateC 2s linear infinite;
+    }
+    & > span {
+        display: block;
+        position: absolute;
+        top: calc(50% - 2px);
+        left: 50%;
+        width: 50%;
+        height: 4px;
+        background: transparent;
+        transform-origin: left;
+        animation: animate 2s linear infinite;
+    }
+    @keyframes animateC {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes animate {
+        0% {
+            transform: rotate(45deg);
+        }
+        100% {
+            transform: rotate(405deg);
+        }
+    }
+`;

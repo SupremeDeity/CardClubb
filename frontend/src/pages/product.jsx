@@ -9,6 +9,8 @@ import styled from "styled-components";
 
 const Product = () => {
     const { state } = useLocation();
+    console.log(state)
+    const [loadingPage, setLoadingPage] = React.useState(true);
     const { category } = state;
     const [cards, setCards] = React.useState([]);
     React.useEffect(() => {
@@ -24,6 +26,7 @@ const Product = () => {
                         console.log(element.category, category);
                         if (element.category == category) cards.push(element);
                     });
+                    setLoadingPage(false)
                     setCards(cards);
                 } else {
                     console.error("Failed to fetch cards");
@@ -37,51 +40,61 @@ const Product = () => {
     }, [category]);
     return (
         <>
-            <NavBar />
-            <Card>
-                {category == "Happy Birthday" ? (
-                    <>
-                        <CardItems
-                            index="1"
-                            image="/birthday/1/Front/Front.png"
-                            name="Happy Birthday"
-                            category="birthday"
-                        />
-                        <CardItems
-                            index="2"
-                            image="/birthday/2/Front/Front.png"
-                            name="Happy Birthday (1)"
-                            category="birthday"
-                        />
-                    </>
-                ) : (
-                    <></>
-                )}
-                {category == "Thank You" ? (
-                    <>
-                        <CardItems
-                            index="1"
-                            image="/thanksyou/1/Front/Front.png"
-                            name="Thank You"
-                            category="thanksyou"
-                        />
-                        <CardItems
-                            index="2"
-                            image="/thanksyou/2/Front/Front.png"
-                            name="Thank You (1)"
-                            category="thanksyou"
-                        />
-                    </>
-                ) : (
-                    <></>
-                )}
-                {cards &&
-                    cards.map((card) => {
-                        return <CardDetails card={card} />;
-                    })}
-            </Card>
-
-            <Footer />
+            {loadingPage ? (
+                <>
+                    <Ring>
+                        Loading
+                        <span></span>
+                    </Ring>
+                </>
+            ) : (
+                <>
+                    <NavBar />
+                    <Card>
+                        {category == "Happy Birthday" ? (
+                            <>
+                                <CardItems
+                                    index="1"
+                                    image="/birthday/1/Front/Front.png"
+                                    name="Happy Birthday"
+                                    category="birthday"
+                                />
+                                <CardItems
+                                    index="2"
+                                    image="/birthday/2/Front/Front.png"
+                                    name="Happy Birthday (1)"
+                                    category="birthday"
+                                />
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                        {category == "Thank You" ? (
+                            <>
+                                <CardItems
+                                    index="1"
+                                    image="/thanksyou/1/Front/Front.png"
+                                    name="Thank You"
+                                    category="thanksyou"
+                                />
+                                <CardItems
+                                    index="2"
+                                    image="/thanksyou/2/Front/Front.png"
+                                    name="Thank You (1)"
+                                    category="thanksyou"
+                                />
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                        {cards &&
+                            cards.map((card) => {
+                                return <CardDetails card={card} />;
+                            })}
+                    </Card>
+                    <Footer />
+                </>
+            )}
         </>
     );
 };
@@ -98,5 +111,62 @@ const Card = styled.div`
     gap: 3rem;
     @media (max-width: 770px) {
         justify-content: center;
+    }
+`;
+
+const Ring = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: transparent;
+    text-align: center;
+    line-height: 150px;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: #fdc674;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    &:before {
+        content: "";
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        width: 100%;
+        height: 100%;
+        border: 3px solid transparent;
+        border-top: 3px solid #fdc674;
+        border-right: 3px solid #fdc674;
+        border-radius: 50%;
+        animation: animateC 2s linear infinite;
+    }
+    & > span {
+        display: block;
+        position: absolute;
+        top: calc(50% - 2px);
+        left: 50%;
+        width: 50%;
+        height: 4px;
+        background: transparent;
+        transform-origin: left;
+        animation: animate 2s linear infinite;
+    }
+    @keyframes animateC {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes animate {
+        0% {
+            transform: rotate(45deg);
+        }
+        100% {
+            transform: rotate(405deg);
+        }
     }
 `;

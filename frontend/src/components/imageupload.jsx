@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import ProductContext from "../contexts/productcontext";
+// import Crop from "./crop";
 
 const ImageUpload = (props) => {
     const { category, index, imageUpload, envelope } = props;
@@ -46,6 +47,9 @@ const ImageUpload = (props) => {
                         : `data:image/png;base64,${imageUpload}`
                 }
             ></Image>
+            {envelopeImage && (
+                <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
+            )}
             <EnvelopeUploadImage
                 src={
                     index
@@ -83,9 +87,7 @@ const ImageUpload = (props) => {
                     id="upload"
                 />
             </UploadImage>
-            {envelopeImage && (
-                <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
-            )}
+
         </Canvas>
     );
 };

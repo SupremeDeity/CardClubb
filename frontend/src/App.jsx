@@ -22,7 +22,7 @@ function App() {
         localuser ? JSON.parse(localuser) : ""
     );
     const [user, setUser] = React.useState({
-        isAdmin: true,
+        isAdmin: false,
         isLogin: localStorageUser ? true : false,
         username: localStorageUser ? localStorageUser["name"] : "",
         email: localStorageUser ? localStorageUser["email"] : "",
