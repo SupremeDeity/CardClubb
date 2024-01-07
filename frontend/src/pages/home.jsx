@@ -160,6 +160,14 @@ const HeaderSection = styled.section`
 const Image = styled.img`
     width: 460px;
     height: 460px;
+    @media (max-width: 600px) {
+        width: 300px;
+        height: 300px;
+    }
+    @media (max-width: 420px) {
+        width: 270px;
+        height: 270px;
+    }
 `;
 const Label = styled.div`
     width: 30%;
@@ -185,10 +193,6 @@ const MiddleSection = styled.div`
     align-items: center;
     flex-wrap: wrap;
     gap: 50px;
-    & > img {
-        width: 350px;
-        height: 350px;
-    }
     @media (max-width: 800px) {
         & > div {
             justify-content: center;

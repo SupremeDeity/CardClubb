@@ -121,7 +121,7 @@ const UploadImage = styled.div`
     z-index: 1000;
     position: absolute;
     top: 90px;
-    right: 162px;
+    right: 30%;
     width: 100px;
     height: 100px;
     text-align: center;

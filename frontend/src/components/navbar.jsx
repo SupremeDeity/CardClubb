@@ -145,7 +145,9 @@ const Primary = styled.div`
     align-items: center;
     gap: 20px;
     @media (max-width: 700px) {
+        padding: 0 20px;
         height: 40%;
+        justify-content: space-between;
     }
 `;
 const Secondary = styled.div`

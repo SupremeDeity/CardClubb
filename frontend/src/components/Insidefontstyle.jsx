@@ -227,8 +227,9 @@ const FontSize = styled.input`
 `;
 const ColorsDiv = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 20px;
 `;
 const ColorsCircle = styled.div`
@@ -245,10 +246,12 @@ const ColorsCircle = styled.div`
     }
 `;
 
+
 const Image = styled.img`
     width: 100%;
     height: 600px;
 `;
+
 
 const SliderContainer = styled.div`
     height: 70px;
@@ -290,6 +293,9 @@ const SliderButton = styled.button`
     border: none;
     font-size: 24px;
     cursor: pointer;
+    @media (max-width:750px) {
+        top: 40%;
+    }
 `;
 
 const LeftButton = styled(SliderButton)`

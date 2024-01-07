@@ -15,7 +15,7 @@ const Inside = (props) => {
     return (
         <Canvas>
             {!edit ? (
-                <>
+                <ImageDiv>
                     <Image
                         src={
                             index
@@ -35,7 +35,7 @@ const Inside = (props) => {
                     >
                         {content}
                     </TextDiv>
-                </>
+                </ImageDiv>
             ) : (
                 <InsideFontStyle
                     edit={setEdit}
@@ -53,15 +53,33 @@ const Canvas = styled.div`
     margin-top: 20px;
     position: relative;
     width: 500px;
+    @media (max-width: 750px) {
+        width: 400px;
+    }
+    @media (max-width: 650px) {
+        width: 350px;
+    }
 `;
+const ImageDiv = styled.div`
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+`
 const Image = styled.img`
     width: 100%;
     height: 600px;
+    @media (max-width: 750px) {
+        width: 80%;
+        height: 500px;
+    }
 `;
 
 const EditLabel = styled.div`
     cursor: pointer;
-    margin-left: -6rem;
+    margin-left: -123%;
     color: white;
     position: absolute;
     top: 40%;
@@ -80,6 +98,11 @@ const EditLabel = styled.div`
     & > span {
         transform: scale(1) rotate(-135deg);
         width: 100;
+    }
+    @media (max-width: 550px) {
+        margin-left: -105%;
+        width: 70px;
+        height: 70px;
     }
 `;
 const TextDiv = styled.p`

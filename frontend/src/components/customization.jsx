@@ -132,21 +132,22 @@ const Label = styled.div`
 `;
 
 const Image = styled.img`
-    width: 450px;
+    width:40%;
     height: 500px;
+    @media (max-width: 750px) {
+        width: 70%;
+        height: 400px;
+    }
 `;
 
 const ImageContainer = styled.div`
-    padding: 30px 0;
+    padding: 30px 10px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     @media (max-width: 750px) {
-        width: 60%;
-    }
-    @media (max-width: 550px) {
-        width: 50%;
+        width: 80%;
     }
 `;
 
