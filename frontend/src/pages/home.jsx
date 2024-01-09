@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Typewriter from "../components/typewriter";
 import React from "react";
+import HomeImage from "../assets/home.jpg"
 const Home = () => {
     const [loadingPage, setLoadingPage] = React.useState(true);
     React.useEffect(() => {
@@ -35,18 +36,9 @@ const Home = () => {
                     <NavBar />
                     <LandingPage>
                         <HeaderSection>
-                            <Label>
-                                Ready to
-                                <span> Celebrate ?</span>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Omnis aut qui est ex
-                                    porro. Velit id corporis tenetur, magni
-                                    autem totam praesentium libero, ut adipisci
-                                    nemo est neque, culpa saepe!
-                                </p>
-                            </Label>
-                            <Image src="/thanksyou/1/Front/Front.png"></Image>
+                            <HeaderLabel>ONLINE GREETING CARDS</HeaderLabel>
+                            <HeaderPara>SEND ONLINE INVITATION CARDS TO YOU FOLLOWS</HeaderPara>
+                            <button>EXPLORE CARDS</button>
                         </HeaderSection>
                         <Label
                             style={{
@@ -145,18 +137,56 @@ const LandingPage = styled.div`
 
 const HeaderSection = styled.section`
     padding: 20px;
+    background-image: url(${HomeImage});
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 75vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 4rem;
-    @media (max-width: 800px) {
-        & > div {
-            width: 50%;
-        }
-        flex-direction: column;
+
+    gap: 1.5rem;
+    & > button {
+        background: #355e3b;
+        color: white;
+        text-align: center;
+        width:150px;
+        height: 50px;
+        border:none;
+        outline:none;
+    }
+    @media (max-width:850px) {
+        height: 50vh;
+    }
+    @media (max-width:650px) {
+        height: 40vh;
     }
 `;
+const HeaderLabel = styled.h3`
+    color:#355e3b;
+    font-size:2.3rem;
+    text-align:center;
+    @media (max-width:850px) {
+        font-size: 1.8rem;
+    }
+    @media (max-width:650px) {
+        font-size: 1.2rem;
+    }
+`
+const HeaderPara = styled.p`
+    color:gray;
+    font-size:2rem;
+    text-align:center;
+    @media (max-width:850px) {
+        font-size: 1.5rem;
+    }
+    @media (max-width:650px) {
+        font-size: 1rem;
+    }
+`
 const Image = styled.img`
     width: 460px;
     height: 460px;
@@ -181,7 +211,19 @@ const Label = styled.div`
     }
 `;
 
-const MainSection = styled(HeaderSection)`
+const MainSection = styled.div`
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    @media (max-width: 800px) {
+        & > div {
+            width: 50%;
+        }
+        flex-direction: column;
+    }
     border-radius: 10px;
     gap: 5rem;
 `;

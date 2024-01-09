@@ -146,7 +146,6 @@ const Primary = styled.div`
     gap: 20px;
     @media (max-width: 700px) {
         padding: 0 20px;
-        height: 40%;
         justify-content: space-between;
     }
 `;
@@ -159,9 +158,6 @@ const Secondary = styled.div`
     gap: 5rem;
     padding-left: 1.5rem;
     height: 50%;
-    @media (max-width: 700px) {
-        height: 40%;
-    }
 `;
 
 const NavList = styled.ul`
@@ -182,7 +178,7 @@ const NavList = styled.ul`
             border-bottom: 3px solid #fdc674;
         }
         @media (max-width: 700px) {
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
     }
 `;

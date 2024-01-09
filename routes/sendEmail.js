@@ -4,8 +4,14 @@ const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const multer = require("multer");
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-const { getEmailCards, addEmailCards } = require("../controllers/emailcardsController");
+const upload = multer({
+    storage: storage,
+    limits: { fieldNameSize: 999999999, fieldSize: 999999999 },
+});
+const {
+    getEmailCards,
+    addEmailCards,
+} = require("../controllers/emailcardsController");
 dotenv.config();
 
 router.post("/send-email", (req, res) => {
@@ -37,10 +43,17 @@ router.post("/send-email", (req, res) => {
 
 router.post(
     "/send-email-card",
-    upload.fields([{ name: "front" }, { name: "envelope" },{ name: "custom" },{ name: "image" },{ name: "envelopeOpen" },{ name: "stamp" }]),
+    upload.fields([
+        { name: "front" },
+        { name: "envelope" },
+        { name: "custom" },
+        { name: "image" },
+        { name: "envelopeOpen" },
+        { name: "stamp" },
+    ]),
     addEmailCards
 );
 
-router.post('/get/cards/:id',getEmailCards)
+router.post("/get/cards/:id", getEmailCards);
 
 module.exports = router;
