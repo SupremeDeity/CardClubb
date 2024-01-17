@@ -11,6 +11,7 @@ const upload = multer({
 const {
     getEmailCards,
     addEmailCards,
+    getReceivers,
 } = require("../controllers/emailcardsController");
 dotenv.config();
 
@@ -55,5 +56,6 @@ router.post(
 );
 
 router.post("/get/cards/:id", getEmailCards);
+router.get("/get/receivers",getReceivers)
 
 module.exports = router;

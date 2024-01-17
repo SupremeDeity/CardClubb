@@ -8,7 +8,8 @@ import userContext from "../contexts/usercontext";
 import Category from "./category";
 
 const NavBar = () => {
-    const { user, setLocalStorageUser,setUser } = React.useContext(userContext);
+    const { user, setLocalStorageUser, setUser } =
+        React.useContext(userContext);
     const [isOpen, setIsOpen] = React.useState(false);
     const [categories, setCategories] = React.useState([
         "Happy Birthday",
@@ -54,7 +55,12 @@ const NavBar = () => {
 
             if (response.ok) {
                 localStorage.removeItem("user");
-                setUser({isAdmin:false,isLogin:false,username:"",email:""})
+                setUser({
+                    isAdmin: false,
+                    isLogin: false,
+                    username: "",
+                    email: "",
+                });
                 setLocalStorageUser(null);
             }
         } catch (error) {
@@ -69,14 +75,18 @@ const NavBar = () => {
             });
         else if (categoryData == "Thank You")
             navigate("/thankyou/product", { state: { category: "Thank You" } });
-        else    
-            navigate(`/${categoryData}/product`,{state:{category:`${categoryData}`}})
+        else
+            navigate(`/${categoryData}/product`, {
+                state: { category: `${categoryData}` },
+            });
         setIsOpen(!open);
     };
     return (
         <Nav>
             <Primary>
-                <Logo src={logo} alt="logo"></Logo>
+                <NavLink to="/home">
+                    <Logo src={logo} alt="logo"></Logo>
+                </NavLink>
                 {user.isLogin ? (
                     <Account>
                         <AccountLinks>{user.username}</AccountLinks>
@@ -206,6 +216,7 @@ const Account = styled.div`
 `;
 const AccountLinks = styled.a`
     font-size: 1.25rem;
+    cursor: pointer;
     color: #000;
     &:hover {
         color: #af4b2f;

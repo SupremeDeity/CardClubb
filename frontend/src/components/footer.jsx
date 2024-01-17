@@ -1,9 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp,faTwitter,faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 const Footer = () => {
+    const navigate = useNavigate();
+    const handleCategory = (e) => {
+        const categoryData = e.target.innerText;
+        if (categoryData == "Happy Birthday")
+            navigate("/birthday/product", {
+                state: { category: "Happy Birthday" },
+            });
+        else if (categoryData == "Thank You")
+            navigate("/thankyou/product", { state: { category: "Thank You" } });
+    };
     return (
         <Nav>
             <NavList>
@@ -13,12 +23,12 @@ const Footer = () => {
                     </Links>
                 </li>
                 <li>
-                    <Links as={Link} to="/birthday-product">
+                    <Links onClick={handleCategory} style={{cursor:"pointer"}}>
                         Happy Birthday
                     </Links>
                 </li>
                 <li>
-                    <Links as={Link} to="/thankyou-product">
+                    <Links onClick={handleCategory} style={{cursor:"pointer"}}>
                         Thank You
                     </Links>
                 </li>

@@ -2,13 +2,14 @@
 import styled from "styled-components"
 
 const UsersList = (props) => {
-    const {username,firstname,lastname,email}=props.user
+    const user=props.user
   return (
     <>
         <tr>
-            <TableData>{firstname} {lastname}</TableData>
-            <TableData>{username}</TableData>
-            <TableData>{email}</TableData>
+            {user.firstname && user.lastname && (<TableData>{user.firstname} {user.lastname}</TableData>)}
+            {user.username && (<TableData>{user.username}</TableData>)}
+            {user.name && (<TableData>{user.name}</TableData>)}
+            <TableData>{user.email}</TableData>
         </tr>
     </>
   )

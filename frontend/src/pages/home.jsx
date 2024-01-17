@@ -13,7 +13,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Typewriter from "../components/typewriter";
 import React from "react";
-import HomeImage from "../assets/home.jpg"
+import HomeImage from "../assets/home.jpg";
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
     const [loadingPage, setLoadingPage] = React.useState(true);
     React.useEffect(() => {
@@ -22,6 +24,20 @@ const Home = () => {
         }, 3000);
         return () => clearTimeout(timer);
     }, []);
+    const categoryRef = React.useRef(null);
+    const scrollToCategory = () => {
+        categoryRef.current.scrollIntoView({ behavior: "smooth" });
+    };
+    const navigate = useNavigate();
+    const handleCategory = (e) => {
+        const categoryData = e.target.innerText;
+        if (categoryData == "Happy Birthday")
+            navigate("/birthday/product", {
+                state: { category: "Happy Birthday" },
+            });
+        else if (categoryData == "Thank You")
+            navigate("/thankyou/product", { state: { category: "Thank You" } });
+    };
     return (
         <>
             {loadingPage ? (
@@ -37,8 +53,15 @@ const Home = () => {
                     <LandingPage>
                         <HeaderSection>
                             <HeaderLabel>ONLINE GREETING CARDS</HeaderLabel>
-                            <HeaderPara>SEND ONLINE INVITATION CARDS TO YOU FOLLOWS</HeaderPara>
-                            <button>EXPLORE CARDS</button>
+                            <HeaderPara>
+                                SEND ONLINE INVITATION CARDS TO YOU FOLLOWS
+                            </HeaderPara>
+                            <button
+                                onClick={scrollToCategory}
+                                style={{ cursor: "pointer" }}
+                            >
+                                EXPLORE CARDS
+                            </button>
                         </HeaderSection>
                         <Label
                             style={{
@@ -55,7 +78,7 @@ const Home = () => {
                         </MainSection>
                         <MiddleSection>
                             <Image src={image_3}></Image>
-                            <MiddleDiv>
+                            <MiddleDiv ref={categoryRef}>
                                 <Label>
                                     Explore What&apos;s
                                     <span> trending</span>
@@ -67,8 +90,18 @@ const Home = () => {
                                         adipisci nemo est neque, culpa saepe!
                                     </p>
                                 </Label>
-                                <Button>Happy Birthday</Button>
-                                <Button>Thanksyou Card</Button>
+                                <Button
+                                    onClick={handleCategory}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    Happy Birthday
+                                </Button>
+                                <Button
+                                    onClick={handleCategory}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    Thank You
+                                </Button>
                             </MiddleDiv>
                         </MiddleSection>
                         <TypeWriter>
@@ -83,6 +116,7 @@ const Home = () => {
                                 <FontAwesomeIcon
                                     icon={faDownload}
                                     size={"lg"}
+                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
                                 />
                                 <h3>Download</h3>
                                 <p>
@@ -91,7 +125,11 @@ const Home = () => {
                                 </p>
                             </Icons>
                             <Icons>
-                                <FontAwesomeIcon icon={faPrint} size={"lg"} />
+                                <FontAwesomeIcon
+                                    icon={faPrint}
+                                    size={"lg"}
+                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
+                                />
                                 <h3>Print</h3>
                                 <p>
                                     Get a digital copy of your invitation by
@@ -99,7 +137,11 @@ const Home = () => {
                                 </p>
                             </Icons>
                             <Icons>
-                                <FontAwesomeIcon icon={faShare} size={"lg"} />
+                                <FontAwesomeIcon
+                                    icon={faShare}
+                                    size={"lg"}
+                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
+                                />
                                 <h3>Share</h3>
                                 <p>
                                     Get a digital copy of your invitation by
@@ -107,7 +149,11 @@ const Home = () => {
                                 </p>
                             </Icons>
                             <Icons>
-                                <FontAwesomeIcon icon={faFile} size={"lg"} />
+                                <FontAwesomeIcon
+                                    icon={faFile}
+                                    size={"lg"}
+                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
+                                />
                                 <h3>Manage</h3>
                                 <p>
                                     Get a digital copy of your invitation by
@@ -153,40 +199,40 @@ const HeaderSection = styled.section`
         background: #355e3b;
         color: white;
         text-align: center;
-        width:150px;
+        width: 150px;
         height: 50px;
-        border:none;
-        outline:none;
+        border: none;
+        outline: none;
     }
-    @media (max-width:850px) {
+    @media (max-width: 850px) {
         height: 50vh;
     }
-    @media (max-width:650px) {
+    @media (max-width: 650px) {
         height: 40vh;
     }
 `;
 const HeaderLabel = styled.h3`
-    color:#355e3b;
-    font-size:2.3rem;
-    text-align:center;
-    @media (max-width:850px) {
+    color: #355e3b;
+    font-size: 2.3rem;
+    text-align: center;
+    @media (max-width: 850px) {
         font-size: 1.8rem;
     }
-    @media (max-width:650px) {
+    @media (max-width: 650px) {
         font-size: 1.2rem;
     }
-`
+`;
 const HeaderPara = styled.p`
-    color:gray;
-    font-size:2rem;
-    text-align:center;
-    @media (max-width:850px) {
+    color: gray;
+    font-size: 2rem;
+    text-align: center;
+    @media (max-width: 850px) {
         font-size: 1.5rem;
     }
-    @media (max-width:650px) {
+    @media (max-width: 650px) {
         font-size: 1rem;
     }
-`
+`;
 const Image = styled.img`
     width: 460px;
     height: 460px;

@@ -17,8 +17,7 @@ const Register = () => {
         lastName: string().min(1, { message: "Required" }),
         email: string().email(),
         password: string().refine((value) => passwordRegex.test(value), {
-            message:
-                "Password must contain at least one uppercase letter, one lowercase letter, one special character, and one number, and be at least 8 characters long.",
+            message:"Invalid",
         }),
     });
     const {

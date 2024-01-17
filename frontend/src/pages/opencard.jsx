@@ -8,7 +8,7 @@ const OpenCard = () => {
     const [parameters, setParameters] = React.useState({
         color: "",
         family: "",
-        size: "",
+        size: 16,
         text: "",
         front: "",
         image: "",
@@ -56,6 +56,7 @@ const OpenCard = () => {
                         stamp,
                         envelopeOpen,
                     } = result;
+                    
                     setParameters({
                         color,
                         family,
@@ -68,6 +69,7 @@ const OpenCard = () => {
                         envelopeImage:stamp,
                         envelopeOpenImage:envelopeOpen,
                     });
+                    
                     setLoadingPage(false);
                 } else {
                     console.error("Failed to send email.");
@@ -78,6 +80,7 @@ const OpenCard = () => {
         };
         fetchCards(id);
     }, [id]);
+    
     return (
         <>
             {loadingPage ? (
@@ -140,9 +143,9 @@ const OpenCard = () => {
                                     ></Image>
                                     <TextDiv
                                         style={{
-                                            fontSize: `${parameters.fontSize}px`,
+                                            fontSize: `${parameters.size}px`,
                                             color: parameters.color,
-                                            fontFamily: parameters.fontFamily,
+                                            fontFamily: parameters.family,
                                         }}
                                     >
                                         {parameters.text}

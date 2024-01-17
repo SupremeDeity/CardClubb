@@ -38,7 +38,8 @@ const AdminLogin = () => {
                 const data = await response.json();
                 const { name, email } = data;
                 setUser({isAdmin:true,isLogin:true,username:name,email:email})
-                localStorage.setItem('user', JSON.stringify(data));
+                const storageData = {name,email,isAdmin:true}
+                localStorage.setItem('user', JSON.stringify(storageData));
                 setLocalStorageUser(data)
                 navigate('/admin/dashboard')
             } else {

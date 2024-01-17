@@ -132,11 +132,22 @@ const emailSchema = mongoose.Schema({
         content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
     },
 });
+const EmailReceiversData = mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    email:{
+        type:String,
+        required:true,
+    }
+});
 
 const Category = mongoose.model("Category", categorySchema);
 const User = mongoose.model("User", userSchema);
 const Admin = mongoose.model("Admins", adminSchema);
 const Card = mongoose.model("Card", cardSchema);
 const Email = mongoose.model("Email", emailSchema);
+const Receivers = mongoose.model("Receivers",EmailReceiversData)
 
-module.exports = { User, Admin, Category, Card, Email };
+module.exports = { User, Admin, Category, Card, Email, Receivers };

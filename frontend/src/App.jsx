@@ -16,6 +16,7 @@ import AdminRegister from "./pages/adminregister";
 import UserContext from "./contexts/usercontext";
 import ProductContext from "./contexts/productcontext";
 import OpenCard from "./pages/opencard";
+import UsersPage from "./pages/usersPage";
 
 function App() {
     const localuser = localStorage.getItem("user");
@@ -23,7 +24,7 @@ function App() {
         localuser ? JSON.parse(localuser) : ""
     );
     const [user, setUser] = React.useState({
-        isAdmin: false,
+        isAdmin: localStorageUser ? true : false,
         isLogin: localStorageUser ? true : false,
         username: localStorageUser ? localStorageUser["name"] : "",
         email: localStorageUser ? localStorageUser["email"] : "",
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/admin-login" element={<AdminLogin />} />
                 <Route path="/admin-register" element={<AdminRegister />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin/dashboard/users" element={<UsersPage />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/:category/product" element={<Product />} />
                 <Route path="/card/:category" element={<ProductInfo />} />

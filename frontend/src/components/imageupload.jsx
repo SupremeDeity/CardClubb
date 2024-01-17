@@ -87,7 +87,6 @@ const ImageUpload = (props) => {
                     id="upload"
                 />
             </UploadImage>
-
         </Canvas>
     );
 };
@@ -105,9 +104,12 @@ const Canvas = styled.div`
 `;
 const Image = styled.img`
     margin-top: 4rem;
-    width: 90%;
+    width: 100%;
     height: 400px;
     z-index: 100;
+    @media (max-width: 500px) {
+        height: 300px;
+    }
 `;
 const EnvelopeUploadImage = styled.img`
     width: 90%;
@@ -121,7 +123,7 @@ const UploadImage = styled.div`
     z-index: 1000;
     position: absolute;
     top: 90px;
-    right: 30%;
+    right: 28%;
     width: 100px;
     height: 100px;
     text-align: center;
@@ -158,10 +160,16 @@ const UploadImage = styled.div`
 const CardImage = styled.img`
     z-index: 111;
     position: absolute;
-    top: 108px;
-    left: 76%;
-    width: 11%;
-    height: 72px;
+    top: 106px;
+    left: 79%;
+    width: 12%;
+    height: 16%;
+    @media (max-width: 500px) {
+        top: 99px;
+        left: 78.5%;
+        width: 12%;
+        height: 15%;
+    }
 `;
 
 const EnvelopeOpenImage = styled(UploadImage)`

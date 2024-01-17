@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { Email } = require("../models/userSchema");
+const { Email,Receivers } = require("../models/userSchema");
 const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require('uuid');
 
@@ -81,8 +81,11 @@ const addEmailCards = asyncHandler(async (req, res) => {
                 content: envelopeOpen.split(',')[1]
             },
         });
-        if (cards) {
-            
+        const receivers = await Receivers.create({
+            name:name,
+            email:email
+        });
+        if (cards && receivers) {
             const transporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
@@ -182,5 +185,13 @@ const addEmailCards = asyncHandler(async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
-module.exports = { getEmailCards, addEmailCards };
+const getReceivers = asyncHandler(async (req, res) => {
+    const data = await Receivers.find();
+    if (data) {
+        res.status(201).json({ data });
+    } else {
+        res.status(401);
+        throw new Error("Error");
+    }
+});
+module.exports = { getEmailCards, addEmailCards,getReceivers };
