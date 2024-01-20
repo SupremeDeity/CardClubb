@@ -6,7 +6,8 @@ import { useContext } from "react";
 import UserContext from "../contexts/usercontext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminDashboard = () => {
     const { user } = useContext(UserContext);
@@ -28,6 +29,7 @@ const AdminDashboard = () => {
                     <AddCategory />
                     <AddCards />
                     <Footer />
+                    <ToastContainer />
                 </>
             ) : (
                 <div>Not Authorized User</div>

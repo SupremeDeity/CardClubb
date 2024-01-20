@@ -124,12 +124,12 @@ const emailSchema = mongoose.Schema({
         content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
     },
     stamp: {
-        mime_type: { type: String, required: true },
-        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+        mime_type: { type: String },
+        content: { type: String, maxlength: 10 * 1024 * 1024 },
     },
     envelopeOpen: {
-        mime_type: { type: String, required: true },
-        content: { type: String, required: true, maxlength: 10 * 1024 * 1024 },
+        mime_type: { type: String },
+        content: { type: String, maxlength: 10 * 1024 * 1024 },
     },
 });
 const EmailReceiversData = mongoose.Schema({
@@ -139,6 +139,7 @@ const EmailReceiversData = mongoose.Schema({
     },
     email:{
         type:String,
+        unique: true,
         required:true,
     }
 });

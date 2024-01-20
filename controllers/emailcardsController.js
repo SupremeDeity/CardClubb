@@ -1,12 +1,12 @@
 const asyncHandler = require("express-async-handler");
-const { Email,Receivers } = require("../models/userSchema");
+const { Email, Receivers } = require("../models/userSchema");
 const nodemailer = require("nodemailer");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
 const getEmailCards = asyncHandler(async (req, res) => {
     const id = req.params.id;
     try {
-        const email = await Email.findOne({id});
+        const email = await Email.findOne({ id });
 
         if (!email) {
             return res.status(404).json({ error: "Not found" });
@@ -14,7 +14,7 @@ const getEmailCards = asyncHandler(async (req, res) => {
         const base64Encode = (buffer) => {
             return buffer.toString("base64");
         };
-    
+
         res.json({
             id: email.id,
             text: email.text,
@@ -38,7 +38,8 @@ const addEmailCards = asyncHandler(async (req, res) => {
     try {
         const {
             name,
-            email,
+            senderemail,
+            receiveremail,
             content,
             size,
             family,
@@ -57,35 +58,40 @@ const addEmailCards = asyncHandler(async (req, res) => {
             size: size,
             family: family,
             front: {
-                mime_type: front.split(',')[0],
-                content: front.split(',')[1]
+                mime_type: front.split(",")[0],
+                content: front.split(",")[1],
             },
             image: {
-                mime_type: image.split(',')[0],
-                content: image.split(',')[1]
+                mime_type: image.split(",")[0],
+                content: image.split(",")[1],
             },
             envelope: {
-                mime_type: envelope.split(',')[0],
-                content: envelope.split(',')[1]
+                mime_type: envelope.split(",")[0],
+                content: envelope.split(",")[1],
             },
             custom: {
-                mime_type: custom.split(',')[0],
-                content: custom.split(',')[1]
+                mime_type: custom.split(",")[0],
+                content: custom.split(",")[1],
             },
             stamp: {
-                mime_type: stamp.split(',')[0],
-                content: stamp.split(',')[1]
+                mime_type: stamp.split(",")[0],
+                content: stamp.split(",")[1],
             },
             envelopeOpen: {
-                mime_type: envelopeOpen.split(',')[0],
-                content: envelopeOpen.split(',')[1]
+                mime_type: envelopeOpen.split(",")[0],
+                content: envelopeOpen.split(",")[1],
             },
         });
-        const receivers = await Receivers.create({
-            name:name,
-            email:email
-        });
-        if (cards && receivers) {
+        const userExists = await Receivers.find({ receiveremail });
+        if (userExists) {
+            console.log("Reciever User exists");
+        }else{
+            const receivers = await Receivers.create({
+                name: name,
+                email: receiveremail,
+            });
+        }
+        if (cards) {
             const transporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
@@ -148,9 +154,9 @@ const addEmailCards = asyncHandler(async (req, res) => {
                 </html>
         `;
             const mailOptions = {
-                from: email,
-                to: process.env.EMAIL_ACC,
-                replyTo: process.env.EMAIL_ACC,
+                from: senderemail,
+                to: receiveremail,
+                replyTo: receiveremail,
                 subject: `New Greeting Card from ${name}`,
                 html: htmlContent,
                 attachments: [
@@ -194,4 +200,4 @@ const getReceivers = asyncHandler(async (req, res) => {
         throw new Error("Error");
     }
 });
-module.exports = { getEmailCards, addEmailCards,getReceivers };
+module.exports = { getEmailCards, addEmailCards, getReceivers };

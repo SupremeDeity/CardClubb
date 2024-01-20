@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string } from "zod";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddCategory = () => {
-    const [status,setStatus]=React.useState("");
+    const [isDisabled, setDisabled] = React.useState(false);
     const categorySchema = object({
         category: string().min(1, { message: "Required" }),
     });
@@ -14,6 +16,7 @@ const AddCategory = () => {
         handleSubmit,
     } = useForm({ resolver: zodResolver(categorySchema) });
     const onSubmit = async (data) => {
+        setDisabled(true)
         try {
             const response = await fetch(
                 "https://cardclub.vercel.app/category/add",
@@ -27,12 +30,15 @@ const AddCategory = () => {
             );
 
             if (response.ok) {
-                setStatus("Successfully Added")
+                toast.success("Successfully add Category", { position: 'top-right' });
+                setDisabled(false)
             } else {
-                setStatus("Failed to Add")
+                toast.error("Failed to Add Category", { position: 'top-right' });
+                setDisabled(false)
             }
         } catch (error) {
-            setStatus("Failed to Add")
+            toast.error("Failed to Add Category", { position: 'top-right' });
+            setDisabled(false)
         }
     };
     return (
@@ -40,14 +46,13 @@ const AddCategory = () => {
             <Title>Add New Category</Title>
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Group>
-                    {status && <Status>{status}</Status> }
                     <Input
                         type="text"
                         placeholder="Enter New Category Name"
                         {...register('category')}
                     ></Input>
                 </Group>
-                <Button>Add</Button>
+                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}}>Add</Button>
             </Form>
         </CategoryDiv>
     );
@@ -89,10 +94,6 @@ const Input = styled.input`
     border-radius: 2px;
     border: 1px solid #ddd;
     background: #fff;
-`;
-const Status = styled.div`
-    color: #282828;
-    font-size: 0.8rem;
 `;
 const Button = styled.button`
     cursor: pointer;

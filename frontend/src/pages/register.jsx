@@ -6,7 +6,8 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
@@ -17,7 +18,7 @@ const Register = () => {
         lastName: string().min(1, { message: "Required" }),
         email: string().email(),
         password: string().refine((value) => passwordRegex.test(value), {
-            message:"Invalid",
+            message: "Invalid",
         }),
     });
     const {
@@ -25,33 +26,42 @@ const Register = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
-
-    const [loginErrors,setLoginError] = React.useState("")
+    const [isDisabled, setDisabled] = React.useState(false);
     const onSubmit = async (data) => {
+        setDisabled(true);
         try {
-            const response = await fetch('https://cardclub.vercel.app/api/users/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(data),
-            });
-        
+            const response = await fetch(
+                "https://cardclub.vercel.app/api/users/",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+
             if (response.ok) {
-              setLoginError('User created successfully!');
+                toast.success("User Created Successfully", {
+                    position: "top-right",
+                });
+                setDisabled(false);
             } else {
-                setLoginError("Failed to Create User")
+                toast.error("User Already Exists", {
+                    position: "top-right",
+                });
+                setDisabled(false);
             }
-          } catch (error) {
-            setLoginError("Failed to Create User")
-          }
+        } catch (error) {
+            toast.error("Failed to Create User", { position: "top-right" });
+            setDisabled(false);
+        }
     };
     return (
         <>
             <NavBar />
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Group>
-                    {loginErrors?<Error style={{fontSize:"1rem"}}>{loginErrors}</Error>:<></>}
                     <Label>Username</Label>
                     {errors.username && (
                         <Error>{errors.username.message}</Error>
@@ -104,10 +114,17 @@ const Register = () => {
                         {...register("password")}
                     ></Input>
                 </Group>
-                <Group><Label as={Link} to="/login" style={{fontSize:".8rem"}}>Already Have an Account ? Login</Label></Group>
-                <Button type="submit">Register</Button>
+                <Group>
+                    <Label as={Link} to="/login" style={{ fontSize: ".8rem" }}>
+                        Already Have an Account ? Login
+                    </Label>
+                </Group>
+                <Button type="submit" disabled={isDisabled}>
+                    Register
+                </Button>
             </Form>
             <Footer />
+            <ToastContainer />
         </>
     );
 };
@@ -136,7 +153,7 @@ const Input = styled.input`
     background: #fff;
 `;
 const Label = styled.label`
-    color: #282828;;
+    color: #282828;
     font-size: 1rem;
 `;
 
@@ -157,7 +174,7 @@ const Group = styled.div`
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
-    @media (max-width:800px){
-        width:60%;
+    @media (max-width: 800px) {
+        width: 60%;
     }
 `;

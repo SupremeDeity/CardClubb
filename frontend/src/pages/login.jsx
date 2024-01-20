@@ -6,11 +6,16 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 import UserContext from "../contexts/usercontext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-    const { user,setLocalStorageUser,setUser } = React.useContext(UserContext);
-    const [loginErrors,setLoginError] = React.useState("")
+    const navigate = useNavigate();
+    const { state } = useLocation();
+    const { setLocalStorageUser, setUser } =
+        React.useContext(UserContext);
+    const [isDisabled, setDisabled] = React.useState(false);
     const loginSchema = object({
         email: string().email(),
         password: string().min(1, { message: "Required" }),
@@ -21,6 +26,7 @@ const Login = () => {
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
     const onSubmit = async (data) => {
+        setDisabled(true);
         try {
             const response = await fetch(
                 "https://cardclub.vercel.app/api/users/auth",
@@ -32,54 +38,69 @@ const Login = () => {
                     body: JSON.stringify(data),
                 }
             );
-
             if (response.ok) {
                 const data = await response.json();
-                setUser({isAdmin:false,isLogin:true,username:data.name,email:data.email})
-                localStorage.setItem('user', JSON.stringify(data));
-                setLocalStorageUser(data)
+                toast.success("User Login", { position: 'top-right' });
+                setUser({
+                    isAdmin: false,
+                    isLogin: true,
+                    username: data.name,
+                    email: data.email,
+                });
+                localStorage.setItem("user", JSON.stringify(data));
+                setLocalStorageUser(data);
+                setDisabled(false)
+                setTimeout(() => {
+                    state ? navigate(-1) : navigate("/home");
+                }, 2000);
             } else {
-                setLoginError("Invalid Credentials")
+                toast.error("Invalid Ceredentials", { position: 'top-right' });
+                setDisabled(false);
             }
         } catch (error) {
-            setLoginError("Failed to Login")
+            toast.error("Failed to Login", { position: 'top-right' });
+            setDisabled(false);
         }
     };
     return (
         <>
             <NavBar />
-            {user.isLogin ? (
-                <Form>
-                    <div style={{fontSize:"2rem"}}>Already Login</div>
-                </Form>
-            ) : (
-                <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
-                    <Group>
-                        {loginErrors?<Error style={{fontSize:"1rem"}}>{loginErrors}</Error>:<></>}
-                        <Label>Email</Label>
-                        {errors.email && <Error>{errors.email.message}</Error>}
-                        <Input
-                            type="text"
-                            placeholder="Enter Email"
-                            {...register("email")}
-                        ></Input>
-                    </Group>
-                    <Group>
-                        <Label>Password</Label>
-                        {errors.password && (
-                            <Error>{errors.password.message}</Error>
-                        )}
-                        <Input
-                            type="password"
-                            placeholder="Enter Password"
-                            {...register("password")}
-                        ></Input>
-                    </Group>
-                    <Group><Label as={Link} to="/register" style={{fontSize:".8rem"}}>Don&apos;t Have an Account ? Sign up</Label></Group>
-                    <Button type="submit">Login</Button>
-                </Form>
-            )}
+            <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
+                <Group>
+                    <Label>Email</Label>
+                    {errors.email && <Error>{errors.email.message}</Error>}
+                    <Input
+                        type="text"
+                        placeholder="Enter Email"
+                        {...register("email")}
+                    ></Input>
+                </Group>
+                <Group>
+                    <Label>Password</Label>
+                    {errors.password && (
+                        <Error>{errors.password.message}</Error>
+                    )}
+                    <Input
+                        type="password"
+                        placeholder="Enter Password"
+                        {...register("password")}
+                    ></Input>
+                </Group>
+                <Group>
+                    <Label
+                        as={Link}
+                        to="/register"
+                        style={{ fontSize: ".8rem" }}
+                    >
+                        Don&apos;t Have an Account ? Sign up
+                    </Label>
+                </Group>
+                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}} >
+                    Login
+                </Button>
+            </Form>
             <Footer />
+            <ToastContainer />
         </>
     );
 };

@@ -52,7 +52,7 @@ const Customization = () => {
             if(user.isLogin)
                 navigate(`/card/${category}/design/send`,{state:{category,index, front, image, envelope, custom}})
             else   
-                navigate('/login')
+                navigate('/login',{state:{category,index, front, image, envelope, custom}})
         }
     };
     return (

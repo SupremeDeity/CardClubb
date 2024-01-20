@@ -3,8 +3,11 @@ import React from "react";
 import styled from "styled-components";
 import { useForm,useController } from "react-hook-form";
 import CategoriesOptions from "./categoriesoptions";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const AddCategory = () => {
-    const [status, setStatus] = React.useState("");
+    const [isDisabled, setDisabled] = React.useState(false);
     const { register, handleSubmit,control } = useForm();
     const { field } = useController({
         name: 'category',
@@ -38,6 +41,7 @@ const AddCategory = () => {
         fetchUsers();
     }, []);
     const onSubmit = async (data) => {
+        setDisabled(true)
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('category', data.category);
@@ -52,12 +56,15 @@ const AddCategory = () => {
             });
 
             if (response.ok) {
-                setStatus("Successfully Added");
+                toast.success("Successfully add Category", { position: 'top-right' });
+                setDisabled(false)
             } else {
-                setStatus("Failed to Add");
+                toast.error("Failed to Add Card", { position: 'top-right' });
+                setDisabled(false)
             }
         } catch (error) {
-            setStatus("Failed");
+            toast.error("Failed to Add Card", { position: 'top-right' });
+            setDisabled(false)
         }
     };
     return (
@@ -65,7 +72,6 @@ const AddCategory = () => {
             <Title>Add New Card</Title>
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Group>
-                    {status && <Status>{status}</Status>}
                     <Label>Enter Name of Card</Label>
                     <Input
                         type="text"
@@ -98,7 +104,7 @@ const AddCategory = () => {
                     <Label>Choose Custom</Label>
                     <InputFile type="file" {...register('custom')}></InputFile>
                 </Group>
-                <Button>Add Card</Button>
+                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}}>Add Card</Button>
             </Form>
         </CategoryDiv>
     );
@@ -149,11 +155,6 @@ const InputFile = styled.input`
     border-radius: 2px;
     border: 1px solid #ddd;
     background: #fff;
-`;
-
-const Status = styled.div`
-    color: #282828;
-    font-size: 0.8rem;
 `;
 const Button = styled.button`
     cursor: pointer;

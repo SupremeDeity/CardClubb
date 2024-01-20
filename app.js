@@ -11,6 +11,7 @@ const cors = require("cors");
 const categoryRoutes = require("./routes/categoryRoutes.js");
 const cardRoutes = require("./routes/cardRoutes.js");
 const port = process.env.PORT || 5000;
+const bodyParser = require('body-parser')
 
 mongoose
     .connect(process.env['MONGO_URI'],{dbName:"CardClubb"})
@@ -23,8 +24,14 @@ mongoose
 
 const app = express();
 app.use(cors());
-
+app.use(
+    bodyParser.urlencoded({
+      limit: "200mb",
+      extended: true,
+      parameterLimit: 10000000,})
+  );
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());

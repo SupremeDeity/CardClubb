@@ -6,11 +6,17 @@ import Footer from "../components/footer";
 import { useContext } from "react";
 import ProductContext from "../contexts/productcontext";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import UserContext from "../contexts/usercontext";
+
 
 const SendCard = () => {
     const { state } = useLocation();
     const { category, index, front, image, envelope, custom } = state;
-    const [status,setStatus]=React.useState(null)
+    const { user } =
+    React.useContext(UserContext);
+    const [isDisabled,setDisabled]=React.useState(false);
     const [Images, setImages] = React.useState({
         frontImage: "",
         customImage: "",
@@ -69,9 +75,11 @@ const SendCard = () => {
     },[])
     
     const onSubmit = async (data) => {
+        setDisabled(true)
         const formData = new FormData();
         formData.append("name", data.name);
-        formData.append("email", data.email);
+        formData.append("receiveremail", data.email);
+        formData.append("senderemail", user.email);
         formData.append("content", content);
         formData.append("size", fontSize);
         formData.append("family", fontFamily);
@@ -85,7 +93,7 @@ const SendCard = () => {
         
         try {
             const response = await fetch(
-                "https://cardclub.vercel.app/api/send-email-card",
+                "http://localhost:5000/api/send-email-card",
                 {
                     method: "POST",
                     body: formData,
@@ -93,13 +101,15 @@ const SendCard = () => {
             );
 
             if (response.ok) {
-                setStatus("Email Sent................")
+                toast.success("Email Sent Successfully", { position: 'top-right' });
+                setDisabled(false)
             } else {
-                setStatus("Failed to send email.");
+                toast.error("Failed to Send Email", { position: 'top-right' });
+                setDisabled(false)
             }
         } catch (error) {
-            console.error("Error:", error);
-            setStatus("Failed to send email.");
+            toast.error("Failed to Send Email", { position: 'top-right' });
+            setDisabled(false)
         }
     };
     const handlePreview = () => {
@@ -125,9 +135,6 @@ const SendCard = () => {
                 </Info>
                 <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                     <Label>Send Your Card</Label>
-                    {status &&
-                        <div style={{color:"#282828",fontSize:"16px"}}>{status}</div>
-                    }
                     <Input
                         type="text"
                         {...register("name")}
@@ -140,10 +147,11 @@ const SendCard = () => {
                         required
                         {...register("email")}
                     ></Input>
-                    <Button type="submit">Send Card</Button>
+                    <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}}>Send Card</Button>
                 </Form>
             </MainSection>
             <Footer />
+            <ToastContainer />
         </>
     );
 };

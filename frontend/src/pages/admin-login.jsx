@@ -6,11 +6,12 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 import UserContext from "../contexts/usercontext";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminLogin = () => {
-    const {setUser,setLocalStorageUser} = React.useContext(UserContext);
-    const [loginErrors, setLoginError] = React.useState("");
+    const { setUser, setLocalStorageUser } = React.useContext(UserContext);
     const navigate = useNavigate();
     const loginSchema = object({
         email: string().email(),
@@ -21,7 +22,9 @@ const AdminLogin = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
+    const [isDisabled, setDisabled] = React.useState(false);
     const onSubmit = async (data) => {
+        setDisabled(true);
         try {
             const response = await fetch(
                 "https://cardclub.vercel.app/api/users/auth/admin",
@@ -37,16 +40,25 @@ const AdminLogin = () => {
             if (response.ok) {
                 const data = await response.json();
                 const { name, email } = data;
-                setUser({isAdmin:true,isLogin:true,username:name,email:email})
-                const storageData = {name,email,isAdmin:true}
-                localStorage.setItem('user', JSON.stringify(storageData));
-                setLocalStorageUser(data)
-                navigate('/admin/dashboard')
+                setUser({
+                    isAdmin: true,
+                    isLogin: true,
+                    username: name,
+                    email: email,
+                });
+                toast.success("Login Successfully", { position: "top-right" });
+                const storageData = { name, email, isAdmin: true };
+                localStorage.setItem("user", JSON.stringify(storageData));
+                setLocalStorageUser(data);
+                setDisabled(false);
+                navigate("/admin/dashboard");
             } else {
-                setLoginError("Invalid Credentials");
+                toast.error("Invalid Ceredentials", { position: "top-right" });
+                setDisabled(false);
             }
         } catch (error) {
-            setLoginError("Failed to Login");
+            toast.error("Failed to Login", { position: "top-right" });
+            setDisabled(false);
         }
     };
     return (
@@ -54,13 +66,6 @@ const AdminLogin = () => {
             <NavBar />
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Group>
-                    {loginErrors ? (
-                        <Error style={{ fontSize: "1rem" }}>
-                            {loginErrors}
-                        </Error>
-                    ) : (
-                        <></>
-                    )}
                     <Label>Email</Label>
                     {errors.email && <Error>{errors.email.message}</Error>}
                     <Input
@@ -80,9 +85,12 @@ const AdminLogin = () => {
                         {...register("password")}
                     ></Input>
                 </Group>
-                <Button type="submit">Login</Button>
+                <Button type="submit" disabled={isDisabled}>
+                    Login
+                </Button>
             </Form>
             <Footer />
+            <ToastContainer />
         </>
     );
 };
