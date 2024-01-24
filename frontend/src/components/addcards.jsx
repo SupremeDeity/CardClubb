@@ -56,7 +56,7 @@ const AddCategory = () => {
             });
 
             if (response.ok) {
-                toast.success("Successfully add Category", { position: 'top-right' });
+                toast.success("Successfully add Card", { position: 'top-right' });
                 setDisabled(false)
             } else {
                 toast.error("Failed to Add Card", { position: 'top-right' });

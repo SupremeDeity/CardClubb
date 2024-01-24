@@ -20,17 +20,16 @@ const Product = () => {
                 );
                 if (response.ok) {
                     const data = await response.json();
-                    const cards = [];
-                    data.data.forEach((element) => {
-                        if (element.category == category) cards.push(element);
-                    });
-                    setLoadingPage(false)
-                    setCards(cards);
+                    const filteredCards = data.data.filter((element) => element.category === category);
+                    setCards(filteredCards);
                 } else {
                     console.error("Failed to fetch cards");
                 }
             } catch (error) {
                 console.error("Error fetching cards:", error.message);
+            }
+            finally{
+                setLoadingPage(false)
             }
         };
 
