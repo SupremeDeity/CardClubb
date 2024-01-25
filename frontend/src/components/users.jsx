@@ -7,7 +7,7 @@ import { saveAs } from "file-saver";
 
 const Users = ({ users,receivers }) => {
     const downloadUsers = () => {
-        const fieldsToInclude = ["firstname", "lastname", "username", "email"];
+        const fieldsToInclude = ["name", "email"];
 
         const filteredUsers = users.map((user) => {
             const filteredUser = {};
@@ -55,7 +55,6 @@ const Users = ({ users,receivers }) => {
                 <table>
                     <tr>
                         <TableHeading>Name</TableHeading>
-                        <TableHeading>User Name</TableHeading>
                         <TableHeading>Email</TableHeading>
                     </tr>
                     {users && users.length === 0? (

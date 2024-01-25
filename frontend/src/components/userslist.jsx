@@ -6,8 +6,6 @@ const UsersList = (props) => {
   return (
     <>
         <tr>
-            {user.firstname && user.lastname && (<TableData>{user.firstname} {user.lastname}</TableData>)}
-            {user.username && (<TableData>{user.username}</TableData>)}
             {user.name && (<TableData>{user.name}</TableData>)}
             <TableData>{user.email}</TableData>
         </tr>

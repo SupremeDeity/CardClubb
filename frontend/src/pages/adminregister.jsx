@@ -6,29 +6,23 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-
-const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 const AdminRegister = () => {
+    const [isDisabled, setDisabled] = React.useState(false);
     const loginSchema = object({
-        username: string().min(1, { message: "Required" }),
-        firstName: string().min(1, { message: "Required" }),
-        lastName: string().min(1, { message: "Required" }),
+        name: string().min(1, { message: "Required" }),
         email: string().email(),
-        password: string().refine((value) => passwordRegex.test(value), {
-            message:
-                "Password must contain at least one uppercase letter, one lowercase letter, one special character, and one number, and be at least 8 characters long.",
-        }),
+        password: string().min(1, { message: "Required" }),
     });
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
-
-    const [loginErrors,setLoginError] = React.useState("")
     const onSubmit = async (data) => {
+        setDisabled(true);
         try {
             const response = await fetch('https://cardclub.vercel.app/api/users/admin', {
               method: 'POST',
@@ -39,12 +33,19 @@ const AdminRegister = () => {
             });
         
             if (response.ok) {
-              setLoginError('User created successfully!');
+                toast.success("User Created Successfully", {
+                    position: "top-right",
+                });
+                setDisabled(false);
             } else {
-                setLoginError("Failed to Create User")
+                toast.error("User Already Exists", {
+                    position: "top-right",
+                });
+                setDisabled(false);
             }
           } catch (error) {
-            setLoginError("Failed to Create User")
+            toast.error("Failed to Create User", { position: "top-right" });
+            setDisabled(false);
           }
     };
     return (
@@ -52,37 +53,14 @@ const AdminRegister = () => {
             <NavBar />
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Group>
-                    {loginErrors?<Error style={{fontSize:"1rem"}}>{loginErrors}</Error>:<></>}
-                    <Label>Username</Label>
-                    {errors.username && (
-                        <Error>{errors.username.message}</Error>
+                    <Label>Name</Label>
+                    {errors.name && (
+                        <Error>{errors.name.message}</Error>
                     )}
                     <Input
                         type="text"
-                        placeholder="Enter Username"
-                        {...register("username")}
-                    ></Input>
-                </Group>
-                <Group>
-                    <Label>First Name</Label>
-                    {errors.firstName && (
-                        <Error>{errors.firstName.message}</Error>
-                    )}
-                    <Input
-                        type="text"
-                        placeholder="Enter First Name"
-                        {...register("firstName")}
-                    ></Input>
-                </Group>
-                <Group>
-                    <Label>Last Name</Label>
-                    {errors.lastName && (
-                        <Error>{errors.lastName.message}</Error>
-                    )}
-                    <Input
-                        type="text"
-                        placeholder="Enter Last Name"
-                        {...register("lastName")}
+                        placeholder="Enter Name"
+                        {...register("name")}
                     ></Input>
                 </Group>
                 <Group>
@@ -106,9 +84,10 @@ const AdminRegister = () => {
                     ></Input>
                 </Group>
                 <Group><Label as={Link} to="/login" style={{fontSize:".8rem"}}>Already Have an Account ? Login</Label></Group>
-                <Button type="submit">Register</Button>
+                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}}>Register</Button>
             </Form>
             <Footer />
+            <ToastContainer />
         </>
     );
 };

@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faDownload,
     faShare,
-    faPrint,
     faFile,
 } from "@fortawesome/free-solid-svg-icons";
 import Typewriter from "../components/typewriter";
@@ -119,18 +118,6 @@ const Home = () => {
                                     style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
                                 />
                                 <h3>Download</h3>
-                                <p>
-                                    Get a digital copy of your invitation by
-                                    downloading it to your device.
-                                </p>
-                            </Icons>
-                            <Icons>
-                                <FontAwesomeIcon
-                                    icon={faPrint}
-                                    size={"lg"}
-                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
-                                />
-                                <h3>Print</h3>
                                 <p>
                                     Get a digital copy of your invitation by
                                     downloading it to your device.
@@ -319,9 +306,9 @@ const BottomText = styled.div`
 
 const IconsDiv = styled.div`
     width: 100%;
-    padding: 3rem 10px;
+    padding: 3rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;

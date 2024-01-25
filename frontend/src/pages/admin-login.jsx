@@ -85,7 +85,7 @@ const AdminLogin = () => {
                         {...register("password")}
                     ></Input>
                 </Group>
-                <Button type="submit" disabled={isDisabled}>
+                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}}>
                     Login
                 </Button>
             </Form>

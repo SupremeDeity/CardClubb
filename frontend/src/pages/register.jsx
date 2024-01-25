@@ -9,17 +9,11 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 const Register = () => {
     const loginSchema = object({
-        username: string().min(1, { message: "Required" }),
-        firstName: string().min(1, { message: "Required" }),
-        lastName: string().min(1, { message: "Required" }),
+        name: string().min(1, { message: "Required" }),
         email: string().email(),
-        password: string().refine((value) => passwordRegex.test(value), {
-            message: "Invalid",
-        }),
+        password: string().min(1, { message: "Required" }),
     });
     const {
         register,
@@ -62,36 +56,14 @@ const Register = () => {
             <NavBar />
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Group>
-                    <Label>Username</Label>
-                    {errors.username && (
-                        <Error>{errors.username.message}</Error>
+                    <Label>Name</Label>
+                    {errors.name && (
+                        <Error>{errors.name.message}</Error>
                     )}
                     <Input
                         type="text"
-                        placeholder="Enter Username"
-                        {...register("username")}
-                    ></Input>
-                </Group>
-                <Group>
-                    <Label>First Name</Label>
-                    {errors.firstName && (
-                        <Error>{errors.firstName.message}</Error>
-                    )}
-                    <Input
-                        type="text"
-                        placeholder="Enter First Name"
-                        {...register("firstName")}
-                    ></Input>
-                </Group>
-                <Group>
-                    <Label>Last Name</Label>
-                    {errors.lastName && (
-                        <Error>{errors.lastName.message}</Error>
-                    )}
-                    <Input
-                        type="text"
-                        placeholder="Enter Last Name"
-                        {...register("lastName")}
+                        placeholder="Enter Name"
+                        {...register("name")}
                     ></Input>
                 </Group>
                 <Group>
@@ -119,7 +91,7 @@ const Register = () => {
                         Already Have an Account ? Login
                     </Label>
                 </Group>
-                <Button type="submit" disabled={isDisabled}>
+                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}}>
                     Register
                 </Button>
             </Form>
