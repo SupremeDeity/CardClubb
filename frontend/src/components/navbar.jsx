@@ -58,7 +58,7 @@ const NavBar = () => {
                 setUser({
                     isAdmin: false,
                     isLogin: false,
-                    username: "",
+                    name: "",
                     email: "",
                 });
                 setLocalStorageUser(null);
@@ -89,7 +89,7 @@ const NavBar = () => {
                 </NavLink>
                 {user.isLogin ? (
                     <Account>
-                        <AccountLinks>{user.username}</AccountLinks>
+                        <AccountLinks>{user.name}</AccountLinks>
                         <AccountLinks onClick={handleLogoutClick}>
                             Logout
                         </AccountLinks>
