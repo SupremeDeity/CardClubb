@@ -48,7 +48,7 @@ const authAdmin = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { username,firstName,lastName, email, password } = req.body;
+  const { name, email, password } = req.body;
   const userExists = await User.findOne({ email });
   
   if (userExists) {
@@ -56,11 +56,9 @@ const registerUser = asyncHandler(async (req, res) => {
       throw new Error('User already exists');
     }
     const user = await User.create({
-        username:username,
-        firstname:firstName,
-        lastname:lastName,
-        email:email,
-        password:password,
+        name,
+        email,
+        password,
     }); 
     
   if (user) {
@@ -68,7 +66,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     res.status(201).json({
       _id: user._id,
-      name: user.username,
+      name: user.name,
       email: user.email,
     });
   } else {
@@ -79,7 +77,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 const registerAdmin = asyncHandler(async (req, res) => {
-  const { username,firstName,lastName, email, password } = req.body;
+  const { name, email, password } = req.body;
   const userExists = await Admin.findOne({ email });
   
   if (userExists) {
@@ -87,11 +85,9 @@ const registerAdmin = asyncHandler(async (req, res) => {
       throw new Error('User already exists');
     }
     const user = await Admin.create({
-      username:username,
-      firstname:firstName,
-      lastname:lastName,
-      email:email,
-      password:password,
+      name,
+      email,
+      password,
     }); 
     
   if (user) {
@@ -99,7 +95,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
 
     res.status(201).json({
       _id: user._id,
-      name: user.username,
+      name: user.name,
       email: user.email,
     });
   } else {
