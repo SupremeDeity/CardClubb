@@ -43,7 +43,7 @@ const AdminLogin = () => {
                 setUser({
                     isAdmin: true,
                     isLogin: true,
-                    username: name,
+                    name: name,
                     email: email,
                 });
                 toast.success("Login Successfully", { position: "top-right" });

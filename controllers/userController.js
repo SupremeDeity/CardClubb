@@ -15,7 +15,7 @@ const authUser = asyncHandler(async (req, res) => {
 
     res.json({
       _id: user._id,
-      name: user.username,
+      name: user.name,
       email: user.email,
     });
   } else {
@@ -34,7 +34,7 @@ const authAdmin = asyncHandler(async (req, res) => {
 
     res.json({
       _id: user._id,
-      name: user.username,
+      name: user.name,
       email: user.email,
     });
   } else {

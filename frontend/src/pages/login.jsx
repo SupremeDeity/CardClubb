@@ -44,7 +44,7 @@ const Login = () => {
                 setUser({
                     isAdmin: false,
                     isLogin: true,
-                    username: data.name,
+                    name: data.name,
                     email: data.email,
                 });
                 localStorage.setItem("user", JSON.stringify(data));

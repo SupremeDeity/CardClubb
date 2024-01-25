@@ -26,7 +26,7 @@ function App() {
     const [user, setUser] = React.useState({
         isAdmin: localStorageUser ? true : false,
         isLogin: localStorageUser ? true : false,
-        username: localStorageUser ? localStorageUser["name"] : "",
+        name: localStorageUser ? localStorageUser["name"] : "",
         email: localStorageUser ? localStorageUser["email"] : "",
     });
     const [fontSize, setFontSize] = React.useState(16);
