@@ -25,7 +25,7 @@ const Register = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "https://cardclub.vercel.app/api/users/",
+                "https://www.cardclubb.com/api/users/",
                 {
                     method: "POST",
                     headers: {

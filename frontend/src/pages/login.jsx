@@ -29,7 +29,7 @@ const Login = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "https://cardclub.vercel.app/api/users/auth",
+                "https://www.cardclubb.com/api/users/auth",
                 {
                     method: "POST",
                     headers: {

@@ -19,7 +19,7 @@ const AddCategory = () => {
         setDisabled(true)
         try {
             const response = await fetch(
-                "https://cardclub.vercel.app/category/add",
+                "https://www.cardclubb.com/category/add",
                 {
                     method: "POST",
                     headers: {

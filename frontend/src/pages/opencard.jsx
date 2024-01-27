@@ -33,7 +33,7 @@ const OpenCard = () => {
         const fetchCards = async (id) => {
             try {
                 const response = await fetch(
-                    `https://cardclub.vercel.app/api/get/cards/${id}`,
+                    `https://www.cardclubb.com/api/get/cards/${id}`,
                     {
                         method: "POST",
                         headers: {

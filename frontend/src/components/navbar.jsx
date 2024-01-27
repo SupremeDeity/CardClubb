@@ -20,7 +20,7 @@ const NavBar = () => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "https://cardclub.vercel.app/category/get"
+                    "https://www.cardclubb.com/category/get"
                 );
                 const data = await response.json();
                 const categories = data.data;
@@ -44,7 +44,7 @@ const NavBar = () => {
     const handleLogoutClick = async () => {
         try {
             const response = await fetch(
-                "https://cardclub.vercel.app/api/users/logout",
+                "https://www.cardclubb.com/api/users/logout",
                 {
                     method: "POST",
                     headers: {
@@ -62,6 +62,7 @@ const NavBar = () => {
                     email: "",
                 });
                 setLocalStorageUser(null);
+                navigate("/home")
             }
         } catch (error) {
             console.error(error);

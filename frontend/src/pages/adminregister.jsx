@@ -24,7 +24,7 @@ const AdminRegister = () => {
     const onSubmit = async (data) => {
         setDisabled(true);
         try {
-            const response = await fetch('https://cardclub.vercel.app/api/users/admin', {
+            const response = await fetch('https://www.cardclubb.com/api/users/admin', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

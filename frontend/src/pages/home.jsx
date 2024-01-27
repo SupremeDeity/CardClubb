@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faDownload,
     faShare,
-    faPrint,
     faFile,
 } from "@fortawesome/free-solid-svg-icons";
 import Typewriter from "../components/typewriter";
@@ -82,13 +81,6 @@ const Home = () => {
                                 <Label>
                                     Explore What&apos;s
                                     <span> trending</span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Omnis aut qui est ex
-                                        porro. Velit id corporis tenetur, magni
-                                        autem totam praesentium libero, ut
-                                        adipisci nemo est neque, culpa saepe!
-                                    </p>
                                 </Label>
                                 <Button
                                     onClick={handleCategory}
@@ -126,26 +118,13 @@ const Home = () => {
                             </Icons>
                             <Icons>
                                 <FontAwesomeIcon
-                                    icon={faPrint}
-                                    size={"lg"}
-                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
-                                />
-                                <h3>Print</h3>
-                                <p>
-                                    Get a digital copy of your invitation by
-                                    downloading it to your device.
-                                </p>
-                            </Icons>
-                            <Icons>
-                                <FontAwesomeIcon
                                     icon={faShare}
                                     size={"lg"}
                                     style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
                                 />
                                 <h3>Share</h3>
                                 <p>
-                                    Get a digital copy of your invitation by
-                                    downloading it to your device.
+                                    Send your greetings by selecting your favourite card.
                                 </p>
                             </Icons>
                             <Icons>
@@ -156,8 +135,7 @@ const Home = () => {
                                 />
                                 <h3>Manage</h3>
                                 <p>
-                                    Get a digital copy of your invitation by
-                                    downloading it to your device.
+                                    Send multiple greeting cards and keep its record with you.
                                 </p>
                             </Icons>
                         </IconsDiv>

@@ -3,18 +3,12 @@ import React from "react";
 import styled from "styled-components";
 import ProductContext from "../contexts/productcontext";
 import "../fonts.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
 const slides = [
-    { id: 1, content: "Stylish" },
-    { id: 2, content: "Broetown" },
-    { id: 4, content: "Elegant" },
-    { id: 5, content: "Avenus" },
-    { id: 6, content: "Ballerina" },
-    { id: 7, content: "Beatrix" },
-    { id: 8, content: "CandyQelling" },
-    { id: 9, content: "DaltonWhite" },
-    { id: 10, content: "Manthoels" },
+    { id: 1, content: "Montagu" },
+    { id: 2, content: "Montserrat" },
+    { id: 3, content: "Pacifico" },
+    { id: 4, content: "Stylescript" },
 ];
 const InsideFontStyle = (props) => {
     const {
@@ -51,21 +45,7 @@ const InsideFontStyle = (props) => {
     const handleFamilyClick = (e) => {
         setFontFamily(e.target.innerText);
     };
-    const scrollableRef = React.useRef(null);
 
-    const handleScrollLeft = () => {
-        scrollableRef.current.scrollTo({
-          left: scrollableRef.current.scrollLeft - 200,
-          behavior: 'smooth',
-        });
-      };
-    
-      const handleScrollRight = () => {
-        scrollableRef.current.scrollTo({
-          left: scrollableRef.current.scrollLeft + 200,
-          behavior: 'smooth',
-        });
-      };
     return (
         <>
             <StyleDiv>
@@ -73,7 +53,7 @@ const InsideFontStyle = (props) => {
                     <Button onClick={handleResetClick}>Reset</Button>
                     <Button onClick={handleSaveClick}>Save</Button>
                 </Buttons>
-                <SliderContainer ref={scrollableRef}>
+                <SliderContainer>
                     {slides.map((slide) => (
                         <Slide
                             key={slide.id}
@@ -82,20 +62,6 @@ const InsideFontStyle = (props) => {
                             {slide.content}
                         </Slide>
                     ))}
-                    <LeftButton onClick={handleScrollLeft}>
-                        <FontAwesomeIcon
-                            icon={faArrowLeft}
-                            size={"lg"}
-                            style={{ color: "#282828" }}
-                        />
-                    </LeftButton>
-                    <RightButton onClick={handleScrollRight}>
-                        <FontAwesomeIcon
-                            icon={faArrowRight}
-                            size={"lg"}
-                            style={{ color: "#282828" }}
-                        />
-                    </RightButton>
                 </SliderContainer>
                 <FontSize
                     type="number"
@@ -254,17 +220,16 @@ const Image = styled.img`
 
 
 const SliderContainer = styled.div`
-    height: 70px;
+    height: 120px;
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
     align-items: center;
-    div:first-child{
-        margin-left: 50px;
-    };
-    padding-right: 3rem;
 `;
 
 
@@ -281,29 +246,4 @@ const Slide = styled.div`
 
 `;
 
-const SliderButton = styled.button`
-    text-align: center;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-80%);
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    @media (max-width:750px) {
-        top: 40%;
-    }
-`;
 
-const LeftButton = styled(SliderButton)`
-    background-color: #fdc674;
-    left: 10px;
-`;
-
-const RightButton = styled(SliderButton)`
-    background-color: #fdc674;
-    right: 10px;
-`;

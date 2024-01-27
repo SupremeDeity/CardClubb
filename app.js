@@ -13,14 +13,17 @@ const cardRoutes = require("./routes/cardRoutes.js");
 const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser')
 
-mongoose
-    .connect(process.env['MONGO_URI'],{dbName:"CardClubb"})
-    .then(() => {
-        console.log("Connected to MongoDB");
-    })
-    .catch((err) => {
-        console.log(err)
-    });
+async function connectToMongoDB() {
+    try {
+      await mongoose.connect(process.env['MONGO_URI'], { dbName: "CardClubb" });
+      console.log("Connected to MongoDB");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+    
+connectToMongoDB();
+
 
 const app = express();
 app.use(cors());

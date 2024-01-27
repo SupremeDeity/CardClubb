@@ -12,7 +12,7 @@ const UsersPage = () => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "https://cardclub.vercel.app/api/users/get"
+                    "https://www.cardclubb.com/api/users/get"
                 );
                 const data = await response.json();
                 setUsers(data);
@@ -21,7 +21,7 @@ const UsersPage = () => {
             }
             try {
                 const receivers = await fetch(
-                    "https://cardclub.vercel.app/api/get/receivers"
+                    "https://www.cardclubb.com/api/get/receivers"
                 );
                 const data = await receivers.json();
                 setReceivers(data.data);

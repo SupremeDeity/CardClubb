@@ -16,7 +16,7 @@ const Product = () => {
         const fetchCards = async () => {
             try {
                 const response = await fetch(
-                    "https://cardclub.vercel.app/api/card/get"
+                    "https://www.cardclubb.com/api/card/get"
                 );
                 if (response.ok) {
                     const data = await response.json();

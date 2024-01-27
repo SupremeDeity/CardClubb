@@ -1,58 +1,18 @@
 @font-face {
-    font-family: "Elegant";
-    src: url("./fonts/elegant.ttf") format("truetype");
+    font-family: "Montagu";
+    src: url("./fonts/Montagu.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Stylish";
-    src: url("./fonts/stylish.ttf") format("truetype");
+    font-family: "Montserrat";
+    src: url("./fonts/Montserrat.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Broetown";
-    src: url("./fonts/broetown.ttf") format("truetype");
+    font-family: "Pacifico";
+    src: url("./fonts/Pacifico.ttf") format("truetype");
 }
 @font-face {
-    font-family: "Avenus";
-    src: url("./fonts/Avenus.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Ballerina";
-    src: url("./fonts/Ballerina.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Beatrix";
-    src: url("./fonts/Beatrix.ttf") format("truetype");
-}
-
-
-@font-face {
-    font-family: "CandyQelling";
-    src: url("./fonts/CandyQelling.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "DaltonWhite";
-    src: url("./fonts/DaltonWhite.otf") format("truetype");
-}
-
-@font-face {
-    font-family: "Manthoels";
-    src: url("./fonts/Manthoels.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "ShinyAisyah";
-    src: url("./fonts/ShinyAisyah.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "RinduAlam";
-    src: url("./fonts/RinduAlam.ttf") format("truetype");
-}
-@font-face {
-    font-family: "Regalhisa";
-    src: url("./fonts/Regalhisa.ttf") format("truetype");
+    font-family: "Stylescript";
+    src: url("./fonts/Stylescript.ttf") format("truetype");
 }
