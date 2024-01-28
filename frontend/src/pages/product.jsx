@@ -16,7 +16,7 @@ const Product = () => {
         const fetchCards = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/api/card/get"
+                    "http://31.220.107.144/api/card/get"
                 );
                 if (response.ok) {
                     const data = await response.json();

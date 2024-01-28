@@ -26,7 +26,7 @@ const ResetPasswordForm = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                `http://localhost:5000/api/users/reset/password/${token}`,
+                `http://31.220.107.144/api/users/reset/password/${token}`,
                 {
                     method: "POST",
                     headers: {

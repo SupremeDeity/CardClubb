@@ -24,7 +24,7 @@ const AdminRegister = () => {
     const onSubmit = async (data) => {
         setDisabled(true);
         try {
-            const response = await fetch('http://localhost:5000/api/users/admin', {
+            const response = await fetch('http://31.220.107.144/api/users/admin', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

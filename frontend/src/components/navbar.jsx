@@ -20,7 +20,7 @@ const NavBar = () => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/category/get"
+                    "http://31.220.107.144/category/get"
                 );
                 const data = await response.json();
                 const categories = data.data;
@@ -44,7 +44,7 @@ const NavBar = () => {
     const handleLogoutClick = async () => {
         try {
             const response = await fetch(
-                "http://localhost:5000/api/users/logout",
+                "http://31.220.107.144/api/users/logout",
                 {
                     method: "POST",
                     headers: {

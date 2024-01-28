@@ -93,7 +93,7 @@ const SendCard = () => {
         
         try {
             const response = await fetch(
-                "http://localhost:5000/api/send-email-card",
+                "http://31.220.107.144/api/send-email-card",
                 {
                     method: "POST",
                     body: formData,

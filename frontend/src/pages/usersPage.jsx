@@ -12,7 +12,7 @@ const UsersPage = () => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/api/users/get"
+                    "http://31.220.107.144/api/users/get"
                 );
                 const data = await response.json();
                 setUsers(data);
@@ -21,7 +21,7 @@ const UsersPage = () => {
             }
             try {
                 const receivers = await fetch(
-                    "http://localhost:5000/api/get/receivers"
+                    "http://31.220.107.144/api/get/receivers"
                 );
                 const data = await receivers.json();
                 setReceivers(data.data);

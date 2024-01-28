@@ -33,7 +33,7 @@ const OpenCard = () => {
         const fetchCards = async (id) => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/get/cards/${id}`,
+                    `http://31.220.107.144/api/get/cards/${id}`,
                     {
                         method: "POST",
                         headers: {
