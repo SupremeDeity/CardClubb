@@ -19,7 +19,7 @@ const AddCategory = () => {
         setDisabled(true)
         try {
             const response = await fetch(
-                "http://31.220.107.144/category/add",
+                "http://31.220.107.144:5000/category/add",
                 {
                     method: "POST",
                     headers: {

@@ -29,7 +29,7 @@ const Login = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "http://31.220.107.144/api/users/auth",
+                "http://31.220.107.144:5000/api/users/auth",
                 {
                     method: "POST",
                     headers: {

@@ -26,7 +26,7 @@ const Contact = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('http://31.220.107.144/api/send-email', {
+            const response = await fetch('http://31.220.107.144:5000/api/send-email', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

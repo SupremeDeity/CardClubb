@@ -25,7 +25,7 @@ const Register = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "http://31.220.107.144/api/users/",
+                "http://31.220.107.144:5000/api/users/",
                 {
                     method: "POST",
                     headers: {
