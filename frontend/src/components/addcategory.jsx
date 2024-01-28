@@ -19,7 +19,7 @@ const AddCategory = () => {
         setDisabled(true)
         try {
             const response = await fetch(
-                "https://www.cardclubb.com/category/add",
+                "http://localhost:5000/category/add",
                 {
                     method: "POST",
                     headers: {

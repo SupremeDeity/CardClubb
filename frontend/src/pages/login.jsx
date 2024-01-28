@@ -29,7 +29,7 @@ const Login = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "https://www.cardclubb.com/api/users/auth",
+                "http://localhost:5000/api/users/auth",
                 {
                     method: "POST",
                     headers: {
@@ -93,6 +93,15 @@ const Login = () => {
                         style={{ fontSize: ".8rem" }}
                     >
                         Don&apos;t Have an Account ? Sign up
+                    </Label>
+                </Group>
+                <Group>
+                    <Label
+                        as={Link}
+                        to="/reset/password"
+                        style={{ fontSize: ".8rem" }}
+                    >
+                        Forget Password ?
                     </Label>
                 </Group>
                 <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}} >

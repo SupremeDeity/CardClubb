@@ -17,6 +17,8 @@ import UserContext from "./contexts/usercontext";
 import ProductContext from "./contexts/productcontext";
 import OpenCard from "./pages/opencard";
 import UsersPage from "./pages/usersPage";
+import ResetPasswordRequest from "./pages/resetpassword";
+import ResetPasswordForm from "./pages/resetpasswordform";
 
 function App() {
     const localuser = localStorage.getItem("user");
@@ -45,6 +47,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/open/card/:id" element={<OpenCard />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/reset/password" element={<ResetPasswordRequest />} />
+                <Route path="/reset/password/:token" element={<ResetPasswordForm />} />
                 <Route path="/admin-register" element={<AdminRegister />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/admin/dashboard/users" element={<UsersPage />} />

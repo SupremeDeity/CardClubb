@@ -5,29 +5,24 @@ import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import styled from "styled-components";
 import React from "react";
-import UserContext from "../contexts/usercontext";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminLogin = () => {
-    const { setUser, setLocalStorageUser } = React.useContext(UserContext);
-    const navigate = useNavigate();
+const ResetPasswordRequest = () => {
+    const [isDisabled, setDisabled] = React.useState(false);
     const loginSchema = object({
         email: string().email(),
-        password: string().min(1, { message: "Required" }),
     });
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm({ resolver: zodResolver(loginSchema) });
-    const [isDisabled, setDisabled] = React.useState(false);
     const onSubmit = async (data) => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "http://localhost:5000/api/users/auth/admin",
+                "http://localhost:5000/api/users/reset/password/request",
                 {
                     method: "POST",
                     headers: {
@@ -36,28 +31,15 @@ const AdminLogin = () => {
                     body: JSON.stringify(data),
                 }
             );
-
             if (response.ok) {
-                const data = await response.json();
-                const { name, email } = data;
-                setUser({
-                    isAdmin: true,
-                    isLogin: true,
-                    name: name,
-                    email: email,
-                });
-                toast.success("Login Successfully", { position: "top-right" });
-                const storageData = { name, email, isAdmin: true };
-                localStorage.setItem("user", JSON.stringify(storageData));
-                setLocalStorageUser(data);
-                setDisabled(false);
-                navigate("/admin/dashboard");
+                toast.success("Email Sent", { position: 'top-right' });
+                setDisabled(false)
             } else {
-                toast.error("Invalid Ceredentials", { position: "top-right" });
+                toast.error("User not Found", { position: 'top-right' });
                 setDisabled(false);
             }
         } catch (error) {
-            toast.error("Failed to Login", { position: "top-right" });
+            toast.error("Failed to sent Email", { position: 'top-right' });
             setDisabled(false);
         }
     };
@@ -65,8 +47,9 @@ const AdminLogin = () => {
         <>
             <NavBar />
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
+                <h3>Update Your Password</h3>
                 <Group>
-                    <Label>Email</Label>
+                    <Label>Email </Label>
                     {errors.email && <Error>{errors.email.message}</Error>}
                     <Input
                         type="text"
@@ -74,19 +57,8 @@ const AdminLogin = () => {
                         {...register("email")}
                     ></Input>
                 </Group>
-                <Group>
-                    <Label>Password</Label>
-                    {errors.password && (
-                        <Error>{errors.password.message}</Error>
-                    )}
-                    <Input
-                        type="password"
-                        placeholder="Enter Password"
-                        {...register("password")}
-                    ></Input>
-                </Group>
-                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}}>
-                    Login
+                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}} >
+                    Send Email
                 </Button>
             </Form>
             <Footer />
@@ -95,7 +67,7 @@ const AdminLogin = () => {
     );
 };
 
-export default AdminLogin;
+export default ResetPasswordRequest;
 
 const Form = styled.form`
     padding: 20px 0px;

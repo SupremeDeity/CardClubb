@@ -33,7 +33,7 @@ const OpenCard = () => {
         const fetchCards = async (id) => {
             try {
                 const response = await fetch(
-                    `https://www.cardclubb.com/api/get/cards/${id}`,
+                    `http://localhost:5000/api/get/cards/${id}`,
                     {
                         method: "POST",
                         headers: {

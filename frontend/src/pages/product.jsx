@@ -16,7 +16,7 @@ const Product = () => {
         const fetchCards = async () => {
             try {
                 const response = await fetch(
-                    "https://www.cardclubb.com/api/card/get"
+                    "http://localhost:5000/api/card/get"
                 );
                 if (response.ok) {
                     const data = await response.json();

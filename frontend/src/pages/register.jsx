@@ -25,7 +25,7 @@ const Register = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "https://www.cardclubb.com/api/users/",
+                "http://localhost:5000/api/users/",
                 {
                     method: "POST",
                     headers: {
