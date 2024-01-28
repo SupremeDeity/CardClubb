@@ -99,7 +99,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
                     pass: process.env.EMAIL_PASS,
                 },
             });
-
+            const url = `${req.protocol}://${req.get("host")}open/card/${cards.id}`;
             const htmlContent = `
                 <!DOCTYPE PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
                 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -144,7 +144,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="http://localhost:5000/open/card/${cards.id}">
+                                    <a href=${url}>
                                         <button style="cursor: pointer;color: white;background: black;font-size: 1rem;height: 40px;border: none;border-radius: 12px;width: 150px;">Open Card</button>
                                     </a>
                                 </td>
