@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { User, Admin, passwordReset } = require("../models/userSchema.js");
+const { User, Admin, passwordReset, Receivers } = require("../models/userSchema.js");
 const generateToken = require("../utils/generateToken.js");
 const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
@@ -214,6 +214,31 @@ const getUsers = asyncHandler(async (req, res) => {
     }
 });
 
+const deleteUser = asyncHandler(async (req, res) => {
+    const { id } = req.body
+    const user = await User.findOne({_id:id});
+    if (user) {
+        await User.deleteOne({_id:user._id})
+        res.status(200).json({message:"deleted successfully"});
+    } else {
+        res.status(400);
+        throw new Error("Invalid user data");
+    }
+});
+
+const deleteReceiver = asyncHandler(async (req, res) => {
+    const { id } = req.body
+    const user = await Receivers.findOne({_id:id});
+    if (user) {
+        await Receivers.deleteOne({_id:user._id})
+        res.status(200).json({message:"deleted successfully"});
+    } else {
+        res.status(400);
+        throw new Error("Invalid user data");
+    }
+});
+
+
 // @desc    Logout user / clear cookie
 // @route   POST /api/users/logout
 // @access  Public
@@ -234,4 +259,6 @@ module.exports = {
     getUsers,
     passwordResetRequest,
     resetPassword,
+    deleteUser,
+    deleteReceiver
 };

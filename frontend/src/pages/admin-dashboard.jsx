@@ -49,6 +49,7 @@ const UsersSection = styled.section`
     justify-content: center;
 `
 const Button = styled.button`
+    margin-top: 20px;
     cursor: pointer;
     color: #282828;
     background: #fdc674;

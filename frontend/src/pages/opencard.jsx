@@ -33,7 +33,7 @@ const OpenCard = () => {
         const fetchCards = async (id) => {
             try {
                 const response = await fetch(
-                    `http://31.220.107.144:5000/api/get/cards/${id}`,
+                    `${import.meta.env.VITE_BASE_URL}/api/get/cards/${id}`,
                     {
                         method: "POST",
                         headers: {

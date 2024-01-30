@@ -22,7 +22,7 @@ const AddCategory = () => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "http://31.220.107.144:5000/category/get"
+                    `${import.meta.env.VITE_BASE_URL}/category/get`
                 );
                 const data = await response.json();
                 const categories = data.data;
@@ -50,7 +50,7 @@ const AddCategory = () => {
         formData.append('envelope', data.envelope[0]);
         formData.append('custom', data.custom[0]);
         try {
-            const response = await fetch("http://31.220.107.144:5000/api/card/add", {
+            const response = await fetch("${import.meta.env.VITE_BASE_URL}/api/card/add", {
                 method: "POST",
                 body: formData,
             });
@@ -81,7 +81,7 @@ const AddCategory = () => {
                 </Group>
                 <Group>
                     <Label>Select Category</Label>
-                    <select name="category" {...field} style={{width:"400px",height:"40px"}}>
+                    <select name="category" {...field} style={{width:"90%",height:"40px"}}>
                         {categories &&
                             categories.map((item) => {
                                 return <CategoriesOptions item={item} />;
@@ -127,6 +127,9 @@ const Form = styled.form`
     flex-direction: column;
     justify-content: flex-start;
     gap: 20px;
+    @media (max-width:450px){
+        justify-content: center;
+    }
 `;
 const Title = styled.div`
     color: #fdc674;
@@ -138,11 +141,15 @@ const Group = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    width:400px;
     gap: 10px;
+    @media (max-width:450px){
+        width: 330px;
+    }
 `;
 const Input = styled.input`
     padding-left: 10px;
-    width: 400px;
+    width: 90%;
     height: 40px;
     border-radius: 2px;
     border: 1px solid #ddd;
@@ -151,7 +158,7 @@ const Input = styled.input`
 
 const InputFile = styled.input`
     padding: 10px 0;
-    width: 400px;
+    width: 90%;
     border-radius: 2px;
     border: 1px solid #ddd;
     background: #fff;

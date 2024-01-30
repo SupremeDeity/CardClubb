@@ -19,7 +19,7 @@ const AddCategory = () => {
         setDisabled(true)
         try {
             const response = await fetch(
-                "http://31.220.107.144:5000/category/add",
+                `${import.meta.env.VITE_BASE_URL}/category/add`,
                 {
                     method: "POST",
                     headers: {
@@ -73,6 +73,7 @@ const Form = styled.form`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 20px;
 `;
 const Title = styled.div`
@@ -86,10 +87,11 @@ const Group = styled.div`
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
+    width: 400px;
 `;
 const Input = styled.input`
     padding-left: 10px;
-    width: 400px;
+    width: 90%;
     height: 40px;
     border-radius: 2px;
     border: 1px solid #ddd;

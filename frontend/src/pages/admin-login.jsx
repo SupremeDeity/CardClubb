@@ -27,7 +27,7 @@ const AdminLogin = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                "http://31.220.107.144:5000/api/users/auth/admin",
+                `${import.meta.env.VITE_BASE_URL}/api/users/auth/admin`,
                 {
                     method: "POST",
                     headers: {

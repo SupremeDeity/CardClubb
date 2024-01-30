@@ -3,16 +3,21 @@ import Footer from "../components/footer";
 import Users from "../components/users";
 import React from "react";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const UsersPage = () => {
     const [loadingPage, setLoadingPage] = React.useState(true);
     const [users, setUsers] = React.useState(null);
     const [receivers,setReceivers] = React.useState(null)
+    const navigate = useNavigate();
+
     React.useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "http://31.220.107.144:5000/api/users/get"
+                    `${import.meta.env.VITE_BASE_URL}/api/users/get`
                 );
                 const data = await response.json();
                 setUsers(data);
@@ -21,7 +26,7 @@ const UsersPage = () => {
             }
             try {
                 const receivers = await fetch(
-                    "http://31.220.107.144:5000/api/get/receivers"
+                    `${import.meta.env.VITE_BASE_URL}/api/get/receivers`
                 );
                 const data = await receivers.json();
                 setReceivers(data.data);
@@ -32,6 +37,55 @@ const UsersPage = () => {
         };
         fetchUsers();
     }, []);
+    const handleUserDelete = async (userId) => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_BASE_URL}/api/users/delete/user`,
+                {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    },
+                    body: JSON.stringify({ id: userId }),
+                }
+            );
+             if(response.ok)
+                toast.success("User deleted Successfully", {
+                    position: "top-right",
+                });
+        } catch (error) {
+            toast.error("User can't deleted", {
+                position: "top-right",
+            });
+        }finally{
+            navigate(0);
+        }
+      };
+    const handleReceiverDelete = async (userId) => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_BASE_URL}/api/users/delete/receiver`,
+                {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    },
+                    body: JSON.stringify({ id: userId }),
+                }
+            );
+            if(response.ok)
+                toast.success("User deleted Successfully", {
+                    position: "top-right",
+                });
+        } catch (error) {
+            toast.error("User can't deleted", {
+                position: "top-right",
+            });
+        }
+        finally{
+            navigate(0);
+        }
+      };
     return (
         <>
             {loadingPage ? (
@@ -42,8 +96,9 @@ const UsersPage = () => {
             ) : (
                 <>
                     <NavBar />
-                    <Users users={users} receivers={receivers}/>
+                    <Users users={users} receivers={receivers} onUserDelete={handleUserDelete} onReceiverDelete={handleReceiverDelete}/>
                     <Footer />
+                    <ToastContainer />
                 </>
             )}
         </>

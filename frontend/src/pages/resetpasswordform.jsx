@@ -26,7 +26,7 @@ const ResetPasswordForm = () => {
         setDisabled(true);
         try {
             const response = await fetch(
-                `http://31.220.107.144:5000/api/users/reset/password/${token}`,
+                `${import.meta.env.VITE_BASE_URL}/api/users/reset/password/${token}`,
                 {
                     method: "POST",
                     headers: {

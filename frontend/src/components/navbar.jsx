@@ -20,7 +20,7 @@ const NavBar = () => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch(
-                    "http://31.220.107.144:5000/category/get"
+                    `${import.meta.env.VITE_BASE_URL}/category/get`
                 );
                 const data = await response.json();
                 const categories = data.data;
@@ -44,7 +44,7 @@ const NavBar = () => {
     const handleLogoutClick = async () => {
         try {
             const response = await fetch(
-                "http://31.220.107.144:5000/api/users/logout",
+                `${import.meta.env.VITE_BASE_URL}/api/users/logout`,
                 {
                     method: "POST",
                     headers: {
@@ -82,6 +82,9 @@ const NavBar = () => {
             });
         setIsOpen(!open);
     };
+    const handleNameClick = ()=>{
+        user.isAdmin ? navigate("/admin/dashboard"):  navigate("/home")
+    }
     return (
         <Nav>
             <Primary>
@@ -90,7 +93,7 @@ const NavBar = () => {
                 </NavLink>
                 {user.isLogin ? (
                     <Account>
-                        <AccountLinks>{user.name}</AccountLinks>
+                        <AccountLinks onClick={handleNameClick}>{user.name}</AccountLinks>
                         <AccountLinks onClick={handleLogoutClick}>
                             Logout
                         </AccountLinks>

@@ -38,8 +38,8 @@ const addEmailCards = asyncHandler(async (req, res) => {
     try {
         const {
             name,
-            senderemail,
             receiveremail,
+            senderemail,
             content,
             size,
             family,
@@ -82,7 +82,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
                 content: envelopeOpen.split(",")[1],
             },
         });
-        const userExists = await Receivers.find({ receiveremail });
+        const userExists = await Receivers.findOne({ email:receiveremail });
         if (userExists) {
             console.log("Reciever User exists");
         }else{
@@ -99,7 +99,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
                     pass: process.env.EMAIL_PASS,
                 },
             });
-            const url = `${req.protocol}://${req.get("host")}open/card/${cards.id}`;
+            const url = `${req.protocol}://${req.get("host")}/open/card/${cards.id}`;
             const htmlContent = `
                 <!DOCTYPE PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
                 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -156,7 +156,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
             const mailOptions = {
                 from: senderemail,
                 to: receiveremail,
-                replyTo: receiveremail,
+                replyTo: senderemail,
                 subject: `New Greeting Card from ${name}`,
                 html: htmlContent,
                 attachments: [

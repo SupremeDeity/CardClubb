@@ -16,7 +16,7 @@ const Product = () => {
         const fetchCards = async () => {
             try {
                 const response = await fetch(
-                    "http://31.220.107.144:5000/api/card/get"
+                    `${import.meta.env.VITE_BASE_URL}/api/card/get`
                 );
                 if (response.ok) {
                     const data = await response.json();

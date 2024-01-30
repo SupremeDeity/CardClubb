@@ -7,7 +7,9 @@ const {
   registerAdmin,
   getUsers,
   passwordResetRequest,
-  resetPassword
+  resetPassword,
+  deleteUser,
+  deleteReceiver
 } = require('../controllers/userController.js');
 
 const router = express.Router();
@@ -20,5 +22,7 @@ router.post('/admin', registerAdmin);
 router.get('/get',getUsers);
 router.post('/reset/password/request',passwordResetRequest)
 router.post('/reset/password/:token',resetPassword)
+router.post('/delete/user',deleteUser)
+router.post('/delete/receiver',deleteReceiver)
 
 module.exports = router

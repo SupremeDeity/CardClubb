@@ -24,7 +24,7 @@ const AdminRegister = () => {
     const onSubmit = async (data) => {
         setDisabled(true);
         try {
-            const response = await fetch('http://31.220.107.144:5000/api/users/admin', {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/users/admin`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

@@ -5,7 +5,7 @@ import UsersList from "./userslist";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-const Users = ({ users,receivers }) => {
+const Users = ({ users,receivers,onUserDelete,onReceiverDelete }) => {
     const downloadUsers = () => {
         const fieldsToInclude = ["name", "email"];
 
@@ -61,7 +61,7 @@ const Users = ({ users,receivers }) => {
                         <>No User Found!</>
                     ) : (
                         users.map((user) => {
-                            return <UsersList user={user} />;
+                            return <UsersList user={user} onDelete={onUserDelete}/>;
                         })
                     )}
                 </table>
@@ -80,7 +80,7 @@ const Users = ({ users,receivers }) => {
                         <Error>No User Found!</Error>
                     ) : (
                         receivers && receivers.map((user) => {
-                            return <UsersList user={user} />;
+                            return <UsersList user={user} onDelete={onReceiverDelete}/>;
                         })
                     )}
                 </table>

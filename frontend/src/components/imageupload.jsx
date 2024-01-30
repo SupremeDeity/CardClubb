@@ -100,12 +100,12 @@ const Canvas = styled.div`
     margin-top: 15rem;
     padding: 1rem;
     position: relative;
-    width: 550px;
+    width: 600px;
 `;
 const Image = styled.img`
     margin-top: 4rem;
     width: 100%;
-    height: 400px;
+    height: 550px;
     z-index: 100;
     @media (max-width: 500px) {
         height: 300px;
@@ -122,7 +122,7 @@ const EnvelopeUploadImage = styled.img`
 const UploadImage = styled.div`
     z-index: 1000;
     position: absolute;
-    top: 90px;
+    top: 115px;
     right: 28%;
     width: 100px;
     height: 100px;

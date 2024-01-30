@@ -93,7 +93,7 @@ const SendCard = () => {
         
         try {
             const response = await fetch(
-                "http://31.220.107.144:5000/api/send-email-card",
+                `${import.meta.env.VITE_BASE_URL}/api/send-email-card`,
                 {
                     method: "POST",
                     body: formData,

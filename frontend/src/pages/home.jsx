@@ -5,11 +5,7 @@ import image_1 from "../assets/home1.png";
 import image_2 from "../assets/home2.png";
 import image_3 from "../assets/home3.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faDownload,
-    faShare,
-    faFile,
-} from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faShare, faFile } from "@fortawesome/free-solid-svg-icons";
 import Typewriter from "../components/typewriter";
 import React from "react";
 import HomeImage from "../assets/home.jpg";
@@ -53,7 +49,8 @@ const Home = () => {
                         <HeaderSection>
                             <HeaderLabel>ONLINE GREETING CARDS</HeaderLabel>
                             <HeaderPara>
-                                SEND ONLINE INVITATION CARDS TO YOU FOLLOWS
+                                Create Greeting Cards for Free-For Our
+                                Mobo-Friends!
                             </HeaderPara>
                             <button
                                 onClick={scrollToCategory}
@@ -108,7 +105,11 @@ const Home = () => {
                                 <FontAwesomeIcon
                                     icon={faDownload}
                                     size={"lg"}
-                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
+                                    style={{
+                                        border: "3px solid black",
+                                        padding: "10px",
+                                        borderRadius: "50%",
+                                    }}
                                 />
                                 <h3>Download</h3>
                                 <p>
@@ -120,22 +121,32 @@ const Home = () => {
                                 <FontAwesomeIcon
                                     icon={faShare}
                                     size={"lg"}
-                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
+                                    style={{
+                                        border: "3px solid black",
+                                        padding: "10px",
+                                        borderRadius: "50%",
+                                    }}
                                 />
                                 <h3>Share</h3>
                                 <p>
-                                    Send your greetings by selecting your favourite card.
+                                    Send your greetings by selecting your
+                                    favourite card.
                                 </p>
                             </Icons>
                             <Icons>
                                 <FontAwesomeIcon
                                     icon={faFile}
                                     size={"lg"}
-                                    style={{ border: "3px solid black",padding:"10px",borderRadius:"50%" }}
+                                    style={{
+                                        border: "3px solid black",
+                                        padding: "10px",
+                                        borderRadius: "50%",
+                                    }}
                                 />
                                 <h3>Manage</h3>
                                 <p>
-                                    Send multiple greeting cards and keep its record with you.
+                                    Send multiple greeting cards and keep its
+                                    record with you.
                                 </p>
                             </Icons>
                         </IconsDiv>
