@@ -19,14 +19,15 @@ import OpenCard from "./pages/opencard";
 import UsersPage from "./pages/usersPage";
 import ResetPasswordRequest from "./pages/resetpassword";
 import ResetPasswordForm from "./pages/resetpasswordform";
+import Cookies from 'js-cookie';
 
 function App() {
-    const localuser = localStorage.getItem("user");
+    const localuser = Cookies.get("user");
     const [localStorageUser, setLocalStorageUser] = React.useState(
         localuser ? JSON.parse(localuser) : ""
     );
     const [user, setUser] = React.useState({
-        isAdmin: localStorageUser ? true : false,
+        isAdmin: localStorageUser && Object.prototype.hasOwnProperty.call(localStorageUser, "isAdmin") ? true : false,
         isLogin: localStorageUser ? true : false,
         name: localStorageUser ? localStorageUser["name"] : "",
         email: localStorageUser ? localStorageUser["email"] : "",

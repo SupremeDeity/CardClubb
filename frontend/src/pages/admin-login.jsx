@@ -9,6 +9,7 @@ import UserContext from "../contexts/usercontext";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from 'js-cookie';
 
 const AdminLogin = () => {
     const { setUser, setLocalStorageUser } = React.useContext(UserContext);
@@ -48,7 +49,7 @@ const AdminLogin = () => {
                 });
                 toast.success("Login Successfully", { position: "top-right" });
                 const storageData = { name, email, isAdmin: true };
-                localStorage.setItem("user", JSON.stringify(storageData));
+                Cookies.set("user", JSON.stringify(storageData),{ expires: 1 / 24 });
                 setLocalStorageUser(data);
                 setDisabled(false);
                 navigate("/admin/dashboard");

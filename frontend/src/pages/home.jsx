@@ -24,14 +24,13 @@ const Home = () => {
         categoryRef.current.scrollIntoView({ behavior: "smooth" });
     };
     const navigate = useNavigate();
-    const handleCategory = (e) => {
-        const categoryData = e.target.innerText;
-        if (categoryData == "Happy Birthday")
-            navigate("/birthday/product", {
-                state: { category: "Happy Birthday" },
-            });
-        else if (categoryData == "Thank You")
-            navigate("/thankyou/product", { state: { category: "Thank You" } });
+    const handleBirthdayClick = () => {
+        navigate("/birthday/product", {
+            state: { category: "Happy Birthday" },
+        });
+    };
+    const handleThankYouClick = () => {
+        navigate("/thankyou/product", { state: { category: "Thank You" } });
     };
     return (
         <>
@@ -69,8 +68,16 @@ const Home = () => {
                             Explore What&apos;s <span> Trending</span>
                         </Label>
                         <MainSection>
-                            <Image src={image_1}></Image>
-                            <Image src={image_2}></Image>
+                            <Image
+                                onClick={handleThankYouClick}
+                                src={image_1}
+                                style={{ cursor: "pointer" }}
+                            ></Image>
+                            <Image
+                                onClick={handleBirthdayClick}
+                                src={image_2}
+                                style={{ cursor: "pointer" }}
+                            ></Image>
                         </MainSection>
                         <MiddleSection>
                             <Image src={image_3}></Image>
@@ -80,13 +87,13 @@ const Home = () => {
                                     <span> trending</span>
                                 </Label>
                                 <Button
-                                    onClick={handleCategory}
+                                    onClick={handleBirthdayClick}
                                     style={{ cursor: "pointer" }}
                                 >
                                     Happy Birthday
                                 </Button>
                                 <Button
-                                    onClick={handleCategory}
+                                    onClick={handleThankYouClick}
                                     style={{ cursor: "pointer" }}
                                 >
                                     Thank You

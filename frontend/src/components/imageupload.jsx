@@ -100,15 +100,14 @@ const Canvas = styled.div`
     margin-top: 15rem;
     padding: 1rem;
     position: relative;
-    width: 600px;
+    width: 580px;
 `;
 const Image = styled.img`
     margin-top: 4rem;
-    width: 100%;
-    height: 550px;
+    height: 380px;
     z-index: 100;
     @media (max-width: 500px) {
-        height: 300px;
+        height: 400px;
     }
 `;
 const EnvelopeUploadImage = styled.img`
@@ -122,7 +121,7 @@ const EnvelopeUploadImage = styled.img`
 const UploadImage = styled.div`
     z-index: 1000;
     position: absolute;
-    top: 115px;
+    top: 90px;
     right: 28%;
     width: 100px;
     height: 100px;
@@ -161,9 +160,9 @@ const CardImage = styled.img`
     z-index: 111;
     position: absolute;
     top: 106px;
-    left: 79%;
+    left: 79.25%;
     width: 12%;
-    height: 16%;
+    height: 14.8%;
     @media (max-width: 500px) {
         top: 99px;
         left: 78.5%;
@@ -187,8 +186,8 @@ const CardOpenImage = styled.img`
     object-fit: fill;
     position: absolute;
     top: -166px;
-    left: 33px;
-    width: 89%;
+    left: 38px;
+    width: 87%;
     height: 144px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 `;

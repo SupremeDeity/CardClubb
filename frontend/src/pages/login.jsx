@@ -9,6 +9,8 @@ import UserContext from "../contexts/usercontext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from 'js-cookie';
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -47,7 +49,7 @@ const Login = () => {
                     name: data.name,
                     email: data.email,
                 });
-                localStorage.setItem("user", JSON.stringify(data));
+                Cookies.set("user", JSON.stringify(data),{ expires: 1 / 24 });
                 setLocalStorageUser(data);
                 setDisabled(false)
                 setTimeout(() => {

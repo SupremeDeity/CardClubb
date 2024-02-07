@@ -6,6 +6,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import React from "react";
 import userContext from "../contexts/usercontext";
 import Category from "./category";
+import Cookies from 'js-cookie';
 
 const NavBar = () => {
     const { user, setLocalStorageUser, setUser } =
@@ -54,7 +55,7 @@ const NavBar = () => {
             );
 
             if (response.ok) {
-                localStorage.removeItem("user");
+                Cookies.remove("user");
                 setUser({
                     isAdmin: false,
                     isLogin: false,
