@@ -12,6 +12,7 @@ const Preview = () => {
         fontFamily,
         color,
         envelopeOpenImage,
+        logoImage,
     } = React.useContext(ProductContext);
     const { state } = useLocation();
     const navigate = useNavigate();
@@ -28,21 +29,20 @@ const Preview = () => {
         setIsRotated(!isRotated);
         setTimeout(() => {
             setOpen(true);
-        }, 1000);
+        }, 3000);
         setTimeout(() => {
             setText(true);
-        }, 2000);
+        }, 5000);
     };
     return (
         <PreviewDiv>
             <Button onClick={handleClosePreview}>Close Preview</Button>
             <OpenEnvelope>
-                <div
-                    style={{ color: "#282828", paddingBottom: "5rem" }}
+                <OpenButton
                     onClick={handleOpenClick}
                 >
                     Click here to open the envelope
-                </div>
+                </OpenButton>
                 <div
                     className="envelope"
                     style={{
@@ -59,6 +59,7 @@ const Preview = () => {
                         }
                     ></Image>
                     <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
+                    {logoImage && <Logo src={logoImage}></Logo>}
                 </div>
                 {open && (
                     <Envelope>
@@ -128,6 +129,16 @@ const Button = styled.button`
         width: 40%;
     }
 `;
+const OpenButton = styled.button`
+    margin-bottom: 5rem;
+    cursor: pointer;
+    color: #282828;
+    padding: 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: #af4b2f;
+`;
 
 const OpenEnvelope = styled.div`
     display: flex;
@@ -149,6 +160,16 @@ const CardImage = styled.img`
     height: 80px;
     transform: rotateX("180deg");
 `;
+const Logo = styled.img`
+    position: absolute;
+    top: 6%;
+    left: 5.5%;
+    width: 40%;
+    height: 13%;
+    border: 4px solid white;
+    border-radius: 20px;
+    transform: rotateX("180deg");
+`;
 
 const Envelope = styled.div`
     z-index: 10;
@@ -165,7 +186,7 @@ const Envelope = styled.div`
             opacity: 0;
         }
         50% {
-            opacity: 0.5;
+            opacity: 0.7;
         }
         100% {
             opacity: 1;
@@ -195,7 +216,7 @@ const Text = styled.div`
             opacity: 0;
         }
         50% {
-            opacity: 0.5;
+            opacity: 0.7;
         }
         100% {
             opacity: 1;

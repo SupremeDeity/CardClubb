@@ -1,10 +1,13 @@
 const asyncHandler = require("express-async-handler");
-const { User, Admin, passwordReset, Receivers } = require("../models/userSchema.js");
+const {
+    User,
+    Admin,
+    passwordReset,
+    Receivers,
+} = require("../models/userSchema.js");
 const generateToken = require("../utils/generateToken.js");
 const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
-
-
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -135,7 +138,6 @@ const passwordResetRequest = asyncHandler(async (req, res) => {
         },
     });
 
-    
     const htmlContent = `
     <!DOCTYPE PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -215,11 +217,11 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
-    const { id } = req.body
-    const user = await User.findOne({_id:id});
+    const { id } = req.body;
+    const user = await User.findOne({ _id: id });
     if (user) {
-        await User.deleteOne({_id:user._id})
-        res.status(200).json({message:"deleted successfully"});
+        await User.deleteOne({ _id: user._id });
+        res.status(200).json({ message: "deleted successfully" });
     } else {
         res.status(400);
         throw new Error("Invalid user data");
@@ -227,17 +229,16 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 const deleteReceiver = asyncHandler(async (req, res) => {
-    const { id } = req.body
-    const user = await Receivers.findOne({_id:id});
+    const { id } = req.body;
+    const user = await Receivers.findOne({ _id: id });
     if (user) {
-        await Receivers.deleteOne({_id:user._id})
-        res.status(200).json({message:"deleted successfully"});
+        await Receivers.deleteOne({ _id: user._id });
+        res.status(200).json({ message: "deleted successfully" });
     } else {
         res.status(400);
         throw new Error("Invalid user data");
     }
 });
-
 
 // @desc    Logout user / clear cookie
 // @route   POST /api/users/logout
@@ -250,6 +251,45 @@ const logoutUser = (req, res) => {
     res.status(200).json({ message: "Logged out successfully" });
 };
 
+const updateProfile = asyncHandler(async (req, res) => {
+    const { name, previous, updated } = req.body;
+
+    const user = await User.findOne({ email: updated });
+
+    if (user) {
+        res.status(404).json({ message: "New Email Already Exists" });
+        return;
+    }
+    const previousUser = await User.findOne({ email: previous });
+    if (name) {
+        previousUser.name = name;
+    }
+    if (updated) {
+        previousUser.email = updated;
+    }
+    await previousUser.save();
+
+    res.status(201).json({
+        _id: previousUser._id,
+        name: previousUser.name,
+        email: previousUser.email,
+    });
+});
+
+const updatePassword = asyncHandler(async (req, res) => {
+    const { old, email, updated } = req.body;
+    const user = await User.findOne({ email });
+
+    if (await user.matchPassword(old)) {
+        user.password = updated;
+        await user.save();
+        res.status(200).json({ message: "Success" });
+    } else {
+        res.status(400);
+        throw new Error("Password Does not match");
+    }
+});
+
 module.exports = {
     authUser,
     registerUser,
@@ -260,5 +300,7 @@ module.exports = {
     passwordResetRequest,
     resetPassword,
     deleteUser,
-    deleteReceiver
+    deleteReceiver,
+    updateProfile,
+    updatePassword,
 };

@@ -20,6 +20,7 @@ import UsersPage from "./pages/usersPage";
 import ResetPasswordRequest from "./pages/resetpassword";
 import ResetPasswordForm from "./pages/resetpasswordform";
 import Cookies from 'js-cookie';
+import EditProfile from "./pages/editProfile";
 
 function App() {
     const localuser = Cookies.get("user");
@@ -39,6 +40,7 @@ function App() {
     const [envelopeImage, setEnvelopeImage] = React.useState(null);
     const [envelopeText, setEnvelopeText] = React.useState("");
     const [envelopeOpenImage, setEnvelopeOpenImage] = React.useState(null);
+    const [logoImage, setLogoImage] = React.useState(null);
 
     return (
         <UserContext.Provider
@@ -49,6 +51,7 @@ function App() {
                 <Route path="/open/card/:id" element={<OpenCard />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
                 <Route path="/reset/password" element={<ResetPasswordRequest />} />
+                <Route path="/edit/profile" element={<EditProfile />} />
                 <Route path="/reset/password/:token" element={<ResetPasswordForm />} />
                 <Route path="/admin-register" element={<AdminRegister />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -75,6 +78,8 @@ function App() {
                                 setEnvelopeText,
                                 envelopeOpenImage,
                                 setEnvelopeOpenImage,
+                                logoImage,
+                                setLogoImage
                             }}
                         >
                             <CardDesign />
@@ -100,6 +105,8 @@ function App() {
                                 setEnvelopeText,
                                 envelopeOpenImage,
                                 setEnvelopeOpenImage,
+                                logoImage,
+                                setLogoImage
                             }}
                         >
                             <PreviewPage />
@@ -123,6 +130,8 @@ function App() {
                                 setFontFamily,
                                 envelopeOpenImage,
                                 setEnvelopeOpenImage,
+                                logoImage,
+                                setLogoImage
                             }}
                         >
                             <SendCard />

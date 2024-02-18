@@ -84,7 +84,7 @@ const NavBar = () => {
         setIsOpen(!open);
     };
     const handleNameClick = ()=>{
-        user.isAdmin ? navigate("/admin/dashboard"):  navigate("/home")
+        user.isAdmin ? navigate("/admin/dashboard"):  navigate("/edit/profile")
     }
     return (
         <Nav>

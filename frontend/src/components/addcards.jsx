@@ -50,7 +50,7 @@ const AddCategory = () => {
         formData.append('envelope', data.envelope[0]);
         formData.append('custom', data.custom[0]);
         try {
-            const response = await fetch("${import.meta.env.VITE_BASE_URL}/api/card/add", {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/card/add`, {
                 method: "POST",
                 body: formData,
             });

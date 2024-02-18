@@ -9,7 +9,9 @@ const {
   passwordResetRequest,
   resetPassword,
   deleteUser,
-  deleteReceiver
+  deleteReceiver,
+  updateProfile,
+  updatePassword
 } = require('../controllers/userController.js');
 
 const router = express.Router();
@@ -24,5 +26,7 @@ router.post('/reset/password/request',passwordResetRequest)
 router.post('/reset/password/:token',resetPassword)
 router.post('/delete/user',deleteUser)
 router.post('/delete/receiver',deleteReceiver)
+router.post('/update/profile',updateProfile)
+router.post('/update/password',updatePassword)
 
 module.exports = router

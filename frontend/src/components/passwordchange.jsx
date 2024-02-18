@@ -1,90 +1,89 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string } from "zod";
-import NavBar from "../components/navbar";
-import Footer from "../components/footer";
+import { object, string} from "zod";
 import styled from "styled-components";
-import React from "react";
-import { useNavigate, useParams, } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import React ,{ useContext } from "react";
+import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UserContext from "../contexts/usercontext";
 
-const ResetPasswordForm = () => {
-    const navigate = useNavigate();
-    const [isDisabled, setDisabled] = React.useState(false);
-    const { token } = useParams();
-    const loginSchema = object({
-        password: string().min(1, { message: "Required" }),
+const PasswordChange = () => {
+    const {user}=useContext(UserContext)
+    const [Disabled, setIsDisabled] = React.useState(false);
+    const profileSchema = object({
+        old: string().min(1, { message: "Required" }),
+        updated: string().min(1, { message: "Required" }),
     });
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(loginSchema) });
+    } = useForm({ resolver: zodResolver(profileSchema) });
     const onSubmit = async (data) => {
-        setDisabled(true);
+        setIsDisabled(true);
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/api/users/reset/password/${token}`,
+                `${import.meta.env.VITE_BASE_URL}/api/users/update/password`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify({'old':data.old,'email':user.email,'updated':data.updated}),
                 }
             );
             if (response.ok) {
-                toast.success("Password Reset Successfully", { position: 'top-right' });
-                navigate('/login')
-                setDisabled(false)
+                toast.success("Update Successfully", { position: 'top-right' });
+                setIsDisabled(false)
             } else {
-                toast.error("Invalid or Expire Token", { position: 'top-right' });
-                setDisabled(false);
+                toast.error("Incorrect Old Password", { position: 'top-right' });
+                setIsDisabled(false);
             }
         } catch (error) {
-            toast.error("Failed to Process Request", { position: 'top-right' });
-            setDisabled(false);
+            toast.error("Failed to Update Password", { position: 'top-right' });
+            setIsDisabled(false);
         }
     };
     return (
         <>
-            <NavBar />
             <Form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <h3>Update Your Password</h3>
                 <Group>
-                    <Label>Enter Your New Password</Label>
-                    {errors.password && <Error>{errors.password.message}</Error>}
+                    <Label>Old Password</Label>
+                    {errors.old && <Error>{errors.old.message}</Error>}
                     <Input
                         type="password"
-                        placeholder="Enter Password"
-                        {...register("password")}
+                        placeholder="Enter Old Password"
+                        {...register("old")}
                     ></Input>
                 </Group>
-                <Button type="submit" disabled={isDisabled} style={{opacity:isDisabled?".8":"1"}} >
-                    Submit
+                <Group>
+                    <Label>New Password</Label>
+                    <Input
+                        type="password"
+                        placeholder="Enter New Password"
+                        {...register("updated")}
+                    ></Input>
+                </Group>
+                <Button type="submit" disabled={Disabled} style={{opacity:Disabled?".8":"1"}} >
+                    Update
                 </Button>
             </Form>
-            <Footer />
-            <ToastContainer />
         </>
     );
 };
 
-export default ResetPasswordForm;
+export default PasswordChange;
 
 const Form = styled.form`
+    margin-top: 20px;
     padding: 20px 0px;
     width: 100%;
-    min-height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2rem;
     align-items: center;
-    @media (max-width: 800px) {
-        min-height: 50vh;
-    }
 `;
 const Error = styled.div`
     color: red;

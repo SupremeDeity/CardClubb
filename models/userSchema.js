@@ -115,6 +115,10 @@ const emailSchema = mongoose.Schema({
         mime_type: { type: String },
         content: { type: String, maxlength: 10 * 1024 * 1024 },
     },
+    logo: {
+        mime_type: { type: String },
+        content: { type: String, maxlength: 10 * 1024 * 1024 },
+    },
 });
 const EmailReceiversData = mongoose.Schema({
     name: {

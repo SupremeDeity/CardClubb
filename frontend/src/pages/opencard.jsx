@@ -16,6 +16,7 @@ const OpenCard = () => {
         envelope: "",
         envelopeImage: "",
         envelopeOpenImage: "",
+        logo:null,
     });
     const [isRotated, setIsRotated] = React.useState(false);
     const [open, setOpen] = React.useState(false);
@@ -24,10 +25,10 @@ const OpenCard = () => {
         setIsRotated(!isRotated);
         setTimeout(() => {
             setOpen(true);
-        }, 1000);
+        }, 3000);
         setTimeout(() => {
             setText(true);
-        }, 2000);
+        }, 6000);
     };
     React.useEffect(() => {
         const fetchCards = async (id) => {
@@ -55,8 +56,8 @@ const OpenCard = () => {
                         envelope,
                         stamp,
                         envelopeOpen,
+                        logo,
                     } = result;
-                    
                     setParameters({
                         color,
                         family,
@@ -68,6 +69,7 @@ const OpenCard = () => {
                         envelope,
                         envelopeImage:stamp,
                         envelopeOpenImage:envelopeOpen,
+                        logo,
                     });
                     
                     setLoadingPage(false);
@@ -94,15 +96,11 @@ const OpenCard = () => {
                 <>
                     <PreviewDiv>
                         <OpenEnvelope>
-                            <div
-                                style={{
-                                    color: "#282828",
-                                    paddingBottom: "5rem",
-                                }}
+                            <OpenButton
                                 onClick={handleOpenClick}
                             >
                                 Click here to open the envelope
-                            </div>
+                            </OpenButton>
                             <div
                                 className="envelope"
                                 style={{
@@ -120,6 +118,7 @@ const OpenCard = () => {
                                     src={`${parameters.envelopeImage.mime_type},${parameters.envelopeImage.content}`}
                                     alt="Uploaded"
                                 ></CardImage>
+                                {parameters.logo && <Logo src={`${parameters.logo.mime_type},${parameters.logo.content}`} alt="logo"></Logo>}
                             </div>
                             {open && (
                                 <Envelope>
@@ -161,7 +160,16 @@ const OpenCard = () => {
 };
 
 export default OpenCard;
-
+const OpenButton = styled.button`
+    margin-bottom: 5rem;
+    cursor: pointer;
+    color: #282828;
+    padding: 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: #af4b2f;
+`;
 const Ring = styled.div`
     position: absolute;
     top: 50%;
@@ -247,6 +255,16 @@ const CardImage = styled.img`
     right: 5.5%;
     width: 80px;
     height: 80px;
+    transform: rotateX("180deg");
+`;
+const Logo = styled.img`
+    position: absolute;
+    top: 6%;
+    left: 5.5%;
+    width: 40%;
+    height: 13%;
+    border: 4px solid white;
+    border-radius: 20px;
     transform: rotateX("180deg");
 `;
 

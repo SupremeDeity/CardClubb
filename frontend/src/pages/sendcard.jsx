@@ -30,6 +30,7 @@ const SendCard = () => {
         fontFamily,
         color,
         envelopeOpenImage,
+        logoImage
     } = useContext(ProductContext);
     const navigate = useNavigate();
     const fetchAndConvert = async (url) => {
@@ -90,6 +91,7 @@ const SendCard = () => {
         formData.append("envelope", Images.envelopeImages);
         formData.append("stamp", envelopeImage);
         formData.append("envelopeOpen", envelopeOpenImage);
+        formData.append("logo", logoImage);
         
         try {
             const response = await fetch(

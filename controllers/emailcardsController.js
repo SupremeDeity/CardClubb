@@ -27,6 +27,7 @@ const getEmailCards = asyncHandler(async (req, res) => {
             custom: email.custom,
             stamp: email.stamp,
             envelopeOpen: email.envelopeOpen,
+            logo:email.logo,
         });
     } catch (error) {
         console.error("Error fetching:", error);
@@ -50,6 +51,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
             image,
             stamp,
             envelopeOpen,
+            logo,
         } = req.body;
         const cards = await Email.create({
             id: uuidv4(),
@@ -80,6 +82,10 @@ const addEmailCards = asyncHandler(async (req, res) => {
             envelopeOpen: {
                 mime_type: envelopeOpen.split(",")[0],
                 content: envelopeOpen.split(",")[1],
+            },
+            logo: {
+                mime_type: logo.split(",")[0],
+                content: logo.split(",")[1],
             },
         });
         const userExists = await Receivers.findOne({ email:receiveremail });

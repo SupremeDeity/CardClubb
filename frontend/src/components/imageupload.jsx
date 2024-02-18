@@ -11,6 +11,8 @@ const ImageUpload = (props) => {
         setEnvelopeImage,
         envelopeOpenImage,
         setEnvelopeOpenImage,
+        logoImage,
+        setLogoImage,
     } = React.useContext(ProductContext);
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -38,8 +40,30 @@ const ImageUpload = (props) => {
             reader.readAsDataURL(file);
         }
     };
+    const handleLogoImageUpload = (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                setLogoImage(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    };
     return (
         <Canvas>
+            <LogoImageDiv>
+                <label htmlFor="uploadLogo">Add Logo Image</label>
+                <input
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    onChange={handleLogoImageUpload}
+                    id="uploadLogo"
+                />
+            </LogoImageDiv>
             <Image
                 src={
                     index
@@ -50,6 +74,7 @@ const ImageUpload = (props) => {
             {envelopeImage && (
                 <CardImage src={envelopeImage} alt="Uploaded"></CardImage>
             )}
+            {logoImage && <Logo src={logoImage} alt="Uploaded"></Logo>}
             <EnvelopeUploadImage
                 src={
                     index
@@ -92,12 +117,44 @@ const ImageUpload = (props) => {
 };
 
 export default ImageUpload;
-
+const LogoImageDiv = styled.div`
+    position: absolute;
+    top: -60%;
+    cursor: pointer;
+    padding: 1rem;
+    text-align: center;
+    background-color: rgba(40, 40, 40, 0.9);
+    box-shadow: 0 0 10px 3px hsla(0, 0%, 100%, 0.5);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & > label {
+        font-size: 1rem;
+        width: 100%;
+        outline: none;
+        border: none;
+        color: white;
+    }
+    & > input {
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+        transform: rotate(-135deg);
+    }
+`;
 const Canvas = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15rem;
+    margin-top: 300px;
     padding: 1rem;
     position: relative;
     width: 580px;
@@ -160,7 +217,7 @@ const CardImage = styled.img`
     z-index: 111;
     position: absolute;
     top: 106px;
-    left: 79.25%;
+    left: 78.3%;
     width: 12%;
     height: 14.8%;
     @media (max-width: 500px) {
@@ -169,6 +226,16 @@ const CardImage = styled.img`
         width: 12%;
         height: 15%;
     }
+`;
+const Logo = styled.img`
+    z-index: 111;
+    position: absolute;
+    border: 4px solid white;
+    border-radius: 20px;
+    top: 100px;
+    left: 8%;
+    width: 40%;
+    height: 13%;
 `;
 
 const EnvelopeOpenImage = styled(UploadImage)`
