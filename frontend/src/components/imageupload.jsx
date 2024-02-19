@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import ProductContext from "../contexts/productcontext";
-// import Crop from "./crop";
+import Compressor from "compressorjs";
 
 const ImageUpload = (props) => {
     const { category, index, imageUpload, envelope } = props;
@@ -16,42 +16,52 @@ const ImageUpload = (props) => {
     } = React.useContext(ProductContext);
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onloadend = () => {
-                setEnvelopeImage(reader.result);
-            };
-
-            reader.readAsDataURL(file);
-        }
+        new Compressor(file, {
+            quality: 0.8,
+            maxWidth: 600, 
+            maxHeight: 600,
+            mimeType: "image/jpeg",
+            success: (compressedResult) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    setEnvelopeImage(reader.result);
+                };
+                reader.readAsDataURL(compressedResult);
+            },
+        });
     };
     const handleOpenImageUpload = (e) => {
         const file = e.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onloadend = () => {
-                setEnvelopeOpenImage(reader.result);
-            };
-
-            reader.readAsDataURL(file);
-        }
+        new Compressor(file, {
+            quality: 0.8,
+            maxWidth: 800, 
+            maxHeight: 800,
+            mimeType: "image/jpeg",
+            success: (compressedResult) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    setEnvelopeOpenImage(reader.result);
+                };
+                reader.readAsDataURL(compressedResult);
+            },
+        });
     };
     const handleLogoImageUpload = (e) => {
         const file = e.target.files[0];
 
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onloadend = () => {
-                setLogoImage(reader.result);
-            };
-
-            reader.readAsDataURL(file);
-        }
+        new Compressor(file, {
+            quality: 0.6,
+            maxWidth: 400, 
+            maxHeight: 400,
+            mimeType: "image/jpeg", 
+            success: (compressedResult) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    setLogoImage(reader.result);
+                };
+                reader.readAsDataURL(compressedResult);
+            },
+        });
     };
     return (
         <Canvas>
@@ -118,14 +128,18 @@ const ImageUpload = (props) => {
 
 export default ImageUpload;
 const LogoImageDiv = styled.div`
+    z-index: 1000;
     position: absolute;
-    top: -60%;
+    top: 20%;
+    left:-19%;
     cursor: pointer;
-    padding: 1rem;
+    width: 100px;
+    height: 100px;
     text-align: center;
     background-color: rgba(40, 40, 40, 0.9);
     box-shadow: 0 0 10px 3px hsla(0, 0%, 100%, 0.5);
-    border-radius: 28px;
+    border-radius: 15px 85px 85px;
+    transform: rotate(135deg);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -136,6 +150,7 @@ const LogoImageDiv = styled.div`
         outline: none;
         border: none;
         color: white;
+        transform: rotate(-135deg);
     }
     & > input {
         position: absolute;
@@ -149,6 +164,14 @@ const LogoImageDiv = styled.div`
         border-width: 0;
         transform: rotate(-135deg);
     }
+    @media (max-width: 700px) {
+        transform: rotate(45deg);
+        top: 40%;
+        left: 5%;
+        &>label , &>input{
+            transform: rotate(-45deg);
+        }
+    }
 `;
 const Canvas = styled.div`
     display: flex;
@@ -158,11 +181,17 @@ const Canvas = styled.div`
     padding: 1rem;
     position: relative;
     width: 580px;
+    @media (max-width: 800px) {
+        width: 500px;
+    }
 `;
 const Image = styled.img`
     margin-top: 4rem;
     height: 380px;
     z-index: 100;
+    @media (max-width: 800px) {
+        width: 100%;
+    }
     @media (max-width: 500px) {
         height: 400px;
     }

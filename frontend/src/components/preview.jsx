@@ -11,7 +11,6 @@ const Preview = () => {
         fontSize,
         fontFamily,
         color,
-        envelopeOpenImage,
         logoImage,
     } = React.useContext(ProductContext);
     const { state } = useLocation();
@@ -19,7 +18,6 @@ const Preview = () => {
     const { category, index, front, image, envelope, custom } = state;
     const [isRotated, setIsRotated] = React.useState(false);
     const [open, setOpen] = React.useState(false);
-    const [text, setText] = React.useState(false);
     const handleClosePreview = () => {
         navigate(`/card/${category}/design/send`, {
             state: { category, index, front, image, envelope, custom },
@@ -29,10 +27,7 @@ const Preview = () => {
         setIsRotated(!isRotated);
         setTimeout(() => {
             setOpen(true);
-        }, 3000);
-        setTimeout(() => {
-            setText(true);
-        }, 5000);
+        }, 2000);
     };
     return (
         <PreviewDiv>
@@ -46,7 +41,7 @@ const Preview = () => {
                 <div
                     className="envelope"
                     style={{
-                        transform: isRotated ? "rotateY(-180deg)" : "none",
+                        transform: isRotated ? "translateX(-40%)" : "none",
                         transition: "transform 5s ease",
                         position: "relative",
                     }}
@@ -62,25 +57,6 @@ const Preview = () => {
                     {logoImage && <Logo src={logoImage}></Logo>}
                 </div>
                 {open && (
-                    <Envelope>
-                        <Image
-                            src={
-                                index
-                                    ? `/${category}/${index}/Envolpe/envolpe.png`
-                                    : `data:image/png;base64,${envelope}`
-                            }
-                        ></Image>
-                        <CardOpenImage
-                            src={envelopeOpenImage}
-                            alt="Uploaded"
-                        ></CardOpenImage>
-                        <CardInvertedOpenImage
-                            src={envelopeOpenImage}
-                            alt="Uploaded"
-                        ></CardInvertedOpenImage>
-                    </Envelope>
-                )}
-                {text && (
                     <Text>
                         <Image
                             src={
@@ -132,7 +108,7 @@ const Button = styled.button`
 const OpenButton = styled.button`
     margin-bottom: 5rem;
     cursor: pointer;
-    color: #282828;
+    color: white;
     padding: 15px;
     font-size: 1rem;
     border: none;
@@ -170,38 +146,10 @@ const Logo = styled.img`
     border-radius: 20px;
     transform: rotateX("180deg");
 `;
-
-const Envelope = styled.div`
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    animation: fadeInAnimation ease 3s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    @keyframes fadeInAnimation {
-        0% {
-            opacity: 0;
-        }
-        50% {
-            opacity: 0.7;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-    & > img {
-        height: 100%;
-        margin-top: 30px;
-    }
-`;
-
 const Text = styled.div`
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 20px;
+    left:75%;
     width: 70%;
     height: 100%;
     transform: translate(-20%, 10%);
@@ -239,21 +187,4 @@ const TextDiv = styled.div`
     word-wrap: break-word;
     transform: translate(-50%, -50%);
 `;
-const CardOpenImage = styled.img`
-    object-fit: fill;
-    position: absolute;
-    top: 45px;
-    left: 6px;
-    width: 550px !important;
-    height: 144px !important;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-`;
-const CardInvertedOpenImage = styled.img`
-    object-fit: fill;
-    position: absolute;
-    top: 188px;
-    left: 6px;
-    width: 550px !important;
-    height: 179px !important;
-    clip-path: polygon(-12% 0%, 114% 0%, 50% 101%);
-`;
+
