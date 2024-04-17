@@ -141,7 +141,7 @@ const Logo = styled.img`
     top: 6%;
     left: 5.5%;
     width: 40%;
-    height: 13%;
+    height: 18%;
     border: 4px solid white;
     border-radius: 20px;
     transform: rotateX("180deg");

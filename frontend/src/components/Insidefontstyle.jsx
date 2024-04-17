@@ -55,10 +55,7 @@ const InsideFontStyle = (props) => {
                 </Buttons>
                 <SliderContainer>
                     {slides.map((slide) => (
-                        <Slide
-                            key={slide.id}
-                            onClick={handleFamilyClick}
-                        >
+                        <Slide key={slide.id} onClick={handleFamilyClick}>
                             {slide.content}
                         </Slide>
                     ))}
@@ -100,6 +97,10 @@ const InsideFontStyle = (props) => {
                     ></ColorsCircle>
                     <ColorsCircle
                         style={{ backgroundColor: "#375a49" }}
+                        onClick={handleColorClick}
+                    ></ColorsCircle>
+                    <ColorsCircle
+                        style={{ backgroundColor: "#FFF" }}
                         onClick={handleColorClick}
                     ></ColorsCircle>
                 </ColorsDiv>
@@ -196,7 +197,7 @@ const ColorsDiv = styled.div`
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
 `;
 const ColorsCircle = styled.div`
     width: 38px;
@@ -212,12 +213,10 @@ const ColorsCircle = styled.div`
     }
 `;
 
-
 const Image = styled.img`
     width: 100%;
     height: 600px;
 `;
-
 
 const SliderContainer = styled.div`
     height: 120px;
@@ -232,18 +231,14 @@ const SliderContainer = styled.div`
     align-items: center;
 `;
 
-
 const Slide = styled.div`
     cursor: pointer;
     display: flex;
     align-items: center;
     border: 2px solid #fdc674;
     border-radius: 8px;
-    width:max-content;
+    width: max-content;
     padding: 10px 20px;
     height: 40px;
     transition: transform 0.5s ease-in-out;
-
 `;
-
-

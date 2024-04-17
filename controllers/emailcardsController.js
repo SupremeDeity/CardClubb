@@ -27,7 +27,7 @@ const getEmailCards = asyncHandler(async (req, res) => {
             custom: email.custom,
             stamp: email.stamp,
             envelopeOpen: email.envelopeOpen,
-            logo:email.logo,
+            logo: email.logo,
         });
     } catch (error) {
         console.error("Error fetching:", error);
@@ -88,10 +88,10 @@ const addEmailCards = asyncHandler(async (req, res) => {
                 content: logo.split(",")[1],
             },
         });
-        const userExists = await Receivers.findOne({ email:receiveremail });
+        const userExists = await Receivers.findOne({ email: receiveremail });
         if (userExists) {
             console.log("Reciever User exists");
-        }else{
+        } else {
             const receivers = await Receivers.create({
                 name: name,
                 email: receiveremail,
@@ -105,7 +105,9 @@ const addEmailCards = asyncHandler(async (req, res) => {
                     pass: process.env.EMAIL_PASS,
                 },
             });
-            const url = `${req.protocol}://${req.get("host")}/open/card/${cards.id}`;
+            const url = `${req.protocol}://${req.get("host")}/open/card/${
+                cards.id
+            }`;
             const htmlContent = `
                 <!DOCTYPE PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
                 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -114,13 +116,18 @@ const addEmailCards = asyncHandler(async (req, res) => {
                     <meta name="viewport" content="width=device-width,initial-scale=1.0">
                     <style>
                     .faux-absolute{
-                        max-height:0;
+                        max-height:21px;
                         position:relative;
                         opacity:0.999;
                       }
                       .faux-position{
-                        margin-top: 1.7em;
-                        margin-left: 28.5em;
+                        margin-top: 3.2em;
+                        margin-left: 8.3em;
+                        display:inline-block;
+                      }
+                      .faux-position1{
+                        margin-top: 2.3em;
+                        margin-left: 2em;
                         display:inline-block;
                       }
                     </style>
@@ -138,8 +145,11 @@ const addEmailCards = asyncHandler(async (req, res) => {
                             <tr>
                                 <td style="position:relative;">
                                 <div class="faux-absolute">
+                                    <div class="faux-position1">
+                                        <img src="cid:logo" alt="Envelope Image" style="width:225px;height:64px;border:4px solid white;border-radius:20px;">
+                                    </div>                                    
         	                        <div class="faux-position">
-                                        <img src="cid:envelopeImage" alt="Envelope Image" style="width:61px;height:61px;">
+                                        <img src="cid:envelopeImage" alt="Envelope Image" style="width:61px;height:65px;">
         	                        </div>
                                 </div>
                                     <img src="cid:frontImage" alt="Envelope Image">
@@ -177,6 +187,12 @@ const addEmailCards = asyncHandler(async (req, res) => {
                         content: cards.stamp.content,
                         encoding: "base64",
                         cid: "envelopeImage",
+                    },
+                    {
+                        filename: cards.logo.mime_type,
+                        content: cards.logo.content,
+                        encoding: "base64",
+                        cid: "logo",
                     },
                 ],
             };

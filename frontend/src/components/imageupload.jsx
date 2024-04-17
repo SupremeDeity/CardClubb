@@ -264,7 +264,7 @@ const Logo = styled.img`
     top: 100px;
     left: 8%;
     width: 40%;
-    height: 13%;
+    height: 18%;
 `;
 
 const EnvelopeOpenImage = styled(UploadImage)`
