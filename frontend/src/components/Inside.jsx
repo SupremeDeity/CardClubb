@@ -41,6 +41,7 @@ const Inside = (props) => {
                     edit={setEdit}
                     category={category}
                     index={index}
+                    custom={custom}
                 />
             )}
         </Canvas>

@@ -26,6 +26,12 @@ const AdminDashboard = () => {
                             List of Users
                         </Button>
                     </UsersSection>
+                    <UsersSection>
+                        <Title>Cards</Title>
+                        <Button onClick={()=>{navigate("/admin/dashboard/cards")}}>
+                            List of Cards
+                        </Button>
+                    </UsersSection>
                     <AddCategory />
                     <AddCards />
                     <Footer />

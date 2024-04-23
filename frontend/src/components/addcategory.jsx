@@ -33,7 +33,7 @@ const AddCategory = () => {
                 toast.success("Successfully add Category", { position: 'top-right' });
                 setDisabled(false)
             } else {
-                toast.error("Failed to Add Category", { position: 'top-right' });
+                toast.error("Category Already Exists", { position: 'top-right' });
                 setDisabled(false)
             }
         } catch (error) {

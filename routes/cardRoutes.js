@@ -1,7 +1,9 @@
 const express = require('express');
 const {
   addCard,
-  getCard
+  getCard,
+  deleteCard,
+  getSpecificCard
 } = require('../controllers/cardController');
 
 const router = express.Router();
@@ -17,5 +19,7 @@ router.post('/add', upload.fields([
     { name: 'custom' }
   ]), addCard);
 router.get('/get', getCard);
+router.post('/del',deleteCard)
+router.post('/specific',getSpecificCard)
 
 module.exports = router

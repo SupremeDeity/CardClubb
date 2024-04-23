@@ -21,6 +21,8 @@ import ResetPasswordRequest from "./pages/resetpassword";
 import ResetPasswordForm from "./pages/resetpasswordform";
 import Cookies from 'js-cookie';
 import EditProfile from "./pages/editProfile";
+import ProductDetails from "./pages/productDetails";
+import CardsPage from "./pages/cardspage";
 
 function App() {
     const localuser = Cookies.get("user");
@@ -56,9 +58,11 @@ function App() {
                 <Route path="/admin-register" element={<AdminRegister />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/admin/dashboard/users" element={<UsersPage />} />
+                <Route path="/admin/dashboard/cards" element={<CardsPage />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/:category/product" element={<Product />} />
-                <Route path="/card/:category" element={<ProductInfo />} />
+                <Route path="/card/:category/:name/:index" element={<ProductInfo />} />
+                <Route path="/card/:id" element={<ProductDetails />} />
                 <Route
                     path="/card/:category/design"
                     element={

@@ -35,7 +35,31 @@ const getCard = asyncHandler(async (req, res) => {
     }
 });
 
+const deleteCard = asyncHandler(async (req, res) => {
+    const { id } = req.body;
+    const data = await Card.findOneAndDelete({ _id: id });
+    if (data) {
+        res.status(200).json({message:"Removed"});
+    } else {
+        res.status(401);
+        throw new Error("Error");
+    }
+});
+
+const getSpecificCard = asyncHandler(async (req, res) => {
+    const { id } = req.body;
+    const data = await Card.findOne({ _id: id });
+    if (data) {
+        res.status(200).json({card:data});
+    } else {
+        res.status(401);
+        throw new Error("Error");
+    }
+});
+
 module.exports = {
     addCard,
     getCard,
+    deleteCard,
+    getSpecificCard,
 };

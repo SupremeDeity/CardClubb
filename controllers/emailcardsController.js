@@ -135,14 +135,6 @@ const addEmailCards = asyncHandler(async (req, res) => {
                     <body>
                         <table role="presentation">
                             <tr>
-                                <td style="text-align:center;color:black;font-size:1.3rem;">
-                                    May your days be merry and bright filled with love and delight
-                                </td>
-                            </tr>
-                            <tr>
-                                <br />
-                            </tr>
-                            <tr>
                                 <td style="position:relative;">
                                 <div class="faux-absolute">
                                     <div class="faux-position1">

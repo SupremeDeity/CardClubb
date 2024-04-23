@@ -107,7 +107,11 @@ const InsideFontStyle = (props) => {
             </StyleDiv>
             <ImageContainer>
                 <Image
-                    src={`/${props.category}/${props.index}/Custom/custom.jpg`}
+                    src={
+                            props.index
+                                ? `/${props.category}/${props.index}/Custom/custom.jpg`
+                                : `data:image/png;base64,${props.custom}`
+                        }
                 ></Image>
                 <TextArea
                     name="message"

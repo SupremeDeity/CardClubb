@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Footer from "../components/footer";
 import NavBar from "../components/navbar";
 import styled from "styled-components";
@@ -6,12 +6,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 const ProductInfo = () => {
-    const { state } = useLocation();
-    const { name, category, index, front, image, envelope, custom } = state;
+    const {category, name,  index} = useParams();
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/card/${category}/design`, {
-            state: { category, name, index, front, image, envelope, custom },
+            state: { category, name, index },
         });
     };
     return (
@@ -24,11 +23,11 @@ const ProductInfo = () => {
                         showIndicators={false}
                         showArrows={false}
                     >
-                        <img src={index?`/${category}/${index}/Front/Front.png`:`data:image/png;base64,${front}`} />
+                        <img src={`/${category}/${index}/Front/Front.png`}/>
                         <img
-                            src={index?`/${category}/${index}/Envolpe/envolpe.png`:`data:image/png;base64,${envelope}`}
+                            src={`/${category}/${index}/Envolpe/envolpe.png`}
                         />
-                        <img src={index?`/${category}/${index}/Image/image.png`:`data:image/png;base64,${image}`} />
+                        <img src={`/${category}/${index}/Image/image.png`} />
                     </Carousel>
                 </ImageDiv>
                 <Description>
