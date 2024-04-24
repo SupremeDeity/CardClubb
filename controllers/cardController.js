@@ -25,6 +25,31 @@ const addCard = asyncHandler(async (req, res) => {
     }
 });
 
+const updateCard = asyncHandler(async (req, res) => {
+    try {
+        const { id, name, category } = req.body;
+        const card = await Card.findOne({_id:id})
+        
+        if (!card) {
+            res.status(404);
+            throw new Error("Card not found");
+        }
+
+        card.name = name
+        card.category = category
+        if(req.files["front"]) card.front = req.files["front"][0].buffer.toString("base64")
+        if(req.files["image"]) card.image = req.files["image"][0].buffer.toString("base64")
+        if(req.files["envelope"]) card.envelope = req.files["envelope"][0].buffer.toString("base64")
+        if(req.files["custom"]) card.custom = req.files["custom"][0].buffer.toString("base64")
+
+        await card.save();
+        res.status(200).json({ message: "Card Update successfully" });
+    } catch (error) {
+        console.error("Error saving card:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 const getCard = asyncHandler(async (req, res) => {
     const data = await Card.find();
     if (data) {
@@ -62,4 +87,5 @@ module.exports = {
     getCard,
     deleteCard,
     getSpecificCard,
+    updateCard
 };
