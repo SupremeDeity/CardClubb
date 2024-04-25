@@ -12,7 +12,7 @@ const Cards = ({ cards, onCardDelete }) => {
     setEdit((pre) => !pre);
   };
   return (
-    <>
+    <Div>
       <UsersTable>
         <table>
           <tr>
@@ -41,13 +41,24 @@ const Cards = ({ cards, onCardDelete }) => {
           <UpdateCard card={selectedCard}/>
         </>
       )}
-    </>
+    </Div>
   );
 };
 
 export default Cards;
 
+const Div = styled.div`
+  min-height: 60vh;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap:10px;
+`
+
 const UsersTable = styled.div`
+  width:100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -58,7 +69,6 @@ const UsersTable = styled.div`
     width: 100%;
   }
   padding: 3rem;
-  min-height: 30vh;
   & .header {
     width: 100%;
     display: flex;
