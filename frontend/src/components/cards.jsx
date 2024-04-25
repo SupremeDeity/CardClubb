@@ -58,7 +58,7 @@ const UsersTable = styled.div`
     width: 100%;
   }
   padding: 3rem;
-  min-height: 60vh;
+  min-height: 30vh;
   & .header {
     width: 100%;
     display: flex;
