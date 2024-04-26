@@ -70,7 +70,8 @@ const NavBar = () => {
   };
   const handleCategory = (e) => {
     const categoryData = e.target.innerText;
-    navigate(`/${categoryData}/product`);
+    const parameter = categoryData.replace(/ /g, "-")
+    navigate(`/cards/${parameter}`);
     setIsOpen(!open);
   };
   const handleNameClick = () => {

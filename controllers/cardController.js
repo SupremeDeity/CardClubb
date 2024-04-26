@@ -60,6 +60,27 @@ const getCard = asyncHandler(async (req, res) => {
     }
 });
 
+const getFewFieldsofCards = asyncHandler(async (req, res) => {
+    const data = await Card.find({},{_id:1,name:1,category:1});
+    if (data) {
+        res.status(201).json({ data });
+    } else {
+        res.status(401);
+        throw new Error("Error");
+    }
+});
+
+const getCardByCategory = asyncHandler(async (req, res) => {
+    const { category } = req.body;
+    const data = await Card.find({category});
+    if (data) {
+        res.status(201).json({ data });
+    } else {
+        res.status(401);
+        throw new Error("Error");
+    }
+});
+
 const deleteCard = asyncHandler(async (req, res) => {
     const { id } = req.body;
     const data = await Card.findOneAndDelete({ _id: id });
@@ -87,5 +108,7 @@ module.exports = {
     getCard,
     deleteCard,
     getSpecificCard,
-    updateCard
+    updateCard,
+    getCardByCategory,
+    getFewFieldsofCards,
 };

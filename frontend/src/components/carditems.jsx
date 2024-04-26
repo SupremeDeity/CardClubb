@@ -6,7 +6,9 @@ const CardItems = (props) => {
     const { image, name, category,index } = props;
     const navigate = useNavigate();
     function handleClick(){
-        navigate(`/card/${category}/${name}/${index}`)
+        const cat = category.replace(/ /g, "-")
+        const nam = name.replace(/ /g, "-")
+        navigate(`/card/${cat}/${nam}/${index}`)
     }
     return (
         <CardItem onClick={handleClick}>

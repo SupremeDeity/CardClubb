@@ -18,6 +18,8 @@ const Preview = () => {
     const { category, index, front, image, envelope, custom } = state;
     const [isRotated, setIsRotated] = React.useState(false);
     const [open, setOpen] = React.useState(false);
+    const cat = category.replace(/-/g, " ")
+
     const handleClosePreview = () => {
         navigate(`/card/${category}/design/send`, {
             state: { category, index, front, image, envelope, custom },
@@ -49,7 +51,7 @@ const Preview = () => {
                     <Image
                         src={
                             index
-                                ? `/${category}/${index}/Image/image.png`
+                                ? `/${cat}/${index}/Image/image.png`
                                 : `data:image/png;base64,${image}`
                         }
                     ></Image>
@@ -61,7 +63,7 @@ const Preview = () => {
                         <Image
                             src={
                                 index
-                                    ? `/${category}/${index}/Custom/custom.jpg`
+                                    ? `/${cat}/${index}/Custom/custom.jpg`
                                     : `data:image/png;base64,${custom}`
                             }
                         ></Image>

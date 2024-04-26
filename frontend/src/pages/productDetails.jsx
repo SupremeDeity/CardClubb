@@ -27,7 +27,6 @@ const ProductDetails = () => {
         if (response.ok) {
           const data = await response.json();
           setDetails(data.card);
-          console.log(details);
         } else {
           console.error("Failed to fetch cards");
         }
@@ -41,8 +40,9 @@ const ProductDetails = () => {
   }, [id]);
   const handleClick = () => {
     const { category, name, front, image, envelope, custom } = details;
-    navigate(`/card/${category}/design`, {
-      state: { category, name , front, image, envelope, custom },
+    const cat = category.replace(/ /g, "-")
+    navigate(`/card/${cat}/design`, {
+      state: { category:cat, name , front, image, envelope, custom },
     });
   };
   return (

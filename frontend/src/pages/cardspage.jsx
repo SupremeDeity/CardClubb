@@ -16,9 +16,10 @@ const CardsPage = () => {
         const fetchCards= async () => {
             try {
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_URL}/api/card/get`
+                    `${import.meta.env.VITE_BASE_URL}/api/card/get/few`
                 );
                 const data = await response.json();
+                console.log(data);
                 setCards(data.data);
             } catch (error) {
                 console.log(error);

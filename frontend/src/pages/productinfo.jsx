@@ -7,7 +7,10 @@ import { Carousel } from "react-responsive-carousel";
 
 const ProductInfo = () => {
     const {category, name,  index} = useParams();
+    const cat = category.replace(/-/g, " ")
+    const nam = name.replace(/-/g, " ")
     const navigate = useNavigate();
+    
     const handleClick = () => {
         navigate(`/card/${category}/design`, {
             state: { category, name, index },
@@ -23,15 +26,15 @@ const ProductInfo = () => {
                         showIndicators={false}
                         showArrows={false}
                     >
-                        <img src={`/${category}/${index}/Front/Front.png`}/>
+                        <img src={`/${cat}/${index}/Front/Front.png`}/>
                         <img
-                            src={`/${category}/${index}/Envolpe/envolpe.png`}
+                            src={`/${cat}/${index}/Envolpe/envolpe.png`}
                         />
-                        <img src={`/${category}/${index}/Image/image.png`} />
+                        <img src={`/${cat}/${index}/Image/image.png`} />
                     </Carousel>
                 </ImageDiv>
                 <Description>
-                    <Name>{name}</Name>
+                    <Name>{nam}</Name>
                     <Button onClick={handleClick}>Personalize Design</Button>
                     <Features>
                         <div>Add an Image</div>

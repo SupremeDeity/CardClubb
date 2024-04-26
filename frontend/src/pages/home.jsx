@@ -25,12 +25,10 @@ const Home = () => {
     };
     const navigate = useNavigate();
     const handleBirthdayClick = () => {
-        navigate("/birthday/product", {
-            state: { category: "Happy Birthday" },
-        });
+        navigate("/cards/Happy-Birthday");
     };
     const handleThankYouClick = () => {
-        navigate("/thankyou/product", { state: { category: "Thank You" } });
+        navigate("/cards/Thank-You");
     };
     return (
         <>

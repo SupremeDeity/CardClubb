@@ -33,6 +33,9 @@ const SendCard = () => {
         logoImage
     } = useContext(ProductContext);
     const navigate = useNavigate();
+    const cat = category.replace(/-/g, " ")
+
+
     const fetchAndConvert = async (url) => {
         const data = await fetch(url);
         const blob = await data.blob();
@@ -52,11 +55,11 @@ const SendCard = () => {
             if (index) {
                 [frontImage, customImage, stampUpload, envelopeUploadImage] =
                     await Promise.all([
-                        fetchAndConvert(`/${category}/${index}/Front/Front.png`),
-                        fetchAndConvert(`/${category}/${index}/Custom/custom.jpg`),
-                        fetchAndConvert(`/${category}/${index}/Image/image.png`),
+                        fetchAndConvert(`/${cat}/${index}/Front/Front.png`),
+                        fetchAndConvert(`/${cat}/${index}/Custom/custom.jpg`),
+                        fetchAndConvert(`/${cat}/${index}/Image/image.png`),
                         fetchAndConvert(
-                            `/${category}/${index}/Envolpe/envolpe.png`
+                            `/${cat}/${index}/Envolpe/envolpe.png`
                         ),
                     ]);
             } else {
@@ -115,7 +118,8 @@ const SendCard = () => {
         }
     };
     const handlePreview = () => {
-        navigate(`/card/${category}/design/preview`, {
+        const cat = category.replace(/ /g, "-")
+        navigate(`/card/${cat}/design/preview`, {
             state: { category, index, front, image, envelope, custom },
         });
     };
@@ -127,7 +131,7 @@ const SendCard = () => {
                     <Image
                         src={
                             index
-                                ? `/${category}/${index}/Front/Front.png`
+                                ? `/${cat}/${index}/Front/Front.png`
                                 : `data:image/png;base64,${front}`
                         }
                     ></Image>

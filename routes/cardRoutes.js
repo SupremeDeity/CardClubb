@@ -4,7 +4,9 @@ const {
   getCard,
   deleteCard,
   getSpecificCard,
-  updateCard
+  updateCard,
+  getCardByCategory,
+  getFewFieldsofCards
 } = require('../controllers/cardController');
 
 const router = express.Router();
@@ -20,6 +22,8 @@ router.post('/add', upload.fields([
     { name: 'custom' }
   ]), addCard);
 router.get('/get', getCard);
+router.get('/get/few', getFewFieldsofCards);
+router.post('/get/category', getCardByCategory);
 router.post('/del',deleteCard)
 router.post('/specific',getSpecificCard)
 router.post('/update', upload.fields([

@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
     const usersList = ()=>{
-        navigate("/admin/dashboard/users")
+        navigate("/admin/users/listofusers")
     }
     return (
         <>
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
                     </UsersSection>
                     <UsersSection>
                         <Title>Cards</Title>
-                        <Button onClick={()=>{navigate("/admin/dashboard/cards")}}>
+                        <Button onClick={()=>{navigate("/admin/cards/listofcards")}}>
                             List of Cards
                         </Button>
                     </UsersSection>

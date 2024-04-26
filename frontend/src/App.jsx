@@ -63,11 +63,11 @@ function App() {
         <Route path="/admin-register" element={<AdminRegister />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/dashboard/users" element={<UsersPage />} />
-          <Route path="/admin/dashboard/cards" element={<CardsPage />} />
+          <Route path="/admin/users/listofusers" element={<UsersPage />} />
+          <Route path="/admin/cards/listofcards" element={<CardsPage />} />
         </Route>
         <Route path="/home" element={<Home />} />
-        <Route path="/:category/product" element={<Product />} />
+        <Route path="/cards/:category" element={<Product />} />
         <Route path="/card/:category/:name/:index" element={<ProductInfo />} />
         <Route path="/card/:id" element={<ProductDetails />} />
         <Route

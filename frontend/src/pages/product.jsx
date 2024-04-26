@@ -16,16 +16,23 @@ const Product = () => {
   React.useEffect(() => {
     const fetchCards = async () => {
       setLoadingPage(true);
+      const parameter = category.replace(/-/g, " ");
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/card/get`
+          `${import.meta.env.VITE_BASE_URL}/api/card/get/category`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              category: parameter,
+            }),
+          }
         );
         if (response.ok) {
           const data = await response.json();
-          const filteredCards = data.data.filter(
-            (element) => element.category === category
-          );
-          setCards(filteredCards);
+          setCards(data.data);
         } else {
           console.error("Failed to fetch cards");
         }
@@ -51,7 +58,7 @@ const Product = () => {
         <>
           <NavBar />
           <Card>
-            {category == "Happy Birthday" ? (
+            {category == "Happy-Birthday" ? (
               <>
                 <CardItems
                   index="1"
@@ -69,7 +76,7 @@ const Product = () => {
             ) : (
               <></>
             )}
-            {category == "Thank You" ? (
+            {category == "Thank-You" ? (
               <>
                 <CardItems
                   index="1"
