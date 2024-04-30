@@ -2,7 +2,6 @@
 import { useParams } from "react-router-dom";
 import Footer from "../components/footer";
 import NavBar from "../components/navbar";
-import CardItems from "../components/carditems";
 import CardDetails from "../components/carddetails";
 import React from "react";
 import styled from "styled-components";
@@ -58,42 +57,6 @@ const Product = () => {
         <>
           <NavBar />
           <Card>
-            {category == "Happy-Birthday" ? (
-              <>
-                <CardItems
-                  index="1"
-                  image="/birthday/1/Front/Front.png"
-                  name="Happy Birthday"
-                  category="birthday"
-                />
-                <CardItems
-                  index="2"
-                  image="/birthday/2/Front/Front.png"
-                  name="Happy Birthday (1)"
-                  category="birthday"
-                />
-              </>
-            ) : (
-              <></>
-            )}
-            {category == "Thank-You" ? (
-              <>
-                <CardItems
-                  index="1"
-                  image="/thanksyou/1/Front/Front.png"
-                  name="Thank You"
-                  category="thanksyou"
-                />
-                <CardItems
-                  index="2"
-                  image="/thanksyou/2/Front/Front.png"
-                  name="Thank You (1)"
-                  category="thanksyou"
-                />
-              </>
-            ) : (
-              <></>
-            )}
             {cards &&
               cards.map((card) => {
                 return <CardDetails card={card} />;
