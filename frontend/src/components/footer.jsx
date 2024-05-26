@@ -77,7 +77,7 @@ const Footer = () => {
         </li>
       </SocialMedia>
       <CopyRight>
-        Copyright &copy; 2023 <Links href="">CardClubb</Links> All Rights
+        Copyright &copy; 2023 <Links href="">Merche Bros</Links> All Rights
         Reserved
       </CopyRight>
     </Nav>

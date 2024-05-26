@@ -62,7 +62,7 @@ const Contact = () => {
                                     icon={faEnvelope}
                                     size={"lg"}
                                 />
-                        {"  "}info@cardclubb.com
+                        {"  "}info@merchebros.com
                     </div>
                     <SocialMedia>
                         <li>
