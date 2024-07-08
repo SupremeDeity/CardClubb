@@ -207,8 +207,8 @@ const EnvelopeUploadImage = styled.img`
 const UploadImage = styled.div`
     z-index: 1000;
     position: absolute;
-    top: 90px;
-    right: 28%;
+    top: 275px;
+    left: 10%;
     width: 100px;
     height: 100px;
     text-align: center;
@@ -245,10 +245,9 @@ const UploadImage = styled.div`
 const CardImage = styled.img`
     z-index: 111;
     position: absolute;
-    top: 106px;
-    left: 78.3%;
-    width: 12%;
-    height: 14.8%;
+    top: 223px;
+    width: 34%;
+    height: 42%;
     @media (max-width: 500px) {
         top: 99px;
         left: 78.5%;
