@@ -121,14 +121,15 @@ const addEmailCards = asyncHandler(async (req, res) => {
                         opacity:0.999;
                       }
                       .faux-position{
-                        margin-top: 3.2em;
-                        margin-left: 8.3em;
+                        margin-top: 2.5em;
+                        margin-left: 10.6em;
                         display:inline-block;
                       }
                       .faux-position1{
-                        margin-top: 2.3em;
-                        margin-left: 2em;
-                        display:inline-block;
+                        margin-top:0;
+                        padding-top: 2.3em;
+                        margin-left: 1.5em;
+                        display:block;
                       }
                     </style>
                     </head>
@@ -141,7 +142,7 @@ const addEmailCards = asyncHandler(async (req, res) => {
                                         <img src="cid:logo" alt="Envelope Image" style="width:225px;height:64px;border:4px solid white;border-radius:20px;">
                                     </div>                                    
         	                        <div class="faux-position">
-                                        <img src="cid:envelopeImage" alt="Envelope Image" style="width:61px;height:65px;">
+                                        <img src="cid:envelopeImage" alt="Envelope Image" style="width:180px;height:176px;">
         	                        </div>
                                 </div>
                                     <img src="cid:frontImage" alt="Envelope Image">
