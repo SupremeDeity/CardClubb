@@ -234,12 +234,17 @@ const Image = styled.img`
 `;
 
 const CardImage = styled.img`
+z-index: 111;
     position: absolute;
-    top: 6%;
-    right: 5.5%;
-    width: 80px;
-    height: 80px;
-    transform: rotateX("180deg");
+    top: 147px;
+    left: 173px;
+    width: 38%;
+    height: 53%;
+  @media (max-width: 500px) {
+    top: 233px;
+    width: 34%;
+    height: 42%;
+  }
 `;
 const Logo = styled.img`
     position: absolute;
