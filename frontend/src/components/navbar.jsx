@@ -37,6 +37,9 @@ const NavBar = () => {
     };
 
     fetchUsers();
+    return () =>{
+      setIsOpen(!open)
+    }
   }, []);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -68,12 +71,7 @@ const NavBar = () => {
       console.error(error);
     }
   };
-  const handleCategory = (e) => {
-    const categoryData = e.target.innerText;
-    const parameter = categoryData.replace(/ /g, "-")
-    navigate(`/cards/${parameter}`);
-    setIsOpen(!open);
-  };
+
   const handleNameClick = () => {
     user.isAdmin ? navigate("/admin/dashboard") : navigate("/edit/profile");
   };
@@ -111,7 +109,7 @@ const NavBar = () => {
               <Button onClick={toggleDropdown}>Categories</Button>
               <DropdownContent style={{ display: isOpen ? "flex" : "none" }}>
                 {categories.map((item) => {
-                  return <Category category={item} click={handleCategory} />;
+                  return <Category category={item} setIsOpen={setIsOpen}/>;
                 })}
               </DropdownContent>
             </DropdownContainer>
