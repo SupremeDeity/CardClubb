@@ -81,7 +81,7 @@ const SendCard = () => {
     const onSubmit = async (data) => {
         setDisabled(true)
         const formData = new FormData();
-        formData.append("name", data.name);
+        formData.append("name", user.name);
         formData.append("receiveremail", data.email);
         formData.append("senderemail", user.email);
         formData.append("content", content);

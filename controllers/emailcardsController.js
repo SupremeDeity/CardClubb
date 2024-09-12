@@ -136,8 +136,8 @@ const addEmailCards = asyncHandler(async (req, res) => {
                             <tr>
                                 <td style="position:relative;">
                                 <div class="faux-absolute">
-                                    <div class="faux-position1" style="width:225px;height:80px;">
-                                        <img src="cid:logo" alt="Envelope Image" style="width:225px;height:64px;border:4px solid white;border-radius:20px;">
+                                    <div class="faux-position1" style="height:80px;">
+                                        <img src="cid:logo" alt="Envelope Image" style="width:185px;height:64px;border:4px solid white;border-radius:20px;">
                                     </div>                                    
         	                        <div class="faux-position" style={{position:"aboslute"}}>
                                         <img src="cid:envelopeImage" alt="Envelope Image" style="width:180px;height:176px;">
