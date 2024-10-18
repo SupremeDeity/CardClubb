@@ -8,7 +8,7 @@ import UserContext from "../contexts/usercontext";
 const Customization = () => {
     const { state } = useLocation();
     const { category, index, front, image, envelope, custom } = state;
-    const [imageTab, setImage] = React.useState("Front");
+    const [imageTab, setImage] = React.useState("Inside");
     const navigate = useNavigate();
     const {user}=useContext(UserContext)
 
@@ -58,8 +58,8 @@ const Customization = () => {
     return (
         <CustomContainer>
             <ImageNav>
-                <Label onClick={labelClick} id="Front" className="active">Front</Label>
-                <Label onClick={labelClick} id="Inside">Inside</Label>
+                <Label onClick={labelClick} id="Front">Front</Label>
+                <Label onClick={labelClick} id="Inside"  className="active">Inside</Label>
                 <Label onClick={labelClick} id="Envelope">Envelope</Label>
                 <Button onClick={handleSaveClick}>Save</Button>
             </ImageNav>

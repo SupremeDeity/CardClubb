@@ -40,7 +40,7 @@ function App() {
     name: localStorageUser ? localStorageUser["name"] : "",
     email: localStorageUser ? localStorageUser["email"] : "",
   });
-  const [fontSize, setFontSize] = React.useState(16);
+  const [fontSize, setFontSize] = React.useState(20);
   const [fontFamily, setFontFamily] = React.useState("Inter");
   const [color, setColor] = React.useState("#282828");
   const [content, setContent] = React.useState("");

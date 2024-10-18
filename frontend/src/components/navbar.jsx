@@ -100,7 +100,7 @@ const NavBar = () => {
       <Secondary>
         <NavList>
           <li>
-            <NavLink to="/home" activeClassName="active">
+            <NavLink to="/home">
               Home
             </NavLink>
           </li>
@@ -109,13 +109,13 @@ const NavBar = () => {
               <Button onClick={toggleDropdown}>Categories</Button>
               <DropdownContent style={{ display: isOpen ? "flex" : "none" }}>
                 {categories.map((item) => {
-                  return <Category category={item} setIsOpen={setIsOpen}/>;
+                  return <Category key={item} category={item} setIsOpen={setIsOpen}/>;
                 })}
               </DropdownContent>
             </DropdownContainer>
           </li>
           <li>
-            <NavLink to="/contact" activeClassName="active">
+            <NavLink to="/contact">
               Contact Us
             </NavLink>
           </li>

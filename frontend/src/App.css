@@ -8,8 +8,6 @@
     outline: none;
     text-decoration: none;
     list-style-type: none;
-    font-family: "Inter";
     user-select: none;
+    font-family: "Inter", sans-serif;
 }
-
-

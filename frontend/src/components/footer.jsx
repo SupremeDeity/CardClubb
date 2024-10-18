@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,28 +8,18 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 const Footer = () => {
-  const navigate = useNavigate();
-  const handleCategory = (e) => {
-    const categoryData = e.target.innerText;
-    const parameter = categoryData.replace(/ /g, "-");
-    navigate(`/cards/${parameter}`);
-  };
+  // const navigate = useNavigate();
+  // const handleCategory = (e) => {
+  //   const categoryData = e.target.innerText;
+  //   const parameter = categoryData.replace(/ /g, "-");
+  //   navigate(`/cards/${parameter}`);
+  // };
   return (
     <Nav>
       <NavList>
         <li>
           <Links as={Link} to="/home">
             Home
-          </Links>
-        </li>
-        <li>
-          <Links onClick={handleCategory} style={{ cursor: "pointer" }}>
-            Happy Birthday
-          </Links>
-        </li>
-        <li>
-          <Links onClick={handleCategory} style={{ cursor: "pointer" }}>
-            Thank You
           </Links>
         </li>
         <li>
@@ -93,7 +83,7 @@ const NavList = styled.ul`
   li {
     padding: 0 5px;
   }
-  li:nth-child(n + 1):nth-child(-n + 3) {
+  li:nth-child(n + 1):nth-child(-n + 1) {
     border-right: 3px solid #fdc674;
   }
   @media (max-width: 980px) {
