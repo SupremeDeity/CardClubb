@@ -13,39 +13,41 @@ const Customization = () => {
     const {user}=useContext(UserContext)
 
     const labelClick = (e) => {
-        const Front = document.getElementById("Front")
+        // const Front = document.getElementById("Front")
         const inside = document.getElementById("Inside")
         const Envelope = document.getElementById("Envelope")
-        if(e.target.innerText=="Front"){
-            Front.classList.add("active")
-            inside.classList.remove("active")
-            Envelope.classList.remove("active")
-        }
-        else if(e.target.innerText=="Inside"){
+        // if(e.target.innerText=="Front"){
+        //     Front.classList.add("active")
+        //     inside.classList.remove("active")
+        //     Envelope.classList.remove("active")
+        // }
+        // else 
+        if(e.target.innerText=="Inside"){
             inside.classList.add("active")
-            Front.classList.remove("active")
+            // Front.classList.remove("active")
             Envelope.classList.remove("active")
         }
         else if(e.target.innerText=="Envelope"){
             Envelope.classList.add("active")
-            Front.classList.remove("active")
+            // Front.classList.remove("active")
             inside.classList.remove("active")
         }
         return setImage(e.target.innerText);
     };
     const handleSaveClick = () => {
-        const Front = document.getElementById("Front")
+        // const Front = document.getElementById("Front")
         const inside = document.getElementById("Inside")
         const Envelope = document.getElementById("Envelope")
 
-        if (imageTab == "Front") {
-            setImage("Inside");
-            inside.classList.add("active")
-            Front.classList.remove("active")
-            Envelope.classList.remove("active")
-        } else if (imageTab == "Inside") {
+        // if (imageTab == "Front") {
+        //     setImage("Inside");
+        //     inside.classList.add("active")
+        //     Front.classList.remove("active")
+        //     Envelope.classList.remove("active")
+        // } else 
+        if (imageTab == "Inside") {
             Envelope.classList.add("active")
-            Front.classList.remove("active")
+            // Front.classList.remove("active")
             inside.classList.remove("active")
             setImage("Envelope");
         }else {
@@ -58,7 +60,7 @@ const Customization = () => {
     return (
         <CustomContainer>
             <ImageNav>
-                <Label onClick={labelClick} id="Front">Front</Label>
+                {/* <Label onClick={labelClick} id="Front">Front</Label> */}
                 <Label onClick={labelClick} id="Inside"  className="active">Inside</Label>
                 <Label onClick={labelClick} id="Envelope">Envelope</Label>
                 <Button onClick={handleSaveClick}>Save</Button>
