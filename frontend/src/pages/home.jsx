@@ -3,9 +3,10 @@ import NavBar from "../components/navbar";
 import styled from "styled-components";
 import image_1 from "../assets/home1.png";
 import image_2 from "../assets/home2.png";
+import image_3 from "../assets/home4.png";
+import image_4 from "../assets/home5.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faShare, faFile } from "@fortawesome/free-solid-svg-icons";
-import Typewriter from "../components/typewriter";
 import React from "react";
 import HomeImage from "../assets/home.jpg";
 import { useNavigate } from "react-router-dom";
@@ -13,10 +14,6 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [loadingPage, setLoadingPage] = React.useState(false);
 
-  const categoryRef = React.useRef(null);
-  const scrollToCategory = () => {
-    categoryRef.current.scrollIntoView({ behavior: "smooth" });
-  };
   const navigate = useNavigate();
 
   const getCardDetails = async (id) => {
@@ -52,14 +49,9 @@ const Home = () => {
     });
   };
 
-  const handleBirthdayClick = async () => {
+  const handleCardClick = async (id) => {
     setLoadingPage(true);
-    await getCardDetails("663102138211e98e0de50702");
-    setLoadingPage(false);
-  };
-  const handleThankYouClick = async () => {
-    setLoadingPage(true);
-    await getCardDetails("6631029d8211e98e0de50718");
+    await getCardDetails(id);
     setLoadingPage(false);
   };
 
@@ -81,34 +73,30 @@ const Home = () => {
               <HeaderPara>
                 Create Greeting Cards for Free-For Our Mobo-Friends!
               </HeaderPara>
-              <button onClick={scrollToCategory} style={{ cursor: "pointer" }}>
-                EXPLORE CARDS
-              </button>
+              
             </HeaderSection>
-            <Label
-              style={{
-                width: "100%",
-                textAlign: "center",
-                padding: "20px",
-              }}
-            >
-              Explore What&apos;s <span> Trending</span>
-            </Label>
             <MainSection>
               <Image
-                onClick={handleThankYouClick}
+                onClick={() => handleCardClick("6631029d8211e98e0de50718")}
                 src={image_1}
                 style={{ cursor: "pointer" }}
               ></Image>
               <Image
-                onClick={async () => await handleBirthdayClick()}
+                onClick={() => handleCardClick("663102138211e98e0de50702")}
                 src={image_2}
                 style={{ cursor: "pointer" }}
               ></Image>
+              <Image
+                onClick={() => handleCardClick("663102bc8211e98e0de5071a")}
+                src={image_3}
+                style={{ cursor: "pointer" }}
+              ></Image>
+              <Image
+                onClick={() => handleCardClick("6631024b8211e98e0de50704")}
+                src={image_4}
+                style={{ cursor: "pointer" }}
+              ></Image>
             </MainSection>
-            <TypeWriter>
-              Endless ways to <Typewriter text={"spread the joy"} />
-            </TypeWriter>
             <BottomText>Design it once, share it everywhere!</BottomText>
             <IconsDiv>
               <Icons>
@@ -242,18 +230,6 @@ const Image = styled.img`
     height: 270px;
   }
 `;
-const Label = styled.div`
-  width: 30%;
-  color: #282828;
-  font-size: 3rem;
-  & > span {
-    color: #fdc674;
-  }
-  & > p {
-    font-size: 0.8rem;
-  }
-`;
-
 const MainSection = styled.div`
   padding: 20px;
   display: flex;
