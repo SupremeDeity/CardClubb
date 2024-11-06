@@ -92,7 +92,7 @@ const NavBar = () => {
               Login
             </AccountLinks>
             <AccountLinks as={Link} to="/register">
-              SignUp
+              Sign Up
             </AccountLinks>
           </Account>
         )}

@@ -67,8 +67,7 @@ const Footer = () => {
         </li>
       </SocialMedia>
       <CopyRight>
-        Copyright &copy; 2023 <Links href="">Merche Bros</Links> All Rights
-        Reserved
+        <Links href="">Merche Bros</Links> &copy; 2024
       </CopyRight>
     </Nav>
   );

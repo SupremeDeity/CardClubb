@@ -5,14 +5,18 @@ import image_1 from "../assets/home1.png";
 import image_2 from "../assets/home2.png";
 import image_3 from "../assets/home4.png";
 import image_4 from "../assets/home5.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faShare, faFile } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import HomeImage from "../assets/home.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../contexts/usercontext";
 
 const Home = () => {
   const [loadingPage, setLoadingPage] = React.useState(false);
+  const { user } = React.useContext(UserContext);
+  const [categories, setCategories] = React.useState([
+    "Happy Birthday",
+    "Thank You",
+  ]);
 
   const navigate = useNavigate();
 
@@ -55,6 +59,29 @@ const Home = () => {
     setLoadingPage(false);
   };
 
+  React.useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/category/get`
+        );
+        const data = await response.json();
+        const categories = data.data;
+        const newData = [];
+        categories.forEach((element) => {
+          newData.push(element.category);
+        });
+        setCategories(() => {
+          return ["Happy Birthday", "Thank You", ...newData];
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <>
       {loadingPage ? (
@@ -73,8 +100,39 @@ const Home = () => {
               <HeaderPara>
                 Create Greeting Cards for Free-For Our Mobo-Friends!
               </HeaderPara>
-              
             </HeaderSection>
+            <span
+              style={{
+                fontSize: "24px",
+                fontWeight: "bold",
+                background: "#355e3b",
+                width: "100%",
+                textAlign: "center",
+                padding: "32px",
+                color: "white",
+              }}
+            >
+              Categories
+            </span>
+            <CategorySection>
+              {categories.map((category) => {
+                const routeLink = category.trim().split(" ").join("-");
+                return <CategoryCard to={`/cards/${routeLink}`} key={category}>{category}</CategoryCard>;
+              })}
+            </CategorySection>
+            <span
+              style={{
+                fontSize: "24px",
+                fontWeight: "bold",
+                background: "#355e3b",
+                width: "100%",
+                textAlign: "center",
+                padding: "32px",
+                color: "white",
+              }}
+            >
+              Trending
+            </span>
             <MainSection>
               <Image
                 onClick={() => handleCardClick("6631029d8211e98e0de50718")}
@@ -97,55 +155,33 @@ const Home = () => {
                 style={{ cursor: "pointer" }}
               ></Image>
             </MainSection>
-            <BottomText>Design it once, share it everywhere!</BottomText>
-            <IconsDiv>
-              <Icons>
-                <FontAwesomeIcon
-                  icon={faDownload}
-                  size={"lg"}
+            {!user.isLogin && (
+              <section
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  background: "#355e3b",
+                  width: "100%",
+                  padding: "64px",
+                  gap: "32px",
+                }}
+              >
+                <span
                   style={{
-                    border: "3px solid black",
-                    padding: "10px",
-                    borderRadius: "50%",
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize: "32px",
                   }}
-                />
-                <h3>Download</h3>
-                <p style={{ textAlign: "center" }}>
-                  Get a digital copy of your invitation by downloading it to
-                  your device.
-                </p>
-              </Icons>
-              <Icons>
-                <FontAwesomeIcon
-                  icon={faShare}
-                  size={"lg"}
-                  style={{
-                    border: "3px solid black",
-                    padding: "10px",
-                    borderRadius: "50%",
-                  }}
-                />
-                <h3>Share</h3>
-                <p style={{ textAlign: "center" }}>
-                  Send your greetings by selecting your favourite card.
-                </p>
-              </Icons>
-              <Icons>
-                <FontAwesomeIcon
-                  icon={faFile}
-                  size={"lg"}
-                  style={{
-                    border: "3px solid black",
-                    padding: "10px",
-                    borderRadius: "50%",
-                  }}
-                />
-                <h3>Manage</h3>
-                <p style={{ textAlign: "center" }}>
-                  Send multiple greeting cards and keep its record with you.
-                </p>
-              </Icons>
-            </IconsDiv>
+                >
+                  Get Started Now!
+                </span>
+                <div style={{ display: "flex", gap: "12px", padding: "4px" }}>
+                  <Button to="/login">Login</Button>
+                  <Button to="/register">Sign up</Button>
+                </div>
+              </section>
+            )}
           </LandingPage>
           <Footer />
         </>
@@ -163,7 +199,6 @@ const LandingPage = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1.75rem;
 `;
 
 const HeaderSection = styled.section`
@@ -247,74 +282,39 @@ const MainSection = styled.div`
   gap: 5rem;
 `;
 
-// const MiddleSection = styled.div`
-//   padding: 3rem;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-wrap: wrap;
-//   gap: 50px;
-//   @media (max-width: 800px) {
-//     & > div {
-//       justify-content: center;
-//       align-items: center;
-//       width: 70%;
-//     }
-//     flex-direction: column;
-//   }
-// `;
-// const MiddleDiv = styled.div`
-//   width: 30%;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: flex-start;
-//   flex-wrap: wrap;
-//   gap: 20px;
-//   & > div {
-//     width: 100%;
-//   }
-// `;
-// const Button = styled.button`
-//   font-weight: 700;
-//   border: none;
-//   border-radius: 10px;
-//   background: #f4f4f4;
-//   width: 250px;
-//   height: 51px;
-// `;
-
-const BottomText = styled.div`
-  padding: 20px;
-  font-weight: 600;
-  font-size: 1.1rem;
-`;
-
-const IconsDiv = styled.div`
-  width: 100%;
+const Button = styled(Link)`
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-`;
-const Icons = styled.div`
-  padding: 20px;
-  width: 300px;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #355e3b;
+  background: white;
+  border: none;
+  border-radius: 10px;
+  width: 180px;
+  height: 51px;
 `;
 
-const TypeWriter = styled.div`
-  font-size: 2rem;
-  text-align: center;
-  width: 100%;
-  & > span {
-    color: #fdc674;
+const CategorySection = styled.div`
+  display: grid;
+  padding: 64px;
+  gap: 1rem;
+  color: white;
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
   }
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const CategoryCard = styled(Link)`
+  background: #355e3b;
+  color: white;
+  padding: 32px;
+  text-align: center;
+  border-radius: 4px;
 `;
 
 const Ring = styled.div`
