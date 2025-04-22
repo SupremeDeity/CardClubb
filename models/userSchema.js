@@ -125,41 +125,41 @@ const EmailReceiversData = mongoose.Schema({
         type: String,
         required: true,
     },
-    email:{
-        type:String,
+    email: {
+        type: String,
         unique: true,
-        required:true,
+        required: true,
     }
 });
 
 
 const passwordResetTokenSchema = new mongoose.Schema({
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
     token: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     expires: {
-      type: Date,
-      required: true,
+        type: Date,
+        required: true,
     },
-  });
+});
 
 passwordResetTokenSchema.methods.removeToken = async function () {
     await this.remove();
-  };
+};
 
 const Category = mongoose.model("Category", categorySchema);
 const User = mongoose.model("User", userSchema);
 const Admin = mongoose.model("Admins", adminSchema);
 const Card = mongoose.model("Card", cardSchema);
 const Email = mongoose.model("Email", emailSchema);
-const Receivers = mongoose.model("Receivers",EmailReceiversData)
-const passwordReset = mongoose.model("PasswordReset",passwordResetTokenSchema)
+const Receivers = mongoose.model("Receivers", EmailReceiversData)
+const passwordReset = mongoose.model("PasswordReset", passwordResetTokenSchema)
 
 
 module.exports = { User, Admin, Category, Card, Email, Receivers, passwordReset };

@@ -14,9 +14,12 @@ const Home = () => {
   const [loadingPage, setLoadingPage] = React.useState(false);
   const { user } = React.useContext(UserContext);
   const [categories, setCategories] = React.useState([
-    "Happy Birthday",
-    "Thank You",
+    { name: "Happy Birthday", image: "/birthday/1/Front/Front.png" },
+    { name: "Thank You", image: "/thanksyou/1/Front/Front.png" },
   ]);
+  const [page, setPage] = React.useState(1);
+  const [hasMore, setHasMore] = React.useState(true);
+  const [loadingMore, setLoadingMore] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -62,25 +65,33 @@ const Home = () => {
   React.useEffect(() => {
     const fetchCategories = async () => {
       try {
+        setLoadingMore(true);
         const response = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/category/get`
+          `${import.meta.env.VITE_BASE_URL}/category/get?page=${page}&limit=4`
         );
         const data = await response.json();
-        const categories = data.data;
-        const newData = [];
-        categories.forEach((element) => {
-          newData.push(element.category);
-        });
-        setCategories(() => {
-          return ["Happy Birthday", "Thank You", ...newData];
-        });
+        console.log(data);
+        const categories = data.data.map((item) => ({
+          name: item.category,
+          image: item.image || "/path/to/default-image.jpg",
+        }));
+
+        setCategories((prevCategories) => [...prevCategories, ...categories]);
+
+        setHasMore(data.hasMore);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoadingMore(false);
       }
     };
 
     fetchCategories();
-  }, []);
+  }, [page]);
+
+  const loadMoreCategories = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
 
   return (
     <>
@@ -116,10 +127,38 @@ const Home = () => {
             </span>
             <CategorySection>
               {categories.map((category) => {
-                const routeLink = category.trim().split(" ").join("-");
-                return <CategoryCard to={`/cards/${routeLink}`} key={category}>{category}</CategoryCard>;
+                const routeLink = category.name.trim().split(" ").join("-");
+                const imageLink =
+                  category.name === "Happy Birthday" ||
+                  category.name === "Thank You"
+                    ? category.image
+                    : null;
+                return (
+                  <CategoryCard to={`/cards/${routeLink}`} key={category.name}>
+                    <img
+                      src={
+                        imageLink
+                          ? imageLink
+                          : `data:image/jpeg;base64,${category.image}`
+                      }
+                      alt={category.name}
+                      style={{
+                        width: "100%",
+                        borderRadius: "4px",
+                        marginBottom: "8px",
+                      }}
+                    />
+                    {category.name}
+                  </CategoryCard>
+                );
               })}
             </CategorySection>
+            {loadingMore && <p>Loading...</p>}
+            {hasMore && (
+              <LoadMoreButton onClick={loadMoreCategories}>
+                Load More
+              </LoadMoreButton>
+            )}
             <span
               style={{
                 fontSize: "24px",
@@ -371,5 +410,20 @@ const Ring = styled.div`
     100% {
       transform: rotate(405deg);
     }
+  }
+`;
+const LoadMoreButton = styled.button`
+  background: #355e3b;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 16px auto;
+  display: block;
+
+  &:hover {
+    background: #2a4a2f;
   }
 `;
