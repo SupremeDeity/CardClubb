@@ -70,13 +70,18 @@ const Home = () => {
           `${import.meta.env.VITE_BASE_URL}/category/get?page=${page}&limit=4`
         );
         const data = await response.json();
-        console.log(data);
-        const categories = data.data.map((item) => ({
+        const newCategories = data.data.map((item) => ({
           name: item.category,
           image: item.image || "/path/to/default-image.jpg",
         }));
 
-        setCategories((prevCategories) => [...prevCategories, ...categories]);
+        setCategories((prevCategories) => {
+          const uniqueNewCategories = newCategories.filter(
+            (newCat) => !prevCategories.some((prevCat) => prevCat.name === newCat.name)
+          );
+          
+          return [...prevCategories, ...uniqueNewCategories];
+        });
 
         setHasMore(data.hasMore);
       } catch (error) {
