@@ -72,7 +72,7 @@ const Home = () => {
         const data = await response.json();
         const newCategories = data.data.map((item) => ({
           name: item.category,
-          image: item.image || "/path/to/default-image.jpg",
+          image: item.image ?? "/thanksyou/1/Custom/custom.jpg",
         }));
 
         setCategories((prevCategories) => {
@@ -135,7 +135,7 @@ const Home = () => {
                 const routeLink = category.name.trim().split(" ").join("-");
                 const imageLink =
                   category.name === "Happy Birthday" ||
-                  category.name === "Thank You"
+                  category.name === "Thank You" || category.image?.startsWith("/")
                     ? category.image
                     : null;
                 return (

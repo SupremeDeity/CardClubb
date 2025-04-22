@@ -24,13 +24,14 @@ const addCategory = asyncHandler(async (req, res) => {
 const getCategory = asyncHandler(async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1; // Default to page 1
-    const limit = parseInt(req.query.limit) || 4; // Default to 4 items per page
+    const limit = parseInt(req.query.limit) ?? 4; // Default to 4 items per page
     const skip = (page - 1) * limit;
+    const skipImages = Boolean(req.query.skipImages) ?? false;
 
     const categories = await Category.find().skip(skip).limit(limit);
     const categoryData = await Promise.all(
       categories.map(async (category) => {
-        const firstCard = await Card.findOne({ category: category.category }).select("front");
+        const firstCard = !skipImages ? await Card.findOne({ category: category.category }).select("front") : null;
         return {
           category: category.category,
           image: firstCard ? firstCard.front : null,

@@ -20,7 +20,7 @@ const NavBar = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/category/get`
+          `${import.meta.env.VITE_BASE_URL}/category/get?limit=0&skipImages=true`
         );
         const data = await response.json();
         const categories = data.data;
