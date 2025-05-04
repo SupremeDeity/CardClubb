@@ -345,11 +345,14 @@ const CategorySection = styled.div`
   padding: 64px;
   gap: 1rem;
   color: white;
-  @media (min-width: 600px) {
+  @media (min-width: 400px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: 900px) {
+  @media (min-width: 600px) {
     grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 `;
 
