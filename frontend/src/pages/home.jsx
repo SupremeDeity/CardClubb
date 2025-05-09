@@ -352,7 +352,7 @@ const CategorySection = styled.div`
     grid-template-columns: repeat(3, 1fr);
   }
   @media (min-width: 900px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(8, 1fr);
   }
 `;
 
