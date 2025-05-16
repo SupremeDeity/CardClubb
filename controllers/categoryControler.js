@@ -24,7 +24,7 @@ const addCategory = asyncHandler(async (req, res) => {
 const getCategory = asyncHandler(async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1; // Default to page 1
-    const limit = parseInt(req.query.limit) ?? 4; // Default to 4 items per page
+    const limit = parseInt(req.query.limit) ?? 6; // Default to 6 items per page
     const skip = (page - 1) * limit;
     const skipImages = Boolean(req.query.skipImages) ?? false;
 

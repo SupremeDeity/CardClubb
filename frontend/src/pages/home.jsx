@@ -67,7 +67,7 @@ const Home = () => {
       try {
         setLoadingMore(true);
         const response = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/category/get?page=${page}&limit=4`
+          `${import.meta.env.VITE_BASE_URL}/category/get?page=${page}&limit=6`
         );
         const data = await response.json();
         const newCategories = data.data.map((item) => ({
