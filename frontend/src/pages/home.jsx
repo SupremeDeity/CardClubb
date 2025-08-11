@@ -11,9 +11,11 @@ import ArrowCurve from "../assets/arrow.svg";
 import EnvelopeImg from "../assets/envelope.svg";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../contexts/usercontext";
+import { useRef } from "react";
 
 const Home = () => {
   const [loadingPage, setLoadingPage] = React.useState(false);
+  const categoriesRef = useRef(null);
   const { user } = React.useContext(UserContext);
   const [categories, setCategories] = React.useState([
     { name: "Happy Birthday", image: "/birthday/1/Front/Front.png" },
@@ -184,8 +186,7 @@ const Home = () => {
             </StepsRow>
 
             {/* Categories */}
-            <CategoriesBanner>
-              <Anchor id="categories" />
+            <CategoriesBanner ref={categoriesRef}>
               <SectionTitle>Choose from categories</SectionTitle>
               <SectionSubtitle>
                 Select & create your free perfect e‑card
@@ -232,7 +233,9 @@ const Home = () => {
                 Custom online birthday cards for kids, adults & everyone in
                 between
               </FeatureText>
-              <BrowseLink to="#categories">Browse All Invitations</BrowseLink>
+              <BrowseLink onClick={() => { window.scrollTo({ top: categoriesRef.current.offsetTop - 92, behavior: 'smooth', }) }}>
+                Browse All Invitations
+              </BrowseLink>
               <FeatureImage>
                 <img src={EnvelopeImg} alt="E-card envelope" />
               </FeatureImage>
@@ -581,10 +584,13 @@ const FeatureText = styled.p`
   margin: 6px 0 12px;
   color: #567a67;
 `;
-const BrowseLink = styled(Link)`
+const BrowseLink = styled.button`
   color: #1a5d3a;
   font-weight: 700;
   text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
 `;
 
 const FeatureImage = styled.div`
