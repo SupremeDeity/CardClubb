@@ -67,7 +67,7 @@ const Footer = () => {
         </li>
       </SocialMedia>
       <CopyRight>
-        <Links href="">Merche Bros</Links> &copy; 2024
+        <Links href="">Merche Bros</Links> &copy; 2025
       </CopyRight>
     </Nav>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import logo from "../assets/Logo.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import React from "react";
@@ -8,7 +8,7 @@ import userContext from "../contexts/usercontext";
 import Category from "./category";
 import Cookies from "js-cookie";
 
-const NavBar = () => {
+const NavBar = ({ variant = "default" }) => {
   const { user, setLocalStorageUser, setUser } = React.useContext(userContext);
   const [isOpen, setIsOpen] = React.useState(false);
   const [categories, setCategories] = React.useState([
@@ -37,9 +37,9 @@ const NavBar = () => {
     };
 
     fetchUsers();
-    return () =>{
-      setIsOpen(!open)
-    }
+    return () => {
+      setIsOpen(false);
+    };
   }, []);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -75,141 +75,151 @@ const NavBar = () => {
   const handleNameClick = () => {
     user.isAdmin ? navigate("/admin/dashboard") : navigate("/edit/profile");
   };
+
+  // Single row navbar for all pages
   return (
-    <Nav>
-      <Primary>
+    <HeroNav>
+      <HeroInner>
         <NavLink to="/home">
-          <Logo src={logo} alt="logo"></Logo>
+          <Logo src={logo} alt="logo" />
         </NavLink>
-        {user.isLogin ? (
-          <Account>
-            <AccountLinks onClick={handleNameClick}>{user.name}</AccountLinks>
-            <AccountLinks onClick={handleLogoutClick}>Logout</AccountLinks>
-          </Account>
-        ) : (
-          <Account>
-            <AccountLinks as={Link} to="/login">
-              Login
-            </AccountLinks>
-            <AccountLinks as={Link} to="/register">
-              Sign Up
-            </AccountLinks>
-          </Account>
-        )}
-      </Primary>
-      <Secondary>
-        <NavList>
+        <HeroMenu>
           <li>
-            <NavLink to="/home">
-              Home
-            </NavLink>
+            <NavLink to="/home">Home</NavLink>
           </li>
           <li>
             <DropdownContainer>
               <Button onClick={toggleDropdown}>Categories</Button>
               <DropdownContent style={{ display: isOpen ? "flex" : "none" }}>
-                {categories.map((item) => {
-                  return <Category key={item} category={item} setIsOpen={setIsOpen}/>;
-                })}
+                {categories.map((item) => (
+                  <Category key={item} category={item} setIsOpen={setIsOpen} />
+                ))}
               </DropdownContent>
             </DropdownContainer>
           </li>
           <li>
-            <NavLink to="/contact">
-              Contact Us
-            </NavLink>
+            <NavLink to="/contact">Contact Us</NavLink>
           </li>
-        </NavList>
-      </Secondary>
-    </Nav>
+        </HeroMenu>
+
+        {user.isLogin ? (
+          <HeroAccount>
+            <HeroLink as="button" onClick={handleNameClick} $variant="ghost">
+              {user.name}
+            </HeroLink>
+            <HeroLink as="button" onClick={handleLogoutClick} $variant="primary">
+              Logout
+            </HeroLink>
+          </HeroAccount>
+        ) : (
+          <HeroAccount>
+            <HeroLink as={Link} to="/login" $variant="primary">
+              Log in
+            </HeroLink>
+            <HeroLink as={Link} to="/register" $variant="primary">
+              Sign up
+            </HeroLink>
+          </HeroAccount>
+        )}
+      </HeroInner>
+    </HeroNav>
   );
 };
 
 export default NavBar;
 
-const Primary = styled.div`
-  width: 100%;
-  height: 50%;
-  background: radial-gradient(
-    70.71% 70.71% at 50% 50%,
-    rgba(248, 248, 248, 0.98) 0%,
-    #fff 89%
-  );
+// Navbar styles
+const HeroNav = styled.nav`
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+`;
+const HeroInner = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 768px) {
+    padding: 12px 16px;
+  }
+`;
+const HeroMenu = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  @media (max-width: 700px) {
-    padding: 0 20px;
-    justify-content: space-between;
+  gap: 32px;
+  flex: 1;
+  @media (max-width: 768px) {
+    gap: 20px;
+  }
+  & a { 
+    color: #2c4a34; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.2s ease;
+  }
+  & a.active, & a:hover { 
+    color: #1a5d3a; 
   }
 `;
-const Secondary = styled.div`
-  width: 100%;
-  background: #282828;
+const HeroAccount = styled.div`
   display: flex;
-  justify-content: flex-start;
+  gap: 12px;
   align-items: center;
-  gap: 5rem;
-  padding-left: 1.5rem;
-  height: 50%;
 `;
-
-const NavList = styled.ul`
-  display: flex;
+const HeroLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  gap: 3rem;
-  & > li > a {
-    color: #fff;
-    font-size: 1.25rem;
-    padding-bottom: 10px;
-    &:hover {
-      color: #fdc674;
-      border-bottom: 3px solid #fdc674;
-    }
-    &.active {
-      color: #fdc674;
-      border-bottom: 3px solid #fdc674;
-    }
-    @media (max-width: 700px) {
-      font-size: 1.2rem;
-    }
-  }
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-transform: uppercase;
+  
+  ${(p) =>
+    p.$variant === "primary"
+      ? css`
+          background: #355e3b;
+          color: #ffffff;
+          border: 2px solid #355e3b;
+          &:hover {
+            background: #2a4a2f;
+            border-color: #2a4a2f;
+          }
+        `
+      : css`
+          background: transparent;
+          color: #355e3b;
+          border: 2px solid #355e3b;
+          &:hover {
+            background: #355e3b;
+            color: #ffffff;
+          }
+        `}
 `;
 
 const Logo = styled.img`
-  width: 120px;
-  height: 100%;
-`;
-
-const Nav = styled.nav`
-  height: 30vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-const Account = styled.div`
-  position: absolute;
-  right: 15px;
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-`;
-const AccountLinks = styled.a`
-  font-size: 1.25rem;
-  cursor: pointer;
-  color: #000;
-  &:hover {
-    color: #af4b2f;
-  }
-  &:first-child {
-    padding-right: 5px;
-    border-right: 3px solid #af4b2f;
-  }
+  width: 140px;
+  height: auto;
+  max-height: 60px;
+  object-fit: contain;
 `;
 
 const DropdownContainer = styled.div`
@@ -218,38 +228,50 @@ const DropdownContainer = styled.div`
 `;
 
 const Button = styled.button`
-  color: #fff;
-  font-size: 1.25rem;
-  padding-bottom: 10px;
-  &:hover {
-    color: #fdc674;
-  }
+  color: #2c4a34;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 16px;
   padding: 8px;
   cursor: pointer;
   border: none;
   outline: none;
-  background-color: inherit;
+  background-color: transparent;
+  transition: color 0.2s ease;
+  &:hover {
+    color: #1a5d3a;
+  }
 `;
 
 const DropdownContent = styled.div`
-  background-color: #282828;
-  border-radius: 0px 0px 10px 10px;
-  width: 150px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 180px;
   position: absolute;
   top: 100%;
-  left: 0;
-  margin-top: 13px;
-  padding: 10px;
-  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  padding: 8px 0;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
+  align-items: stretch;
+  
   & > a {
     cursor: pointer;
-    color: #fff;
+    color: #2c4a34;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
   }
   & > a:hover {
-    color: #fdc674;
+    background-color: #f5f5f5;
+    color: #1a5d3a;
   }
 `;
