@@ -233,7 +233,14 @@ const Home = () => {
                 Custom online birthday cards for kids, adults & everyone in
                 between
               </FeatureText>
-              <BrowseLink onClick={() => { window.scrollTo({ top: categoriesRef.current.offsetTop - 92, behavior: 'smooth', }) }}>
+              <BrowseLink
+                onClick={() => {
+                  window.scrollTo({
+                    top: categoriesRef.current.offsetTop - 92,
+                    behavior: "smooth",
+                  });
+                }}
+              >
                 Browse All Invitations
               </BrowseLink>
               <FeatureImage>
@@ -308,8 +315,8 @@ const Home = () => {
                   <li>
                     <h4>5. How do recipients get the card?</h4>
                     <p>
-                      Enter their email address and the card is sent instantly. No
-                      downloads or apps required.
+                      Enter their email address and the card is sent instantly.
+                      No downloads or apps required.
                     </p>
                   </li>
                 </FAQList>
@@ -385,17 +392,17 @@ const HeroImage = styled.div`
 
   @media (max-width: 768px) {
     right: 10px;
-    bottom: -10px;
+    bottom: -35px;
     img {
-      width: 180px;
+      width: 130px;
     }
   }
 
   @media (max-width: 480px) {
     right: 5px;
-    bottom: -5px;
+    bottom: -30px;
     img {
-      width: 140px;
+      width: 120px;
     }
   }
 `;
@@ -607,10 +614,10 @@ const FeatureImage = styled.div`
   }
 
   @media (max-width: 768px) {
-    top: 10px;
-    right: 10px;
+    top: -40px;
+    right: -20px;
     img {
-      width: 80px;
+      width: 100px;
     }
   }
 `;
@@ -665,16 +672,20 @@ const FAQSection = styled.section`
 const FAQImage = styled.div`
   position: absolute;
   left: -55px;
-  top: 24px;
-  z-index: 2;
+  top: 26px;
+  z-index: -2;
   img {
     width: 150px;
     height: auto;
     object-fit: contain;
   }
   @media (max-width: 768px) {
+    left: -50px;
+    top: 24px;
     img {
-      width: 60px;
+      width: 100px;
+      height: auto;
+      object-fit: contain;
     }
   }
 `;
