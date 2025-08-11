@@ -127,7 +127,16 @@ const Home = () => {
                   Easy as 1–2–3 — Choose a card, add your message,
                   <br /> send it by email or text
                 </Subheadline>
-                <CTAHero to="#categories">Start Now</CTAHero>
+                <CTAHero
+                  onClick={() =>
+                    window.scrollTo({
+                      top: categoriesRef.current.offsetTop - 92,
+                      behavior: "smooth",
+                    })
+                  }
+                >
+                  Start Now
+                </CTAHero>
               </HeroContent>
               <HeroImage>
                 <img src={EnvelopeImg} alt="E-card envelope" />
@@ -425,7 +434,7 @@ const Subheadline = styled.p`
   font-weight: 400;
 `;
 
-const CTAHero = styled(Link)`
+const CTAHero = styled.button`
   display: inline-block;
   padding: 14px 28px;
   background: #ffffff;
