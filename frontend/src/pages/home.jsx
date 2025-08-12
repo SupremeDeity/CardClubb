@@ -1,10 +1,11 @@
 import Footer from "../components/footer";
 import NavBar from "../components/navbar";
 import styled from "styled-components";
-import image_1 from "../assets/home1.png";
-import image_2 from "../assets/home2.png";
-import image_3 from "../assets/home4.png";
-import image_4 from "../assets/home5.png";
+import image_1 from "../assets/showcase1.svg";
+import image_2 from "../assets/showcase2.svg";
+import image_3 from "../assets/showcase3.svg";
+import image_4 from "../assets/showcase4.svg";
+import image_5 from "../assets/showcase5.svg";
 import step1 from "../assets/step1.svg";
 import step2 from "../assets/step2.svg";
 import step3 from "../assets/step3.svg";
@@ -267,24 +268,29 @@ const Home = () => {
             <Shelf>
               <ShelfRow>
                 <ShowcaseCard
-                  onClick={() => handleCardClick("6631029d8211e98e0de50718")}
+                  onClick={() => handleCardClick("6631024b8211e98e0de50704")}
                 >
                   <img src={image_1} alt="Card 1" />
                 </ShowcaseCard>
                 <ShowcaseCard
-                  onClick={() => handleCardClick("663102138211e98e0de50702")}
+                  onClick={() => handleCardClick("67221246d8b6bbacb79f6ce5")}
                 >
                   <img src={image_2} alt="Card 2" />
                 </ShowcaseCard>
                 <ShowcaseCard
-                  onClick={() => handleCardClick("663102bc8211e98e0de5071a")}
+                  onClick={() => handleCardClick("67220d6dd8b6bbacb79f6cd0")}
                 >
                   <img src={image_3} alt="Card 3" />
                 </ShowcaseCard>
                 <ShowcaseCard
-                  onClick={() => handleCardClick("6631024b8211e98e0de50704")}
+                  onClick={() => handleCardClick("661ed2689213caefcf396190")}
                 >
                   <img src={image_4} alt="Card 4" />
+                </ShowcaseCard>
+                <ShowcaseCard
+                  onClick={() => handleCardClick("6722128ed8b6bbacb79f6cec")}
+                >
+                  <img src={image_5} alt="Card 5" />
                 </ShowcaseCard>
               </ShelfRow>
               <ShelfBase />
@@ -660,9 +666,13 @@ const Shelf = styled.section`
 `;
 const ShelfRow = styled.div`
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 3px;
+  gap: 8px;
+  
+  @media (max-width: 768px) {
+    gap: 4px;
+    transform: translateY(-8px);
+  }
 `;
 const ShowcaseCard = styled.button`
   background: none;
@@ -671,17 +681,45 @@ const ShowcaseCard = styled.button`
   padding: 0;
   cursor: pointer;
   overflow: hidden;
-  width: 20%;
+  width: 16%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
   & > img {
+    max-width: 186px;
+    max-height: 160px;
     width: 100%;
     height: auto;
   }
+  
+  @media (max-width: 768px) {
+    width: 19%;
+    border-radius: 6px;
+    height: 80px;
+    
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 `;
 const ShelfBase = styled.div`
-  bottom: 10px;
-  height: 20px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(90% - 40px);
+  height: 30px;
   background: #2c4a34;
   border-radius: 6px;
+  z-index: -1;
+  
+  @media (max-width: 768px) {
+    bottom: -5px;
+    height: 20px;
+    width: calc(95%);
+  }
 `;
 
 // FAQ
