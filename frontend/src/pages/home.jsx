@@ -144,7 +144,7 @@ const Home = () => {
             </Hero>
 
             {/* How it works */}
-            <SectionTitle style={{ marginTop: 48 }}>
+            <SectionTitle style={{ marginTop: 48, marginInline: 12 }}>
               How it works — just follow simple steps !
             </SectionTitle>
             <StepsRow>
@@ -176,6 +176,7 @@ const Home = () => {
                 </StepText>
               </StepCard>
             </StepsRow>
+            <MobileOnlyArrow src={ArrowCurve} alt="arrow" />
             <StepsRow $columns="repeat(3, 1fr)">
               <StepCard>
                 <StepIcon src="/thanksyou/1/Front/Front.png" alt="Preview" />
@@ -512,12 +513,25 @@ const StepText = styled.p`
   font-size: 14px;
 `;
 const StepArrow = styled.img`
-  display: none;
+  width: 200px;
+  display: block;
+  justify-self: center;
+  align-self: center;
+  transform: rotate(90deg);
+  
   @media (min-width: 901px) {
     display: block;
-    width: 200px;
-    justify-self: center;
-    align-self: center;
+    width: 100%;
+    transform: rotate(0deg);
+  }
+`;
+
+const MobileOnlyArrow = styled.img`
+  width: 200px;
+  transform: rotate(90deg);
+  
+  @media (min-width: 901px) {
+    display: none;
   }
 `;
 
