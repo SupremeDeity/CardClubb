@@ -5,6 +5,11 @@ import image_1 from "../assets/home1.png";
 import image_2 from "../assets/home2.png";
 import image_3 from "../assets/home4.png";
 import image_4 from "../assets/home5.png";
+import step1 from "../assets/step1.svg";
+import step2 from "../assets/step2.svg";
+import step3 from "../assets/step3.svg";
+import step4 from "../assets/step4.svg";
+import step5 from "../assets/step5.svg";
 import React from "react";
 import HeroBg from "../assets/hero_bg.png";
 import ArrowCurve from "../assets/arrow.svg";
@@ -149,7 +154,7 @@ const Home = () => {
             </SectionTitle>
             <StepsRow>
               <StepCard>
-                <StepIcon src="/birthday/1/Front/Front.png" alt="Pick a Card" />
+                <StepIcon src={step1} alt="Pick a Card" />
                 <StepHeading>Pick a Card</StepHeading>
                 <StepText>
                   Login or Signup — then pick your card from categories
@@ -158,7 +163,7 @@ const Home = () => {
               <StepArrow src={ArrowCurve} alt="arrow" />
               <StepCard>
                 <StepIcon
-                  src="/birthday/1/Custom/custom.jpg"
+                  src={step2}
                   alt="Customize Inside"
                 />
                 <StepHeading>Customize Card Inside</StepHeading>
@@ -168,7 +173,7 @@ const Home = () => {
               </StepCard>
               <StepArrow src={ArrowCurve} alt="arrow" />
               <StepCard>
-                <StepIcon src={EnvelopeImg} alt="Customize Envelope" />
+                <StepIcon src={step3} alt="Customize Envelope" />
                 <StepHeading>Customize Envelope</StepHeading>
                 <StepText>
                   Upload custom liner design, add your logo and upload your
@@ -179,7 +184,7 @@ const Home = () => {
             <MobileOnlyArrow src={ArrowCurve} alt="arrow" />
             <StepsRow $columns="repeat(3, 1fr)">
               <StepCard>
-                <StepIcon src="/thanksyou/1/Front/Front.png" alt="Preview" />
+                <StepIcon src={step4} alt="Preview" />
                 <StepHeading>Preview your E‑card</StepHeading>
                 <StepText>
                   Preview before sending — make edits instantly
@@ -187,7 +192,7 @@ const Home = () => {
               </StepCard>
               <StepArrow src={ArrowCurve} alt="arrow" />
               <StepCard>
-                <StepIcon src="/birthday/2/Front/Front.png" alt="Send" />
+                <StepIcon src={step5} alt="Send" />
                 <StepHeading>Send Your E‑Card</StepHeading>
                 <StepText>
                   Enter email and name and send. It’s totally free!
